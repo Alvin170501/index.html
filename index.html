@@ -53,15 +53,17 @@
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-size: 0.9em;
         }
 
-        .couple-photo { width: 200px; height: 200px; border-radius: 50%; border: 3px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
+        .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 3px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
         .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
         .gallery img { width: 100%; border-radius: 10px; height: 130px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.5); }
         
+        .story-box { text-align: left; font-size: 0.85em; line-height: 1.8; color: #e2e8f0; }
+        .story-date { color: #d4af37; font-weight: bold; display: block; margin-top: 15px; border-left: 3px solid #d4af37; padding-left: 10px; }
+
         h2 { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.8em; }
         .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.4; }
         @keyframes fall { 0% { top: -10%; transform: rotate(0deg); } 100% { top: 110%; transform: rotate(720deg); } }
 
-        /* Floating Music Toggle */
         .music-btn { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #1e1b4b; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; }
     </style>
 </head>
@@ -107,6 +109,20 @@
         </div>
 
         <div class="section-card">
+            <h2>Our Love Story</h2>
+            <div class="story-box">
+                <span class="story-date">Awal Bertemu (Tahun 2026)</span>
+                <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada momen makan malam pertama di bulan Juli 2026, di mana janji untuk saling menjaga mulai terucap.</p>
+                
+                <span class="story-date">Pertunangan (26 April 2026)</span>
+                <p>Tepat pada 26 April 2026, di hadapan keluarga besar, kami mengikat janji dalam sebuah pertunangan. Simbol bahwa kami siap melangkah bersama menghadapi hari-hari ke depan.</p>
+                
+                <span class="story-date">Menuju Pelaminan (2027)</span>
+                <p>Alhamdulillah, atas izin Allah SWT, gerimis dan badai kehidupan hanya membuat ikatan kami semakin kokoh. Kini kami siap melangkah menuju jenjang pernikahan untuk menyempurnakan ibadah kami selamanya.</p>
+            </div>
+        </div>
+
+        <div class="section-card">
             <h2>Gallery</h2>
             <div class="gallery">
                 <img src="Foto-1.jpg">
@@ -129,21 +145,14 @@
     </div>
 
     <script>
-        // Tangkap Nama Tamu
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
-        if (nama) {
-            document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
-        }
+        if (nama) { document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' '); }
 
         function bukaUndangan() {
             const audio = document.getElementById('lagu');
             audio.play();
-            
-            // Animasi Cover Keluar
             document.getElementById('cover').classList.add('opened');
-            
-            // Animasi Isi Masuk Perlahan (Fade & Slide)
             setTimeout(() => {
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
@@ -156,7 +165,6 @@
             if (audio.paused) { audio.play(); } else { audio.pause(); }
         }
 
-        // Efek Bunga Emas
         setInterval(() => {
             const petal = document.createElement('div');
             petal.classList.add('petal');
