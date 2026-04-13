@@ -8,15 +8,13 @@
     <style>
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
-        /* --- TEMA CERAH (LIGHT ROYAL) --- */
         body {
             margin: 0; padding: 0; font-family: 'Quicksand', sans-serif;
-            background-color: #fdfcf5; /* Putih Tulang/Ivory */
+            background-color: #fdfcf5;
             color: #333; overflow-x: hidden;
         }
 
-        /* --- COVER SCREEN (TETAP GELAP BIAR TEKS JELAS) --- */
+        /* --- COVER SCREEN --- */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg');
@@ -32,21 +30,21 @@
         .yth { font-size: 0.9em; margin-top: 30px; opacity: 0.9; color: #eee; }
         .nama-tamu-cover { font-size: 1.6em; font-weight: bold; color: #d4af37; margin: 10px 0; display: block; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
-        /* --- MAIN CONTENT WITH SMOOTH FADE IN --- */
+        /* --- MAIN CONTENT FADE IN --- */
         .main-content { 
             padding-top: 50px; 
             opacity: 0; 
-            transform: translateY(30px); /* Efek Slide dari Bawah */
-            transition: opacity 1.8s ease, transform 1.8s ease; /* Durasi Masuk Pelan */
+            transform: translateY(30px);
+            transition: opacity 1.8s ease, transform 1.8s ease; 
         }
         .main-content.visible { opacity: 1; transform: translateY(0); }
         
         .section-card {
-            background: #fff; /* Kartu Putih Bersih */
+            background: #fff;
             margin: 20px auto 40px; padding: 40px 20px; border-radius: 20px;
             width: 90%; max-width: 450px; text-align: center;
             border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); /* Bayangan Emas Halus */
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
         }
 
         .btn-action {
@@ -55,21 +53,17 @@
             color: white; border-radius: 50px; font-weight: bold;
             text-decoration: none; border: none; cursor: pointer;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-size: 0.9em;
-            transition: transform 0.2s;
         }
-        .btn-action:active { transform: scale(0.95); }
 
         .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
         .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
         .gallery img { width: 100%; border-radius: 10px; height: 130px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.3); }
         
-        h2 { font-family: 'Playfair Display', serif; color: #b8860b; font-size: 1.8em; } /* Judul Cokelat Emas Tua */
-        p { color: #555; line-height: 1.6; } /* Teks Deskripsi Abu-abu Gelap */
+        .story-box { text-align: left; font-size: 0.85em; line-height: 1.8; color: #555; }
+        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 15px; border-left: 3px solid #d4af37; padding-left: 10px; }
 
-        /* Floating Music Toggle */
-        .music-btn { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    
-        /* Efek Bunga Gugur Tetap Emas */
+        h2 { font-family: 'Playfair Display', serif; color: #b8860b; font-size: 1.8em; }
+        .music-btn { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; }
         .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.5; }
         @keyframes fall { 0% { top: -10%; transform: rotate(0deg); } 100% { top: 110%; transform: rotate(720deg); } }
     </style>
@@ -87,12 +81,10 @@
             <h2>The Wedding of</h2>
             <h1>Alvin & Ima</h1>
             <p style="letter-spacing: 4px; font-size: 0.9em; font-weight: bold; color: #d4af37;">MINGGU, 26 APRIL 2027</p>
-            
             <div class="yth">
                 Kepada Yth. Bapak/Ibu/Saudara/i:
                 <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
             </div>
-            
             <button onclick="bukaUndangan()" class="btn-action" style="padding: 15px 40px; font-size: 1em;">📩 Buka Undangan</button>
         </div>
     </div>
@@ -116,6 +108,18 @@
         </div>
 
         <div class="section-card">
+            <h2>Our Love Story</h2>
+            <div class="story-box">
+                <span class="story-date">Awal Bertemu (Tahun 2026)</span>
+                <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada momen makan malam pertama di bulan Juli 2026, di mana janji untuk saling menjaga mulai terucap.</p>
+                <span class="story-date">Pertunangan (26 April 2026)</span>
+                <p>Tepat pada 26 April 2026, di hadapan keluarga besar, kami mengikat janji dalam sebuah pertunangan. Simbol bahwa kami siap melangkah bersama menghadapi hari-hari ke depan.</p>
+                <span class="story-date">Menuju Pelaminan (2027)</span>
+                <p>Alhamdulillah, atas izin Allah SWT, kini kami siap melangkah menuju jenjang pernikahan untuk menyempurnakan ibadah kami selamanya.</p>
+            </div>
+        </div>
+
+        <div class="section-card">
             <h2>Gallery</h2>
             <div class="gallery">
                 <img src="Foto-1.jpg">
@@ -129,7 +133,6 @@
             <h2>Waktu & Lokasi</h2>
             <p><strong>Minggu, 26 April 2027</strong><br>Pukul 10:00 WIB - Selesai</p>
             <p style="color: #b8860b;">Kediaman Mempelai Wanita (Ima)</p>
-            
             <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-action">📍 Lihat Lokasi</a>
             <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: #25d366;">Confirm RSVP (WA)</a>
         </div>
@@ -138,50 +141,35 @@
     </div>
 
     <script>
-        // Tangkap Nama Tamu dari Link (?to=Nama)
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
-        if (nama) {
-            document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
-        }
+        if (nama) { document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' '); }
 
-        // Fungsi Buka Undangan
         function bukaUndangan() {
             const audio = document.getElementById('lagu');
-            audio.play(); // Putar Musik
-            
-            // Animasi Cover Keluar (Geser ke Atas)
+            audio.play();
             document.getElementById('cover').classList.add('opened');
-            
-            // Animasi Isi Masuk Perlahan (Fade & Slide-up)
             setTimeout(() => {
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
-                document.body.style.overflow = 'auto'; // Aktifkan scroll
-            }, 500); // Jeda sedikit biar smooth
+                document.body.style.overflow = 'auto';
+            }, 500);
         }
 
-        // Fungsi Tombol Musik
         function toggleMusic() {
             const audio = document.getElementById('lagu');
-            if (audio.paused) {
-                audio.play();
-            } else {
-                audio.pause();
-            }
+            audio.paused ? audio.play() : audio.pause();
         }
 
-        // Efek Bunga Emas Gugur
         setInterval(() => {
             const petal = document.createElement('div');
             petal.classList.add('petal');
             petal.style.left = Math.random() * 100 + 'vw';
             const size = Math.random() * 8 + 5 + 'px';
-            petal.style.width = size;
-            petal.style.height = size;
+            petal.style.width = size; petal.style.height = size;
             petal.style.animationDuration = Math.random() * 3 + 5 + 's';
             document.body.appendChild(petal);
-            setTimeout(() => { petal.remove(); }, 8000);
+            setTimeout(() => petal.remove(), 8000);
         }, 400);
     </script>
 </body>
