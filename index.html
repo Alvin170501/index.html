@@ -51,8 +51,8 @@
 
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
-    <audio id="lagu" loop>
-        <source src="musik.mp3" type="audio/mpeg">
+    <audio id="musik_nikah" loop preload="auto">
+        <source src="musik.mp3?v=1.1" type="audio/mpeg">
     </audio>
 
     <div class="container">
@@ -63,7 +63,7 @@
             <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.3); margin: 30px 0;">
             <p>Eksklusif Untuk:</p>
             <span class="tamu" id="nama-tamu">Nama Tamu</span>
-            <button onclick="mulai()" class="btn">Buka Undangan</button>
+            <button onclick="nyalakanMusik()" class="btn">Buka Undangan</button>
         </div>
     </div>
 
@@ -87,18 +87,6 @@
     </div>
 
     <div class="section-card reveal">
-        <h2>Our Love Story</h2>
-        <div class="story-box">
-            <span class="story-date">Awal Bertemu (Tahun 2026)</span>
-            <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada janji untuk saling menjaga.</p>
-            <span class="story-date">Pertunangan (26 April 2026)</span>
-            <p>Di hadapan keluarga besar, kami mengikat janji pertunangan sebagai langkah awal menuju masa depan.</p>
-            <span class="story-date">Menuju Pelaminan (2027)</span>
-            <p>Atas izin Allah SWT, kini kami melangkah menyempurnakan ibadah dalam ikatan pernikahan selamanya.</p>
-        </div>
-    </div>
-
-    <div class="section-card reveal">
         <h2>Gallery</h2>
         <div class="gallery">
             <img src="Foto-1.jpg" alt="Memory 1">
@@ -108,51 +96,35 @@
         </div>
     </div>
 
-    <div class="section-card reveal">
-        <h2>Counting Down</h2>
-        <div id="countdown">
-            <div class="time-box"><div id="days">00</div><span>Hari</span></div>
-            <div class="time-box"><div id="hours">00</div><span>Jam</span></div>
-            <div class="time-box"><div id="mins">00</div><span>Menit</span></div>
-        </div>
-    </div>
-
     <div id="detail" class="section-card reveal">
         <h2>Waktu & Lokasi</h2>
         <div class="text-content">
             <p><strong>Minggu, 26 April 2027</strong><br>10:00 WIB - Selesai</p>
             <p>Kediaman Mempelai Wanita (Ima)</p>
-            <a href="Https://maps.app.goo.gl/8BVcYMNaKN5d7VqJ9?g_st=ac" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.8em; margin-bottom: 10px; display:block;">📍 Lokasi Map</a>
-            <a href="https://api.whatsapp.com/send?phone=6285723463132" id="btn-wa" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.8em; background: #25d366; color: #1e1b4b; display:block;">Confirm RSVP (WA)</a>
+            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn">Confirm RSVP (WA)</a>
         </div>
     </div>
-
-    <div style="font-size: 0.7em; color: #94a3b8; margin-bottom: 40px; text-align: center;">Created by <b>M. Alvian</b></div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
-        function mulai() {
-            const lagu = document.getElementById('lagu');
-            // Reset lagu ke awal dan putar
-            lagu.currentTime = 0;
-            lagu.play().catch(error => {
-                console.log("Klik lagi bray!");
+        function nyalakanMusik() {
+            const player = document.getElementById('musik_nikah');
+            // Paksa browser buat play
+            player.play().then(() => {
+                console.log("Play success");
+            }).catch(e => {
+                console.log("Play failed, retrying...");
+                player.muted = true;
+                player.play();
+                player.muted = false;
             });
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
 
-        const target = new Date("April 26, 2027 10:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = target - now;
-            document.getElementById('days').innerText = Math.floor(diff / (86400000));
-            document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000);
-            document.getElementById('mins').innerText = Math.floor((diff % 3600000) / 60000);
-        }, 1000);
-
+        // Script countdown & scroll reveal tetap sama
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
@@ -162,9 +134,9 @@
         setInterval(() => {
             const petal = document.createElement('div');
             petal.classList.add('petal');
-            const size = Math.random() * 10 + 5 + 'px';
-            petal.style.width = size; petal.style.height = size;
             petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 10 + 5 + 'px';
+            petal.style.height = petal.style.width;
             petal.style.animationDuration = Math.random() * 3 + 4 + 's';
             document.body.appendChild(petal);
             setTimeout(() => petal.remove(), 7000);
