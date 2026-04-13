@@ -8,71 +8,70 @@
     <style>
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        
+        /* --- TEMA CERAH (LIGHT ROYAL) --- */
         body {
             margin: 0; padding: 0; font-family: 'Quicksand', sans-serif;
-            background: #020617; color: #fff; overflow-x: hidden;
+            background-color: #fdfcf5; /* Putih Tulang/Ivory */
+            color: #333; overflow-x: hidden;
         }
 
-        /* --- COVER SCREEN --- */
+        /* --- COVER SCREEN (TETAP GELAP BIAR TEKS JELAS) --- */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            background-size: cover; background-position: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 1000; transition: transform 1.5s cubic-bezier(0.85, 0, 0.15, 1);
+            z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
             text-align: center; color: white; padding: 20px;
         }
         #cover.opened { transform: translateY(-100%); }
         
-        .cover-content h2 { font-family: 'Dancing Script', cursive; font-size: 2.5em; color: #d4af37; margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .cover-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5em; margin: 20px 0; letter-spacing: 3px; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); }
-        .yth { font-size: 0.9em; margin-top: 40px; opacity: 0.9; letter-spacing: 1px; }
-        .nama-tamu-cover { font-size: 1.8em; font-weight: bold; color: #d4af37; margin: 15px 0; display: block; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        .cover-content h2 { font-family: 'Dancing Script', cursive; font-size: 2.2em; color: #d4af37; margin: 0; }
+        .cover-content h1 { font-family: 'Playfair Display', serif; font-size: 3em; margin: 15px 0; letter-spacing: 2px; }
+        .yth { font-size: 0.9em; margin-top: 30px; opacity: 0.9; color: #eee; }
+        .nama-tamu-cover { font-size: 1.6em; font-weight: bold; color: #d4af37; margin: 10px 0; display: block; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
-        /* --- MAIN CONTENT --- */
+        /* --- MAIN CONTENT WITH SMOOTH FADE IN --- */
         .main-content { 
-            background: linear-gradient(to bottom, #020617, #0f172a, #020617);
-            padding: 80px 0; opacity: 0; transition: opacity 2s; 
+            padding-top: 50px; 
+            opacity: 0; 
+            transform: translateY(30px); /* Efek Slide dari Bawah */
+            transition: opacity 1.8s ease, transform 1.8s ease; /* Durasi Masuk Pelan */
         }
-        .main-content.visible { opacity: 1; }
+        .main-content.visible { opacity: 1; transform: translateY(0); }
         
         .section-card {
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            margin: 0 auto 50px; padding: 50px 25px; border-radius: 40px 10px 40px 10px;
-            width: 85%; max-width: 450px; text-align: center;
+            background: #fff; /* Kartu Putih Bersih */
+            margin: 20px auto 40px; padding: 40px 20px; border-radius: 20px;
+            width: 90%; max-width: 450px; text-align: center;
             border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            /* Animasi Muncul Pas Scroll */
-            opacity: 0; transform: translateY(50px); transition: all 1s ease-out;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); /* Bayangan Emas Halus */
         }
-        .section-card.show { opacity: 1; transform: translateY(0); }
 
         .btn-action {
-            display: inline-block; margin: 15px 5px; padding: 15px 35px; 
-            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-            color: #020617; border-radius: 50px; font-weight: bold;
+            display: inline-block; margin: 10px 5px; padding: 12px 25px; 
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            color: white; border-radius: 50px; font-weight: bold;
             text-decoration: none; border: none; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); 
-            text-transform: uppercase; font-size: 0.8em; letter-spacing: 2px;
-            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-size: 0.9em;
+            transition: transform 0.2s;
         }
         .btn-action:active { transform: scale(0.95); }
 
-        .couple-photo { width: 220px; height: 220px; border-radius: 50%; border: 5px solid #d4af37; object-fit: cover; margin-bottom: 30px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
+        .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+        .gallery img { width: 100%; border-radius: 10px; height: 130px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.3); }
         
-        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
-        .gallery img { width: 100%; border-radius: 15px; height: 150px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.3); transition: 0.5s; }
-        .gallery img:hover { transform: scale(1.05); border-color: #d4af37; }
-        
-        .story-box { text-align: left; font-size: 0.9em; line-height: 2; color: #cbd5e1; }
-        .story-date { color: #d4af37; font-weight: bold; display: block; margin-top: 20px; font-size: 1.1em; border-left: 4px solid #d4af37; padding-left: 15px; }
+        h2 { font-family: 'Playfair Display', serif; color: #b8860b; font-size: 1.8em; } /* Judul Cokelat Emas Tua */
+        p { color: #555; line-height: 1.6; } /* Teks Deskripsi Abu-abu Gelap */
 
-        h2 { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 2.2em; margin-bottom: 30px; }
-        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.3; }
-        @keyframes fall { 0% { top: -10%; transform: rotate(0deg) translateX(0); } 100% { top: 110%; transform: rotate(720deg) translateX(50px); } }
-
-        .music-btn { position: fixed; bottom: 30px; right: 30px; background: rgba(212, 175, 55, 0.8); color: #020617; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; box-shadow: 0 0 20px rgba(0,0,0,0.5); font-size: 1.5em; }
+        /* Floating Music Toggle */
+        .music-btn { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    
+        /* Efek Bunga Gugur Tetap Emas */
+        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.5; }
+        @keyframes fall { 0% { top: -10%; transform: rotate(0deg); } 100% { top: 110%; transform: rotate(720deg); } }
     </style>
 </head>
 <body>
@@ -87,48 +86,36 @@
         <div class="cover-content">
             <h2>The Wedding of</h2>
             <h1>Alvin & Ima</h1>
-            <p style="letter-spacing: 5px; font-weight: bold; color: #d4af37;">26 . 04 . 2027</p>
+            <p style="letter-spacing: 4px; font-size: 0.9em; font-weight: bold; color: #d4af37;">MINGGU, 26 APRIL 2027</p>
             
             <div class="yth">
-                UNTUK SAUDARA/I:
+                Kepada Yth. Bapak/Ibu/Saudara/i:
                 <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
             </div>
             
-            <button onclick="bukaUndangan()" class="btn-action" style="padding: 18px 45px; font-size: 0.9em;">BUKA UNDANGAN</button>
+            <button onclick="bukaUndangan()" class="btn-action" style="padding: 15px 40px; font-size: 1em;">📩 Buka Undangan</button>
         </div>
     </div>
 
     <div id="isi" class="main-content">
-        <div class="section-card reveal-scroll">
+        <div class="section-card">
             <h2>Assalamu’alaikum</h2>
-            <p style="font-style: italic; font-size: 0.9em; color: #cbd5e1; line-height: 1.8;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
-            <hr style="border:0; border-top:1px solid rgba(212,175,55,0.2); margin: 30px 0;">
+            <p style="font-style: italic; font-size: 0.85em; color: #777;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
+            <hr style="border:0; border-top:1px solid rgba(212,175,55,0.1); margin: 25px 0;">
             <p>Maha suci Allah yang telah mempertautkan dua hati dalam ikatan suci pernikahan.</p>
         </div>
 
-        <div class="section-card reveal-scroll">
+        <div class="section-card">
             <h2>Mempelai</h2>
             <img src="VID-20250926-WA0059.jpg" class="couple-photo">
-            <h3 style="font-size: 1.8em; color: #d4af37; margin: 0;">M. Alvian (Alvin)</h3>
+            <h3 style="color: #b8860b;">M. Alvian (Alvin)</h3>
             <p>Putra dari Bapak Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
-            <h1 style="font-family: 'Dancing Script'; color: #d4af37; font-size: 3em; margin: 10px 0;">&</h1>
-            <h3 style="font-size: 1.8em; color: #d4af37; margin: 0;">Siti Rohimah (Ima)</h3>
+            <h1 style="font-family: 'Dancing Script'; color: #d4af37; margin: 10px 0;">&</h1>
+            <h3 style="color: #b8860b;">Siti Rohimah (Ima)</h3>
             <p>Putri dari Bapak Ayo<br>& Ibu Nani</p>
         </div>
 
-        <div class="section-card reveal-scroll">
-            <h2>Our Love Story</h2>
-            <div class="story-box">
-                <span class="story-date">Awal Bertemu</span>
-                <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada momen makan malam pertama di bulan Juli 2026.</p>
-                <span class="story-date">Pertunangan</span>
-                <p>Tepat pada 26 April 2026, di hadapan keluarga besar, kami mengikat janji dalam sebuah pertunangan.</p>
-                <span class="story-date">Menuju Pelaminan</span>
-                <p>Kini kami siap melangkah menuju jenjang pernikahan untuk menyempurnakan ibadah kami selamanya.</p>
-            </div>
-        </div>
-
-        <div class="section-card reveal-scroll">
+        <div class="section-card">
             <h2>Gallery</h2>
             <div class="gallery">
                 <img src="Foto-1.jpg">
@@ -138,63 +125,63 @@
             </div>
         </div>
 
-        <div class="section-card reveal-scroll">
+        <div class="section-card">
             <h2>Waktu & Lokasi</h2>
-            <p style="font-size: 1.2em;"><strong>Minggu, 26 April 2027</strong></p>
-            <p>Pukul 10:00 WIB - Selesai</p>
-            <p style="color: #d4af37;">Kediaman Mempelai Wanita (Ima)</p>
-            <br>
-            <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-action">📍 GOOGLE MAPS</a>
-            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: linear-gradient(135deg, #128c7e, #25d366); color: white;">RSVP VIA WHATSAPP</a>
+            <p><strong>Minggu, 26 April 2027</strong><br>Pukul 10:00 WIB - Selesai</p>
+            <p style="color: #b8860b;">Kediaman Mempelai Wanita (Ima)</p>
+            
+            <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-action">📍 Lihat Lokasi</a>
+            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: #25d366;">Confirm RSVP (WA)</a>
         </div>
         
-        <p style="text-align: center; font-size: 0.8em; margin: 50px 0; color: #94a3b8; letter-spacing: 2px;">DESIGN BY <b>ALVIAN</b></p>
+        <p style="text-align: center; font-size: 0.7em; margin: 40px 0; color: #888;">Created with Love by <b>Alvian</b></p>
     </div>
 
     <script>
+        // Tangkap Nama Tamu dari Link (?to=Nama)
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
-        if (nama) { document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' '); }
+        if (nama) {
+            document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
+        }
 
+        // Fungsi Buka Undangan
         function bukaUndangan() {
             const audio = document.getElementById('lagu');
-            audio.play();
+            audio.play(); // Putar Musik
+            
+            // Animasi Cover Keluar (Geser ke Atas)
             document.getElementById('cover').classList.add('opened');
+            
+            // Animasi Isi Masuk Perlahan (Fade & Slide-up)
             setTimeout(() => {
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
-                document.body.style.overflow = 'auto';
-                revealOnScroll(); // Jalankan efek scroll
-            }, 500);
+                document.body.style.overflow = 'auto'; // Aktifkan scroll
+            }, 500); // Jeda sedikit biar smooth
         }
 
+        // Fungsi Tombol Musik
         function toggleMusic() {
             const audio = document.getElementById('lagu');
-            audio.paused ? audio.play() : audio.pause();
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
         }
 
-        // FUNGSI ANIMASI SCROLL
-        function revealOnScroll() {
-            const cards = document.querySelectorAll('.reveal-scroll');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < window.innerHeight - 100) {
-                    card.classList.add('show');
-                }
-            });
-        }
-        window.addEventListener('scroll', revealOnScroll);
-
-        // BUNGA EMAS
+        // Efek Bunga Emas Gugur
         setInterval(() => {
             const petal = document.createElement('div');
             petal.classList.add('petal');
             petal.style.left = Math.random() * 100 + 'vw';
             const size = Math.random() * 8 + 5 + 'px';
-            petal.style.width = size; petal.style.height = size;
-            petal.style.animationDuration = Math.random() * 3 + 6 + 's';
+            petal.style.width = size;
+            petal.style.height = size;
+            petal.style.animationDuration = Math.random() * 3 + 5 + 's';
             document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 8000);
+            setTimeout(() => { petal.remove(); }, 8000);
         }, 400);
     </script>
 </body>
