@@ -30,21 +30,28 @@
         .yth { font-size: 0.9em; margin-top: 30px; opacity: 0.9; color: #eee; }
         .nama-tamu-cover { font-size: 1.6em; font-weight: bold; color: #d4af37; margin: 10px 0; display: block; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
-        /* --- MAIN CONTENT FADE IN --- */
-        .main-content { 
-            padding-top: 50px; 
-            opacity: 0; 
-            transform: translateY(30px);
-            transition: opacity 1.8s ease, transform 1.8s ease; 
-        }
-        .main-content.visible { opacity: 1; transform: translateY(0); }
+        /* --- MAIN CONTENT & REVEAL ANIMATION --- */
+        .main-content { padding-top: 50px; opacity: 0; transition: opacity 1s; }
+        .main-content.visible { opacity: 1; }
         
+        /* SEMUA KOTAK AWALNYA SEMBUNYI DI BAWAH */
         .section-card {
             background: #fff;
             margin: 20px auto 40px; padding: 40px 20px; border-radius: 20px;
             width: 90%; max-width: 450px; text-align: center;
             border: 1px solid rgba(212, 175, 55, 0.2);
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+            
+            /* Animasi Dasar */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s ease-out;
+        }
+
+        /* KELAS INI AKAN DITAMBAHKAN VIA JS SAAT DI-SCROLL */
+        .section-card.appear {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .btn-action {
@@ -111,9 +118,9 @@
             <h2>Our Love Story</h2>
             <div class="story-box">
                 <span class="story-date">Awal Bertemu (Tahun 2026)</span>
-                <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada momen makan malam pertama di bulan Juli 2026, di mana janji untuk saling menjaga mulai terucap.</p>
+                <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada momen makan malam pertama di bulan Juli 2026.</p>
                 <span class="story-date">Pertunangan (26 April 2026)</span>
-                <p>Tepat pada 26 April 2026, di hadapan keluarga besar, kami mengikat janji dalam sebuah pertunangan. Simbol bahwa kami siap melangkah bersama menghadapi hari-hari ke depan.</p>
+                <p>Tepat pada 26 April 2026, di hadapan keluarga besar, kami mengikat janji dalam sebuah pertunangan.</p>
                 <span class="story-date">Menuju Pelaminan (2027)</span>
                 <p>Alhamdulillah, atas izin Allah SWT, kini kami siap melangkah menuju jenjang pernikahan untuk menyempurnakan ibadah kami selamanya.</p>
             </div>
@@ -144,6 +151,20 @@
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
         if (nama) { document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' '); }
+
+        // FUNGSI UTAMA REVEAL SAAT SCROLL
+        const observerOptions = { threshold: 0.2 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-card').forEach(card => {
+            observer.observe(card);
+        });
 
         function bukaUndangan() {
             const audio = document.getElementById('lagu');
