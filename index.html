@@ -53,7 +53,7 @@
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
     <audio id="lagu" loop>
-        <source src="https://raw.githubusercontent.com/Alvin-Source/Music/main/BeautifulInWhite.mp3" type="audio/mpeg">
+        <source src="https://www.dropbox.com/scl/fi/f0985kclvveq0g6itf1d7/Shane-Filan-Beautiful-In-White.mp3?rlkey=v6l9127z99lshw8v6x8n797y5&st=0y77j24a&dl=1" type="audio/mpeg">
     </audio>
     
     <div class="music-control" onclick="toggleMusic()">🎵</div>
@@ -140,7 +140,10 @@
         const lagu = document.getElementById('lagu');
 
         function mulai() {
-            lagu.play().catch(e => console.log("Gagal muter otomatis"));
+            // Memicu musik saat tombol "Buka Undangan" diklik
+            lagu.play().catch(error => {
+                console.log("Autoplay dicegah browser, musik butuh interaksi user.");
+            });
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
         
