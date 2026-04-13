@@ -52,9 +52,8 @@
 
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
-    <audio id="lagu" loop>
-        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Shane_Filan/Beautiful_In_White/Shane_Filan_-_Beautiful_In_White.mp3" type="audio/mpeg">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <audio id="lagu" loop preload="auto">
+        <source src="https://raw.githubusercontent.com/Alvin-Source/Music/main/BeautifulInWhite.mp3" type="audio/mpeg">
     </audio>
     
     <div class="music-control" onclick="toggleMusic()">🎵</div>
@@ -85,7 +84,7 @@
         <div class="text-content">
             <img src="VID-20250926-WA0059.jpg" alt="Alvin & Ima" class="couple-photo">
             <p><span style="font-weight: 800; color: #d4af37; font-size: 1.5em;">M. Alvian (Alvin)</span><br>Putra Bapak Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            <p style="font-family: 'Dancing Script'; font-size: 2em; margin: 10px 0; color: #d4af37;">&</p>
+            <p style="font-family: 'Dancing Script'; font-size: 2em; margin: 15px 0; color: #d4af37;">&</p>
             <p><span style="font-weight: 800; color: #d4af37; font-size: 1.5em;">Siti Rohimah (Ima)</span><br>Putri Bapak Ayo & Ibu Nani</p>
         </div>
     </div>
@@ -138,26 +137,27 @@
         const nama = urlParams.get('to');
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
-        const lagu = document.getElementById('lagu');
-        
-        // FUNGSI PLAY PALING KUAT
+        const audioLagu = document.getElementById('lagu');
+
         function mulai() {
-            lagu.muted = false; // Pastikan gak ke-mute
-            var playPromise = lagu.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    console.log("Musik Jalan!");
-                }).catch(error => {
-                    console.log("Mencoba lagi...");
-                    lagu.play();
-                });
-            }
+            // Memicu play musik saat tombol diklik
+            audioLagu.play().then(() => {
+                console.log("Musik berhasil diputar!");
+            }).catch(e => {
+                console.log("Browser memblokir musik, mencoba lagi...");
+                audioLagu.muted = true; // Coba mute dulu biar jalan
+                audioLagu.play();
+                audioLagu.muted = false; // Unmute lagi
+            });
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
         
         function toggleMusic() {
-            lagu.paused ? lagu.play() : lagu.pause();
+            if (audioLagu.paused) {
+                audioLagu.play();
+            } else {
+                audioLagu.pause();
+            }
         }
 
         const target = new Date("April 26, 2027 10:00:00").getTime();
