@@ -53,8 +53,8 @@
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
     <audio id="lagu" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
+        <source src="https://raw.githubusercontent.com/Alvin-Source/Music/main/BeautifulInWhite.mp3" type="audio/mpeg">
+    </audio>
     
     <div class="music-control" onclick="toggleMusic()">🎵</div>
 
@@ -140,7 +140,7 @@
         const lagu = document.getElementById('lagu');
 
         function mulai() {
-            lagu.play().catch(e => console.log("Musik butuh klik manual"));
+            lagu.play().catch(e => console.log("Gagal muter otomatis"));
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
         
