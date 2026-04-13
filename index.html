@@ -52,8 +52,8 @@
 
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
-    <audio id="lagu" loop preload="auto">
-        <source src="https://raw.githubusercontent.com/Alvin-Source/Music/main/BeautifulInWhite.mp3" type="audio/mpeg">
+    <audio id="lagu" loop>
+        <source src="musik.mp3" type="audio/mpeg">
     </audio>
     
     <div class="music-control" onclick="toggleMusic()">🎵</div>
@@ -137,27 +137,21 @@
         const nama = urlParams.get('to');
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
-        const audioLagu = document.getElementById('lagu');
+        const audio = document.getElementById('lagu');
 
         function mulai() {
-            // Memicu play musik saat tombol diklik
-            audioLagu.play().then(() => {
-                console.log("Musik berhasil diputar!");
-            }).catch(e => {
-                console.log("Browser memblokir musik, mencoba lagi...");
-                audioLagu.muted = true; // Coba mute dulu biar jalan
-                audioLagu.play();
-                audioLagu.muted = false; // Unmute lagi
+            // Memaksa musik berputar setelah interaksi user
+            audio.play().catch(error => {
+                console.log("Autoplay dicegah, mencoba lagi...");
+                audio.muted = true;
+                audio.play();
+                audio.muted = false;
             });
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
         
         function toggleMusic() {
-            if (audioLagu.paused) {
-                audioLagu.play();
-            } else {
-                audioLagu.pause();
-            }
+            audio.paused ? audio.play() : audio.pause();
         }
 
         const target = new Date("April 26, 2027 10:00:00").getTime();
