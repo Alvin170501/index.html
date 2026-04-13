@@ -45,7 +45,6 @@
             0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
             100% { top: 110%; transform: translateX(100px) rotate(720deg); opacity: 0; }
         }
-        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: #d4af37; color: #1e1b4b; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -55,8 +54,6 @@
     <audio id="lagu" loop>
         <source src="musik.mp3" type="audio/mpeg">
     </audio>
-    
-    <div class="music-control" onclick="toggleMusic()">🎵</div>
 
     <div class="container">
         <div class="card">
@@ -137,21 +134,14 @@
         const nama = urlParams.get('to');
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
-        const audio = document.getElementById('lagu');
-
         function mulai() {
-            // Memaksa musik berputar setelah interaksi user
-            audio.play().catch(error => {
-                console.log("Autoplay dicegah, mencoba lagi...");
-                audio.muted = true;
-                audio.play();
-                audio.muted = false;
+            const lagu = document.getElementById('lagu');
+            // Reset lagu ke awal dan putar
+            lagu.currentTime = 0;
+            lagu.play().catch(error => {
+                console.log("Klik lagi bray!");
             });
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function toggleMusic() {
-            audio.paused ? audio.play() : audio.pause();
         }
 
         const target = new Date("April 26, 2027 10:00:00").getTime();
