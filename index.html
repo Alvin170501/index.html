@@ -45,7 +45,7 @@
             0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
             100% { top: 110%; transform: translateX(100px) rotate(720deg); opacity: 0; }
         }
-        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: #d4af37; color: #1e1b4b; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: #d4af37; color: #1e1b4b; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -53,7 +53,8 @@
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
     <audio id="lagu" loop>
-        <source src="https://www.dropbox.com/scl/fi/f0985kclvveq0g6itf1d7/Shane-Filan-Beautiful-In-White.mp3?rlkey=v6l9127z99lshw8v6x8n797y5&st=0y77j24a&dl=1" type="audio/mpeg">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Shane_Filan/Beautiful_In_White/Shane_Filan_-_Beautiful_In_White.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
     
     <div class="music-control" onclick="toggleMusic()">🎵</div>
@@ -84,7 +85,7 @@
         <div class="text-content">
             <img src="VID-20250926-WA0059.jpg" alt="Alvin & Ima" class="couple-photo">
             <p><span style="font-weight: 800; color: #d4af37; font-size: 1.5em;">M. Alvian (Alvin)</span><br>Putra Bapak Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            <p style="font-family: 'Dancing Script'; font-size: 2em; margin: 15px 0; color: #d4af37;">&</p>
+            <p style="font-family: 'Dancing Script'; font-size: 2em; margin: 10px 0; color: #d4af37;">&</p>
             <p><span style="font-weight: 800; color: #d4af37; font-size: 1.5em;">Siti Rohimah (Ima)</span><br>Putri Bapak Ayo & Ibu Nani</p>
         </div>
     </div>
@@ -138,21 +139,25 @@
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
         const lagu = document.getElementById('lagu');
-
+        
+        // FUNGSI PLAY PALING KUAT
         function mulai() {
-            // Memicu musik saat tombol "Buka Undangan" diklik
-            lagu.play().catch(error => {
-                console.log("Autoplay dicegah browser, musik butuh interaksi user.");
-            });
+            lagu.muted = false; // Pastikan gak ke-mute
+            var playPromise = lagu.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("Musik Jalan!");
+                }).catch(error => {
+                    console.log("Mencoba lagi...");
+                    lagu.play();
+                });
+            }
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
         
         function toggleMusic() {
-            if (lagu.paused) {
-                lagu.play();
-            } else {
-                lagu.pause();
-            }
+            lagu.paused ? lagu.play() : lagu.pause();
         }
 
         const target = new Date("April 26, 2027 10:00:00").getTime();
