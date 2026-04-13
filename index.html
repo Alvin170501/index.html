@@ -51,8 +51,8 @@
 
     <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
 
-    <audio id="musik_nikah" loop preload="auto">
-        <source src="musik.mp3?v=1.1" type="audio/mpeg">
+    <audio id="musik_wedding" loop preload="auto">
+        <source src="musik1.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
@@ -63,7 +63,7 @@
             <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.3); margin: 30px 0;">
             <p>Eksklusif Untuk:</p>
             <span class="tamu" id="nama-tamu">Nama Tamu</span>
-            <button onclick="nyalakanMusik()" class="btn">Buka Undangan</button>
+            <button onclick="bukaUndangan()" class="btn">Buka Undangan</button>
         </div>
     </div>
 
@@ -96,27 +96,16 @@
         </div>
     </div>
 
-    <div id="detail" class="section-card reveal">
-        <h2>Waktu & Lokasi</h2>
-        <div class="text-content">
-            <p><strong>Minggu, 26 April 2027</strong><br>10:00 WIB - Selesai</p>
-            <p>Kediaman Mempelai Wanita (Ima)</p>
-            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn">Confirm RSVP (WA)</a>
-        </div>
-    </div>
-
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
-        function nyalakanMusik() {
-            const player = document.getElementById('musik_nikah');
-            // Paksa browser buat play
-            player.play().then(() => {
-                console.log("Play success");
-            }).catch(e => {
-                console.log("Play failed, retrying...");
+        function bukaUndangan() {
+            const player = document.getElementById('musik_wedding');
+            // Paksa musik jalan
+            player.play().catch(e => {
+                console.log("Coba lagi!");
                 player.muted = true;
                 player.play();
                 player.muted = false;
@@ -124,7 +113,6 @@
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Script countdown & scroll reveal tetap sama
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
