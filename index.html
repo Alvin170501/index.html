@@ -9,13 +9,15 @@
         html { scroll-behavior: smooth; }
         body {
             margin: 0; padding: 0; font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%); /* Navy Blue */
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; color: #fff; overflow-x: hidden;
         }
+        .header-credit { font-size: 0.65em; color: #94a3b8; padding: 10px 0; text-align: center; width: 100%; z-index: 100; }
+        .header-credit span { font-weight: bold; color: #d4af37; }
         .container { min-height: 90vh; display: flex; align-items: center; justify-content: center; width: 100%; z-index: 5; }
         .card, .section-card {
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); /* Glassmorphism */
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             padding: 40px 30px; border-radius: 30px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             text-align: center; max-width: 85%; width: 400px; border: 1px solid rgba(212, 175, 55, 0.5);
             margin-bottom: 60px; z-index: 5;
@@ -30,7 +32,6 @@
             color: #1e1b4b; text-decoration: none; border-radius: 50px; font-weight: 900; border: none; cursor: pointer;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); text-transform: uppercase;
         }
-        /* Gallery Style */
         .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
         .gallery img { width: 100%; border-radius: 10px; border: 1px solid #d4af37; object-fit: cover; height: 150px; }
         .couple-photo { width: 220px; height: 220px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
@@ -44,14 +45,17 @@
             0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
             100% { top: 110%; transform: translateX(100px) rotate(720deg); opacity: 0; }
         }
-        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: #d4af37; color: #1e1b4b; padding: 10px; border-radius: 50%; cursor: pointer; }
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: #d4af37; color: #1e1b4b; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
 
+    <div class="header-credit">PEMBUAT: <span>M. ALVIAN</span> | IG: <span>@ALVIANNNM</span></div>
+
     <audio id="lagu" loop>
-        <source src="https://cdn.discordapp.com/attachments/1493090724718055436/1493197538235519026/Shane_Filan_-_Beautiful_In_White_Official_Video_-_ShaneFilanVEVO.mp3" type="audio/mpeg">
-    </audio>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    
     <div class="music-control" onclick="toggleMusic()">🎵</div>
 
     <div class="container">
@@ -80,13 +84,13 @@
         <div class="text-content">
             <img src="VID-20250926-WA0059.jpg" alt="Alvin & Ima" class="couple-photo">
             <p><span style="font-weight: 800; color: #d4af37; font-size: 1.5em;">M. Alvian (Alvin)</span><br>Putra Bapak Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            <p style="font-family: 'Dancing Script'; font-size: 2em; margin: 10px 0; color: #d4af37;">&</p>
+            <p style="font-family: 'Dancing Script'; font-size: 2em; margin: 15px 0; color: #d4af37;">&</p>
             <p><span style="font-weight: 800; color: #d4af37; font-size: 1.5em;">Siti Rohimah (Ima)</span><br>Putri Bapak Ayo & Ibu Nani</p>
         </div>
     </div>
 
     <div class="section-card reveal">
-        <h2>Love Story</h2>
+        <h2>Our Love Story</h2>
         <div class="story-box">
             <span class="story-date">Awal Bertemu (Tahun 2026)</span>
             <p>Semua dimulai di tempat kami bekerja. Tak disangka obrolan singkat membawa kami pada janji untuk saling menjaga.</p>
@@ -133,14 +137,21 @@
         const nama = urlParams.get('to');
         if (nama) document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
 
+        const lagu = document.getElementById('lagu');
+
         function mulai() {
-            document.getElementById('lagu').play(); /* Musik Otomatis */
+            lagu.play().catch(e => console.log("Musik butuh klik manual"));
             document.getElementById('sambutan').scrollIntoView({ behavior: 'smooth' });
         }
+        
         function toggleMusic() {
-            const lagu = document.getElementById('lagu');
-            lagu.paused ? lagu.play() : lagu.pause(); /* Musik Kontrol */
+            if (lagu.paused) {
+                lagu.play();
+            } else {
+                lagu.pause();
+            }
         }
+
         const target = new Date("April 26, 2027 10:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -149,11 +160,13 @@
             document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000);
             document.getElementById('mins').innerText = Math.floor((diff % 3600000) / 60000);
         }, 1000);
+
         window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
             });
         });
+
         setInterval(() => {
             const petal = document.createElement('div');
             petal.classList.add('petal');
@@ -162,7 +175,7 @@
             petal.style.left = Math.random() * 100 + 'vw';
             petal.style.animationDuration = Math.random() * 3 + 4 + 's';
             document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 7000); /* Animasi Emas Gugur */
+            setTimeout(() => petal.remove(), 7000);
         }, 300);
     </script>
 </body>
