@@ -19,40 +19,50 @@
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('VID-20250926-WA0059.jpg');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 1000; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
             text-align: center; color: white; padding: 20px;
         }
         #cover.opened { transform: translateY(-100%); }
-        .cover-content h2 { font-family: 'Dancing Script', cursive; font-size: 2.5em; margin-bottom: 10px; color: #d4af37; }
-        .cover-content h1 { font-family: 'Playfair Display', serif; font-size: 3em; margin: 10px 0; letter-spacing: 2px; }
+        
+        .cover-content h2 { font-family: 'Dancing Script', cursive; font-size: 2.2em; color: #d4af37; margin: 0; }
+        .cover-content h1 { font-family: 'Playfair Display', serif; font-size: 3em; margin: 15px 0; letter-spacing: 2px; }
         .yth { font-size: 0.9em; margin-top: 30px; opacity: 0.8; }
-        .nama-tamu-cover { font-size: 1.5em; font-weight: bold; color: #d4af37; margin: 10px 0; display: block; }
+        .nama-tamu-cover { font-size: 1.6em; font-weight: bold; color: #d4af37; margin: 10px 0; display: block; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
-        /* --- MAIN CONTENT --- */
-        .main-content { padding-top: 50px; opacity: 0; transition: opacity 1s; }
-        .main-content.visible { opacity: 1; }
+        /* --- MAIN CONTENT WITH FADE EFFECT --- */
+        .main-content { 
+            padding-top: 50px; 
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease; 
+        }
+        .main-content.visible { opacity: 1; transform: translateY(0); }
         
         .section-card {
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-            margin: 20px auto 60px; padding: 40px 20px; border-radius: 20px;
+            margin: 20px auto 40px; padding: 40px 20px; border-radius: 20px;
             width: 90%; max-width: 450px; text-align: center;
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
-        .btn-buka {
-            margin-top: 20px; padding: 12px 30px; background: #d4af37;
+        .btn-action {
+            display: inline-block; margin: 10px 5px; padding: 12px 25px; 
+            background: linear-gradient(45deg, #d4af37, #b8860b);
             color: #1e1b4b; border-radius: 50px; font-weight: bold;
             text-decoration: none; border: none; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-size: 0.9em;
         }
 
-        .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 3px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
+        .couple-photo { width: 200px; height: 200px; border-radius: 50%; border: 3px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
         .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .gallery img { width: 100%; border-radius: 10px; height: 120px; object-fit: cover; border: 1px solid #d4af37; }
+        .gallery img { width: 100%; border-radius: 10px; height: 130px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.5); }
         
-        h2 { font-family: 'Playfair Display', serif; color: #d4af37; }
-        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.5; }
+        h2 { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.8em; }
+        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.4; }
         @keyframes fall { 0% { top: -10%; transform: rotate(0deg); } 100% { top: 110%; transform: rotate(720deg); } }
+
+        /* Floating Music Toggle */
+        .music-btn { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #1e1b4b; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; }
     </style>
 </head>
 <body>
@@ -61,37 +71,39 @@
         <source src="musik1.mp3" type="audio/mpeg">
     </audio>
 
+    <div id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</div>
+
     <div id="cover">
         <div class="cover-content">
             <h2>The Wedding of</h2>
             <h1>Alvin & Ima</h1>
-            <p style="letter-spacing: 3px;">26 APRIL 2027</p>
+            <p style="letter-spacing: 4px; font-size: 0.9em;">MINGGU, 26 APRIL 2027</p>
             
             <div class="yth">
                 Kepada Yth. Bapak/Ibu/Saudara/i:
                 <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
             </div>
             
-            <button onclick="bukaUndangan()" class="btn-buka">📩 Buka Undangan</button>
+            <button onclick="bukaUndangan()" class="btn-action" style="padding: 15px 40px; font-size: 1em;">📩 Buka Undangan</button>
         </div>
     </div>
 
     <div id="isi" class="main-content">
         <div class="section-card">
             <h2>Assalamu’alaikum</h2>
-            <p style="font-style: italic; font-size: 0.8em; color: #cbd5e1;">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu..." (QS. Ar-Rum: 21)</p>
-            <hr style="border:0; border-top:1px solid rgba(212,175,55,0.2); margin: 20px 0;">
-            <p>Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir di hari bahagia kami.</p>
+            <p style="font-style: italic; font-size: 0.85em; color: #cbd5e1; line-height: 1.6;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
+            <hr style="border:0; border-top:1px solid rgba(212,175,55,0.2); margin: 25px 0;">
+            <p>Maha suci Allah yang telah mempertautkan dua hati dalam ikatan suci pernikahan.</p>
         </div>
 
         <div class="section-card">
             <h2>Mempelai</h2>
             <img src="VID-20250926-WA0059.jpg" class="couple-photo">
             <h3>M. Alvian (Alvin)</h3>
-            <p>Putra Bapak Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            <h1 style="font-family: 'Dancing Script'; color: #d4af37;">&</h1>
+            <p>Putra dari Bapak Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
+            <h1 style="font-family: 'Dancing Script'; color: #d4af37; margin: 10px 0;">&</h1>
             <h3>Siti Rohimah (Ima)</h3>
-            <p>Putri Bapak Ayo & Ibu Nani</p>
+            <p>Putri dari Bapak Ayo<br>& Ibu Nani</p>
         </div>
 
         <div class="section-card">
@@ -106,11 +118,14 @@
 
         <div class="section-card">
             <h2>Waktu & Lokasi</h2>
-            <p><b>Minggu, 26 April 2027</b><br>Kediaman Mempelai Wanita (Ima)</p>
-            <a href="https://api.whatsapp.com/send?phone=6285723463132" class="btn-buka" style="background:#25d366; color:white;">Konfirmasi Kehadiran</a>
+            <p><strong>Minggu, 26 April 2027</strong><br>Pukul 10:00 WIB - Selesai</p>
+            <p>Kediaman Mempelai Wanita (Ima)</p>
+            
+            <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-action">📍 Lihat Lokasi</a>
+            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: #25d366; color: white;">Confirm RSVP (WA)</a>
         </div>
         
-        <p style="text-align: center; font-size: 0.7em; margin-bottom: 50px;">Created by Alvin</p>
+        <p style="text-align: center; font-size: 0.7em; margin: 40px 0; color: #94a3b8;">Created with Love by <b>Alvian</b></p>
     </div>
 
     <script>
@@ -121,29 +136,33 @@
             document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' ');
         }
 
-        // Fungsi Buka
         function bukaUndangan() {
-            // Putar Musik
             const audio = document.getElementById('lagu');
             audio.play();
             
-            // Animasi Slide Up Cover
+            // Animasi Cover Keluar
             document.getElementById('cover').classList.add('opened');
             
-            // Munculkan Isi
-            document.getElementById('isi').classList.add('visible');
-            
-            // Hilangkan scroll lock (jika ada)
-            document.body.style.overflow = 'auto';
+            // Animasi Isi Masuk Perlahan (Fade & Slide)
+            setTimeout(() => {
+                document.getElementById('isi').classList.add('visible');
+                document.getElementById('musicToggle').style.display = 'flex';
+                document.body.style.overflow = 'auto';
+            }, 500);
         }
 
-        // Bunga Gugur
+        function toggleMusic() {
+            const audio = document.getElementById('lagu');
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+        }
+
+        // Efek Bunga Emas
         setInterval(() => {
             const petal = document.createElement('div');
             petal.classList.add('petal');
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.width = Math.random() * 10 + 5 + 'px';
-            petal.style.height = petal.style.width;
+            const size = Math.random() * 8 + 5 + 'px';
+            petal.style.width = size; petal.style.height = size;
             petal.style.animationDuration = Math.random() * 3 + 5 + 's';
             document.body.appendChild(petal);
             setTimeout(() => petal.remove(), 8000);
