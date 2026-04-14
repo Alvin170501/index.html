@@ -9,50 +9,51 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; }
+        body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #fff; color: #333; overflow-x: hidden; }
 
-        /* --- LOADING OVERLAY --- */
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; display: none; align-items: center; justify-content: center;
-            flex-direction: column; z-index: 3000;
+        /* --- ANIMASI BUNGA GUGUR --- */
+        .leaf { position: fixed; top: -10px; width: 15px; height: 15px; background: #ffe4e1; border-radius: 50% 0 50% 0; z-index: 5000; pointer-events: none; animation: fall linear infinite; opacity: 0.8; }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); left: var(--left); }
+            100% { transform: translateY(100vh) rotate(360deg); left: var(--left-end); }
         }
-        .spinner {
-            width: 70px; height: 70px; border: 5px solid #f3f3f3;
-            border-top: 5px solid #d4af37; border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+
+        /* --- LOADING & COVER --- */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 6000; }
+        .spinner { width: 70px; height: 70px; border: 5px solid #f3f3f3; border-top: 5px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- COVER --- */
         #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.5s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; }
         #cover.opened { transform: translateY(-100%); }
-        .nama-tamu-cover { font-size: 1.8em; font-weight: bold; color: #d4af37; margin: 15px 0; display: block; }
 
-        /* --- CONTENT --- */
-        .main-content { padding: 80px 0; opacity: 0; transition: opacity 1s; }
+        /* --- MAIN CONTENT --- */
+        .main-content { padding: 80px 0; opacity: 0; transition: opacity 1s; background: #fffaf0; }
         .main-content.visible { opacity: 1; }
-        .section-card { background: #fff; margin: 0 auto 50px; padding: 50px 25px; border-radius: 40px 5px; width: 90%; max-width: 500px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.15); box-shadow: 0 15px 45px rgba(0,0,0,0.08); opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .section-card { background: #fff; margin: 0 auto 50px; padding: 40px 20px; border-radius: 30px; width: 90%; max-width: 450px; text-align: center; border: 1px solid rgba(212,175,55,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); opacity: 0; transform: translateY(30px); transition: 1s; }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #fff; padding: 30px; border-radius: 30px; max-width: 400px; width: 100%; text-align: center; position: relative; animation: zoomIn 0.4s; border: 1px solid #d4af37; }
-        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
-        .ortu-img { width: 100%; max-height: 180px; border-radius: 15px; object-fit: cover; margin-top: 15px; border: 1px solid #d4af37; }
+        /* --- COUNTDOWN --- */
+        #countdown { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .cd-item { background: #fdfaf0; border: 1px solid #d4af37; padding: 10px; border-radius: 15px; min-width: 70px; }
+        .cd-number { display: block; font-size: 1.5em; font-weight: bold; color: #b8860b; }
+        .cd-label { font-size: 0.7em; text-transform: uppercase; color: #999; }
 
-        /* --- SLIDERS --- */
-        .profile-slider { width: 180px; height: 180px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; cursor: pointer; }
-        .profile-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
-        .profile-slider img.active { opacity: 1; }
-        
-        .btn-modern { display: inline-block; padding: 15px 35px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 20px rgba(212,175,55,0.4); margin-top: 20px; border: none; cursor: pointer; }
-        .btn-ig { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; padding: 10px 25px; background: #fff; color: #b8860b; border: 1px solid #d4af37; border-radius: 50px; text-decoration: none; font-size: 0.8em; font-weight: bold; }
-        .video-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; margin: 20px 0; border: 2px solid #d4af37; }
-        .video-container video { width: 100%; height: 100%; object-fit: cover; }
-        .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1100; cursor: pointer; display: none; }
-        .nama-klik { color: #b8860b; cursor: pointer; text-decoration: underline dotted; font-weight: bold; font-size: 1.3em; margin-top: 10px; display: inline-block; }
+        /* --- GIFT BOX --- */
+        .gift-card { background: #f9f9f9; padding: 20px; border-radius: 20px; border: 1px dashed #d4af37; margin-top: 20px; }
+        .copy-btn { background: #d4af37; color: #fff; border: none; padding: 8px 15px; border-radius: 50px; font-size: 0.8em; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .copy-btn:active { transform: scale(0.9); }
+
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; z-index: 7000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #d4af37; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
+
+        .profile-slider { width: 160px; height: 160px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 3px solid #d4af37; position: relative; }
+        .profile-slider img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:1s; }
+        .profile-slider img.active { opacity:1; }
+        .nama-klik { color: #b8860b; cursor: pointer; font-weight: bold; font-size: 1.2em; text-decoration: underline dotted; }
+        .btn-modern { display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; margin-top: 20px; }
+        .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 5500; cursor: pointer; display: none; }
     </style>
 </head>
 <body>
@@ -62,7 +63,7 @@
             <div class="spinner"></div>
             <div style="position: absolute; font-family: 'Dancing Script'; font-size: 1.5em; color: #d4af37; font-weight: bold;">A & I</div>
         </div>
-        <p style="font-family: 'Playfair Display'; color: #b8860b; letter-spacing: 2px; margin-top: 15px; font-size: 0.8em;">Menyiapkan Cerita Bahagia...</p>
+        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 15px;">Menyiapkan Cerita Bahagia...</p>
     </div>
 
     <audio id="lagu" loop><source src="musik1.mp3" type="audio/mpeg"></audio>
@@ -72,15 +73,11 @@
         <div class="modal-content">
             <span class="close-modal" onclick="tutupModal('modalAlvin')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Profil Alvin</h2>
-            <hr style="margin: 15px 0; opacity: 0.1;">
-            <p><b>Tempat, Tgl Lahir:</b><br>Cianjur, 17 Mei 2001</p>
-            <p><b>Anak ke:</b> 2 dari 3 Bersaudara</p>
-            <div style="margin-top: 20px;">
-                <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
-                <img src="ortu-alvin.jpg" class="ortu-img">
-                <p style="font-size: 0.85em; margin-top: 10px; color: #555;">Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            </div>
-            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-ig">📸 Instagram Alvin</a>
+            <p style="margin: 15px 0;">Cianjur, 17 Mei 2001<br>Anak ke 2 dari 3 Bersaudara</p>
+            <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
+            <img src="ortu-alvin.jpg" style="width:100%; border-radius:15px; margin-top:10px;">
+            <p style="font-size:0.8em; color:#666;">Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
+            <a href="https://www.instagram.com/alviannnnm" target="_blank" style="color:#b8860b; display:block; margin-top:15px; font-weight:bold;">📸 Instagram</a>
         </div>
     </div>
 
@@ -88,23 +85,19 @@
         <div class="modal-content">
             <span class="close-modal" onclick="tutupModal('modalIma')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Profil Ima</h2>
-            <hr style="margin: 15px 0; opacity: 0.1;">
-            <p><b>Tempat, Tgl Lahir:</b><br>Cianjur, 23 April 2006</p>
-            <p><b>Anak ke:</b> 3 dari 3 Bersaudara</p>
-            <div style="margin-top: 20px;">
-                <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
-                <img src="ortu-ima.jpg" class="ortu-img">
-                <p style="font-size: 0.85em; margin-top: 10px; color: #555;">Bpk. Ayo & Ibu Nani</p>
-            </div>
-            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-ig">📸 Instagram Ima</a>
+            <p style="margin: 15px 0;">Cianjur, 23 April 2006<br>Anak ke 3 dari 3 Bersaudara</p>
+            <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
+            <img src="ortu-ima.jpg" style="width:100%; border-radius:15px; margin-top:10px;">
+            <p style="font-size:0.8em; color:#666;">Bpk. Ayo & Ibu Nani</p>
+            <a href="https://www.instagram.com/stimaaa_" target="_blank" style="color:#b8860b; display:block; margin-top:15px; font-weight:bold;">📸 Instagram</a>
         </div>
     </div>
 
     <div id="cover">
-        <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37;">The Wedding of</h2>
-        <h1 style="font-family: 'Playfair Display'; font-size: 3.5em;">Alvin & Ima</h1>
+        <h2 style="font-family: 'Dancing Script'; font-size: 2em; color: #d4af37;">The Wedding of</h2>
+        <h1 style="font-family: 'Playfair Display'; font-size: 3em;">Alvin & Ima</h1>
         <div style="margin-top: 30px;">
-            <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
+            <span id="nama-tamu" style="font-size: 1.5em; font-weight: bold; color: #d4af37;">Nama Tamu</span>
         </div>
         <button onclick="bukaUndangan()" class="btn-modern">📩 Buka Undangan</button>
     </div>
@@ -112,60 +105,76 @@
     <div id="isi" class="main-content">
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display';">Assalamu’alaikum Wr. Wb.</h2>
-            <p style="font-style: italic; color: #666; margin-top: 20px; font-size: 0.9em; line-height: 1.8;">
-                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." (QS. Ar-Rum: 21)
-            </p>
-            <p style="margin-top: 20px;">Kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
+            <p style="font-style: italic; margin-top: 20px; font-size: 0.9em; color: #666;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
+            
+            <div id="countdown">
+                <div class="cd-item"><span id="days" class="cd-number">00</span><span class="cd-label">Hari</span></div>
+                <div class="cd-item"><span id="hours" class="cd-number">00</span><span class="cd-label">Jam</span></div>
+                <div class="cd-item"><span id="mins" class="cd-number">00</span><span class="cd-label">Menit</span></div>
+            </div>
         </div>
 
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; margin-bottom: 30px;">Mempelai</h2>
-            <div class="profile-slider" id="sliderAlvin">
-                <a href="alvin-1.jpg" data-lightbox="alvin"><img src="alvin-1.jpg" class="active"></a>
-                <a href="alvin-2.jpg" data-lightbox="alvin"><img src="alvin-2.jpg"></a>
-                <a href="alvin-3.jpg" data-lightbox="alvin"><img src="alvin-3.jpg"></a>
+            <div class="profile-slider" id="sliderA">
+                <img src="alvin-1.jpg" class="active"><img src="alvin-2.jpg"><img src="alvin-3.jpg">
             </div>
             <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
-            <h1 style="font-family: 'Dancing Script'; margin: 25px 0; color: #d4af37; font-size: 3em;">&</h1>
-            <div class="profile-slider" id="sliderIma">
-                <a href="ima-1.jpg" data-lightbox="ima"><img src="ima-1.jpg" class="active"></a>
-                <a href="ima-2.jpg" data-lightbox="ima"><img src="ima-2.jpg"></a>
-                <a href="ima-3.jpg" data-lightbox="ima"><img src="ima-3.jpg"></a>
+            <h1 style="font-family: 'Dancing Script'; margin: 20px 0; color: #d4af37; font-size: 2.5em;">&</h1>
+            <div class="profile-slider" id="sliderI">
+                <img src="ima-1.jpg" class="active"><img src="ima-2.jpg"><img src="ima-3.jpg">
             </div>
             <div class="nama-klik" onclick="bukaModal('modalIma')">Siti Rohimah (Ima)</div>
         </div>
 
-        <div class="section-card" style="padding: 10px;">
-            <div class="video-container">
-                <video id="vidMempelai" loop muted playsinline>
-                    <source src="video3.mp4" type="video/mp4">
-                </video>
-            </div>
+        <div class="section-card">
+            <h2 style="font-family: 'Playfair Display';">Waktu & Lokasi</h2>
+            <p style="margin-top: 15px;"><b>Minggu, 26 April 2026</b><br>09.00 WIB - Selesai</p>
+            <p style="color: #b8860b; font-weight: bold; margin-top: 10px;">Kediaman Mempelai Wanita (Ima)</p>
+            <p style="font-size: 0.9em;">Jatisari, Kec. Bojongpicung, Cianjur</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=-6.867571,107.230290" target="_blank" class="btn-modern">📍 Buka Google Maps</a>
         </div>
 
         <div class="section-card">
-    <h2 style="font-family: 'Playfair Display';">Waktu & Lokasi</h2>
-    <p style="margin-top: 10px;"><b>Minggu, 26 April 2026</b></p>
-    <p>Pukul 09.00 WIB - Selesai</p>
-    <hr style="margin: 15px auto; width: 50%; opacity: 0.2;">
-    <p><b>Kediaman Mempelai Wanita (Ima)</b><br>
-       Sukaluyu, Kabupaten Cianjur<br>
-       Jawa Barat
-    </p>
-    
-    <a href="https://www.google.com/maps?q=-6.867571,107.230290" target="_blank" class="btn-modern">📍 Buka Google Maps</a>
-</div>
+            <h2 style="font-family: 'Playfair Display';">Wedding Gift</h2>
+            <p style="font-size: 0.9em; color: #666;">Doa restu Anda adalah kado terindah bagi kami. Namun jika ingin mengirim kado, silakan melalui:</p>
+            <div class="gift-card">
+                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/Aladin_Bank_logo.svg/1200px-Aladin_Bank_logo.svg.png" style="height: 30px; margin-bottom: 10px;">
+                <p style="font-weight: bold;" id="noRek">50121867211</p>
+                <p style="font-size: 0.8em; color: #888;">a.n Moh Alvian</p>
+                <button class="copy-btn" onclick="copyRek()">📋 Salin No. Rekening</button>
+            </div>
+        </div>
 
+        <p style="text-align: center; font-size: 0.6em; color: #aaa; letter-spacing: 3px; margin: 40px 0;">MADE BY ALVIAN</p>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.setProperty('--left', Math.random() * 100 + 'vw');
+            leaf.style.setProperty('--left-end', (Math.random() * 100 - 20) + 'vw');
+            leaf.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 7000);
+        }
+        setInterval(createLeaf, 500);
+
         function bukaModal(id) { document.getElementById(id).style.display = "flex"; document.body.style.overflow = "hidden"; }
         function tutupModal(id) { document.getElementById(id).style.display = "none"; document.body.style.overflow = "auto"; }
 
+        const targetDate = new Date("April 26, 2026 09:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        }, 1000);
+
         function startSlider(id) {
             let cur = 0; const imgs = document.querySelectorAll(`#${id} img`);
-            if (imgs.length <= 1) return;
             setInterval(() => { imgs[cur].classList.remove('active'); cur = (cur + 1) % imgs.length; imgs[cur].classList.add('active'); }, 3000);
         }
 
@@ -175,9 +184,7 @@
             setTimeout(() => {
                 document.getElementById('loader').style.display = "none";
                 document.getElementById('cover').classList.add('opened');
-                document.getElementById('vidMempelai').play();
-                startSlider('sliderAlvin');
-                startSlider('sliderIma');
+                startSlider('sliderA'); startSlider('sliderI');
                 setTimeout(() => {
                     document.getElementById('isi').classList.add('visible');
                     document.getElementById('musicToggle').style.display = 'flex';
@@ -186,11 +193,17 @@
             }, 2000);
         }
 
+        function copyRek() {
+            navigator.clipboard.writeText("50121867211");
+            alert("Nomor Rekening Berhasil Disalin!");
+        }
+
         function toggleMusic() { const a = document.getElementById('lagu'); a.paused ? a.play() : a.pause(); }
-        const obs = new IntersectionObserver((es) => {
-            es.forEach(e => { if (e.isIntersecting) e.target.classList.add('appear'); });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('appear'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.section-card').forEach(c => obs.observe(c));
+        document.querySelectorAll('.section-card').forEach(card => observer.observe(card));
     </script>
 </body>
 </html>
