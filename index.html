@@ -10,7 +10,7 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #fdfcf5; color: #333; overflow-x: hidden; }
 
-        /* --- COVER SCREEN SLIDESHOW --- */
+        /* --- COVER SCREEN --- */
         #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1); text-align: center; color: white; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #cover.opened { transform: translateY(-100%); }
         .cover-bg { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; z-index: -1; }
@@ -27,7 +27,7 @@
         }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* --- CINEMATIC VIDEO SECTION --- */
+        /* --- VIDEO SECTION --- */
         .video-break {
             width: 92%; max-width: 450px; height: 350px; margin: 40px auto; border-radius: 30px 5px;
             overflow: hidden; position: relative; border: 2px solid #d4af37;
@@ -38,7 +38,16 @@
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
         .video-overlay h1 { font-family: 'Dancing Script', cursive; color: #d4af37; font-size: 3.5em; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); margin: 0; }
 
-        .couple-photo { width: 200px; height: 200px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
+        
+        /* TOMBOL SOSMED */
+        .btn-ig {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; padding: 8px 18px;
+            background: #fff; color: #b8860b; border: 1px solid #d4af37; border-radius: 20px;
+            text-decoration: none; font-size: 0.8em; font-weight: bold; transition: 0.3s;
+        }
+        .btn-ig:hover { background: #fdfcf5; transform: scale(1.05); }
+
         .btn-action { display: inline-block; margin: 15px 5px; padding: 15px 30px; background: linear-gradient(45deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; border: none; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8em; }
         
         .story-box { text-align: left; font-size: 0.9em; line-height: 2; color: #555; padding: 0 10px; }
@@ -83,11 +92,14 @@
             <img src="VID-20250926-WA0059.jpg" class="couple-photo">
             <h3 style="font-size: 1.8em; color: #b8860b;">M. Alvian (Alvin)</h3>
             <p>Putra dari Bapak Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
+            <a href="https://www.instagram.com/alviannnnm?igsh=MXAzMTAxZms5bzJ2MA==" target="_blank" class="btn-ig">
+                📸 @alviannnnm
+            </a>
         </div>
 
         <div class="video-break section-card">
             <video id="vidMempelai" loop muted playsinline>
-                <source src="video3.mp4" type="video/mp4">
+                <source src="video2.mp4" type="video/mp4">
             </video>
             <div class="video-overlay">
                 <h1>Alvin & Ima</h1>
@@ -98,12 +110,15 @@
             <img src="Foto-1.jpg" class="couple-photo">
             <h3 style="font-size: 1.8em; color: #b8860b;">Siti Rohimah (Ima)</h3>
             <p>Putri dari Bapak Ayo<br>& Ibu Nani</p>
+            <a href="https://www.instagram.com/stimaaa_?igsh=MXdvajNmcDVsZ2w0ag==" target="_blank" class="btn-ig">
+                📸 @stimaaa_
+            </a>
         </div>
 
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display';">Our Love Story</h2>
             <div class="story-box">
-                <span class="story-date">Awal Bertemu (Juli 2026)</span>
+                <span class="story-date">Awal Bertemu (Juli 2025)</span>
                 <p>Pertemuan di tempat kerja yang berlanjut menjadi obrolan serius tentang masa depan.</p>
                 <span class="story-date">Pertunangan (26 April 2026)</span>
                 <p>Di hadapan orang tua, kami mengikat janji suci untuk melangkah ke pelaminan.</p>
