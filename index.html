@@ -27,13 +27,14 @@
         .profile-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
         .profile-slider img.active { opacity: 1; }
 
-        /* --- VIDEO SECTION --- */
+        /* --- VIDEO --- */
         .video-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; margin: 20px 0; border: 2px solid #d4af37; }
         .video-container video { width: 100%; height: 100%; object-fit: cover; }
 
         .btn-modern { display: inline-block; padding: 15px 35px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 15px rgba(212,175,55,0.3); margin-top: 20px; border: none; cursor: pointer; }
         
         .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1100; cursor: pointer; display: none; }
+        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -53,15 +54,23 @@
 
     <div id="isi" class="main-content">
         <div class="section-card">
-            <h2>Mempelai</h2>
+            <h2 style="font-family: 'Playfair Display';">Assalamu’alaikum</h2>
+            <p style="font-style: italic; color: #666; margin-top: 15px;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
+            <p style="margin-top: 20px;">Maha suci Allah yang telah mempertautkan dua hati dalam ikatan suci pernikahan.</p>
+        </div>
+
+        <div class="section-card">
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 30px;">Mempelai</h2>
+            
             <div class="profile-slider" id="sliderAlvin">
                 <a href="alvin-1.jpg" data-lightbox="alvin"><img src="alvin-1.jpg" class="active"></a>
                 <a href="alvin-2.jpg" data-lightbox="alvin"><img src="alvin-2.jpg"></a>
                 <a href="alvin-3.jpg" data-lightbox="alvin"><img src="alvin-3.jpg"></a>
             </div>
             <h3>M. Alvian (Alvin)</h3>
+            <p style="font-size: 0.9em; color: #777;">Putra dari Bapak Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
             
-            <h1 style="font-family: 'Dancing Script'; margin: 20px 0; color: #d4af37;">&</h1>
+            <h1 style="font-family: 'Dancing Script'; margin: 25px 0; color: #d4af37; font-size: 2.5em;">&</h1>
 
             <div class="profile-slider" id="sliderIma">
                 <a href="ima-1.jpg" data-lightbox="ima"><img src="ima-1.jpg" class="active"></a>
@@ -69,27 +78,40 @@
                 <a href="ima-3.jpg" data-lightbox="ima"><img src="ima-3.jpg"></a>
             </div>
             <h3>Siti Rohimah (Ima)</h3>
+            <p style="font-size: 0.9em; color: #777;">Putri dari Bapak Ayo<br>& Ibu Nani</p>
         </div>
 
         <div class="section-card">
-            <h2>Our Journey</h2>
-            <p><strong>Juli 2025</strong><br>Pertemuan pertama yang mengubah segalanya.</p>
+            <h2 style="font-family: 'Playfair Display';">Our Journey</h2>
+            <div style="text-align: left; padding: 0 10px;">
+                <span class="story-date">Juli 2025</span>
+                <p>Pertemuan pertama yang menjadi awal segalanya, di mana dua hati mulai saling mengenal.</p>
+                <span class="story-date">26 April 2026</span>
+                <p>Momen sakral pertunangan kami sebagai pengikat janji menuju hari bahagia.</p>
+                <span class="story-date">26 April 2027</span>
+                <p>Langkah baru kehidupan kami dimulai dalam ikatan pernikahan.</p>
+            </div>
         </div>
 
-        <div class="section-card" style="padding: 10px;">
+        <div class="section-card" style="padding: 15px;">
             <div class="video-container">
                 <video id="vidMempelai" loop muted playsinline>
                     <source src="video3.mp4" type="video/mp4">
                 </video>
             </div>
-            <p style="font-family: 'Dancing Script'; font-size: 1.5em; color: #d4af37;">Forever Together</p>
+            <p style="font-family: 'Dancing Script'; font-size: 1.8em; color: #d4af37; margin-top: 10px;">Forever Together</p>
         </div>
 
         <div class="section-card">
-            <h2>Lokasi</h2>
-            <p><strong>Minggu, 26 April 2027</strong><br>Kediaman Mempelai Wanita</p>
-            <a href="http://google.com/maps" target="_blank" class="btn-modern">📍 Buka Maps</a>
+            <h2 style="font-family: 'Playfair Display';">Time & Location</h2>
+            <p style="margin-top: 15px;"><strong>Minggu, 26 April 2027</strong></p>
+            <p>Pukul 10:00 WIB - Selesai</p>
+            <p style="color: #b8860b; font-weight: bold; margin-top: 10px;">Kediaman Mempelai Wanita (Ima)</p>
+            <br>
+            <a href="http://google.com/maps" target="_blank" class="btn-modern">📍 Buka Google Maps</a>
         </div>
+        
+        <p style="text-align: center; font-size: 0.7em; margin: 40px 0; color: #999; letter-spacing: 2px;">DESIGNED BY ALVIAN</p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -98,6 +120,7 @@
         function startSlider(id) {
             let cur = 0;
             const imgs = document.querySelectorAll(`#${id} img`);
+            if (imgs.length <= 1) return;
             setInterval(() => {
                 imgs[cur].classList.remove('active');
                 cur = (cur + 1) % imgs.length;
