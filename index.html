@@ -8,64 +8,47 @@
     <style>
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            margin: 0; padding: 0; font-family: 'Quicksand', sans-serif;
-            background-color: #fdfcf5; color: #333; overflow-x: hidden;
-        }
+        body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #fdfcf5; color: #333; overflow-x: hidden; }
 
-        /* --- COVER SCREEN --- */
-        #cover {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
-            text-align: center; color: white; padding: 20px;
-        }
+        /* --- COVER SCREEN SLIDESHOW --- */
+        #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1); text-align: center; color: white; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #cover.opened { transform: translateY(-100%); }
-        .nama-tamu-cover { font-size: 1.6em; font-weight: bold; color: #d4af37; margin: 10px 0; display: block; }
+        .cover-bg { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; z-index: -1; }
+        .nama-tamu-cover { font-size: 1.8em; font-weight: bold; color: #d4af37; margin: 15px 0; display: block; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
 
-        /* --- MAIN CONTENT FADE IN --- */
-        .main-content { padding-top: 50px; opacity: 0; transform: translateY(30px); transition: opacity 1.8s ease, transform 1.8s ease; }
-        .main-content.visible { opacity: 1; transform: translateY(0); }
+        /* --- MAIN CONTENT & REVEAL --- */
+        .main-content { padding-top: 50px; opacity: 0; transition: opacity 1.5s; }
+        .main-content.visible { opacity: 1; }
         
-        /* SECTION CARD MEWAH */
         .section-card {
-            background: #fff; margin: 20px auto 40px; padding: 40px 20px; border-radius: 20px;
-            width: 90%; max-width: 450px; text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
-            opacity: 0; transform: translateY(30px); transition: all 1s ease-out;
+            background: #fff; margin: 30px auto; padding: 40px 20px; border-radius: 30px 5px; 
+            width: 92%; max-width: 450px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out;
         }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* VIDEO CONTAINER GACOR */
-        .media-frame {
-            width: 200px; height: 200px; margin: 0 auto 20px;
-            border-radius: 50%; overflow: hidden;
-            border: 5px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            background: #eee;
+        /* --- CINEMATIC VIDEO SECTION --- */
+        .video-break {
+            width: 92%; max-width: 450px; height: 350px; margin: 40px auto; border-radius: 30px 5px;
+            overflow: hidden; position: relative; border: 2px solid #d4af37;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); opacity: 0; transform: scale(0.9); transition: all 1.5s ease;
         }
-        .media-frame video { width: 100%; height: 100%; object-fit: cover; }
+        .video-break.appear { opacity: 1; transform: scale(1); }
+        .video-break video { width: 100%; height: 100%; object-fit: cover; }
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
+        .video-overlay h1 { font-family: 'Dancing Script', cursive; color: #d4af37; font-size: 3.5em; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); margin: 0; }
 
-        .btn-action {
-            display: inline-block; margin: 10px 5px; padding: 12px 25px; 
-            background: linear-gradient(45deg, #d4af37, #b8860b);
-            color: white; border-radius: 50px; font-weight: bold;
-            text-decoration: none; border: none; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-size: 0.9em;
-        }
-
-        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .gallery img { width: 100%; border-radius: 10px; height: 130px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.3); }
+        .couple-photo { width: 200px; height: 200px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .btn-action { display: inline-block; margin: 15px 5px; padding: 15px 30px; background: linear-gradient(45deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; border: none; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8em; }
         
-        .story-box { text-align: left; font-size: 0.85em; line-height: 1.8; color: #555; }
-        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 15px; border-left: 3px solid #d4af37; padding-left: 10px; }
-        h2 { font-family: 'Playfair Display', serif; color: #b8860b; font-size: 1.8em; }
+        .story-box { text-align: left; font-size: 0.9em; line-height: 2; color: #555; padding: 0 10px; }
+        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 15px; border-left: 4px solid #d4af37; padding-left: 15px; font-size: 1.1em; }
+        
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px; }
+        .gallery img { width: 100%; border-radius: 15px; height: 140px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.2); }
 
-        .music-btn { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; cursor: pointer; display: none; }
-        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 1; animation: fall linear infinite; opacity: 0.5; }
+        .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1100; cursor: pointer; display: none; font-size: 1.5em; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 100; animation: fall linear infinite; opacity: 0.4; }
         @keyframes fall { 0% { top: -10%; transform: rotate(0deg); } 100% { top: 110%; transform: rotate(720deg); } }
     </style>
 </head>
@@ -75,56 +58,62 @@
     <div id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</div>
 
     <div id="cover">
+        <div class="cover-bg"></div>
         <div class="cover-content">
-            <h2>The Wedding of</h2>
-            <h1>Alvin & Ima</h1>
-            <p style="letter-spacing: 4px; font-weight: bold; color: #d4af37;">26 APRIL 2027</p>
-            <div class="yth">
-                Kepada Yth. Bapak/Ibu/Saudara/i:
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.5em; color: #d4af37;">The Wedding of</h2>
+            <h1 style="font-family: 'Playfair Display'; font-size: 3.5em; margin: 10px 0; letter-spacing: 3px;">Alvin & Ima</h1>
+            <p style="letter-spacing: 5px; font-weight: bold; color: #d4af37;">26 APRIL 2027</p>
+            <div style="margin-top: 40px; font-size: 0.9em; opacity: 0.9;">
+                Kpd. Bapak/Ibu/Saudara/i:
                 <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
             </div>
-            <button onclick="bukaUndangan()" class="btn-action" style="padding: 15px 40px; font-size: 1em;">📩 Buka Undangan</button>
+            <button onclick="bukaUndangan()" class="btn-action" style="padding: 18px 40px; font-size: 1em; margin-top: 20px;">📩 Buka Undangan</button>
         </div>
     </div>
 
     <div id="isi" class="main-content">
         <div class="section-card">
-            <h2>Assalamu’alaikum</h2>
-            <p style="font-style: italic; font-size: 0.85em; color: #777;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..." (Ar-Rum: 21)</p>
+            <h2 style="font-family: 'Playfair Display';">Assalamu’alaikum</h2>
+            <p style="font-style: italic; color: #777;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..." (Ar-Rum: 21)</p>
             <hr style="border:0; border-top:1px solid rgba(212,175,55,0.1); margin: 25px 0;">
             <p>Maha suci Allah yang telah mempertautkan dua hati dalam ikatan suci pernikahan.</p>
         </div>
 
         <div class="section-card">
-            <h2>Mempelai</h2>
-            
-            <div class="media-frame">
-                <video id="videoMempelai" loop muted playsinline>
-                    <source src="video2.mp4" type="video/mp4">
-                    Browser lo gak support video bray.
-                </video>
-            </div>
+            <img src="VID-20250926-WA0059.jpg" class="couple-photo">
+            <h3 style="font-size: 1.8em; color: #b8860b;">M. Alvian (Alvin)</h3>
+            <p>Putra dari Bapak Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
+        </div>
 
-            <h3 style="color: #b8860b;">Alvin & Ima</h3>
-            <p>Pasangan yang berbahagia</p>
-            <h1 style="font-family: 'Dancing Script'; color: #d4af37; margin: 10px 0;">&</h1>
-            <p>Keluarga Besar Alvin & Ima</p>
+        <div class="video-break section-card">
+            <video id="vidMempelai" loop muted playsinline>
+                <source src="video2.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay">
+                <h1>Alvin & Ima</h1>
+            </div>
         </div>
 
         <div class="section-card">
-            <h2>Our Love Story</h2>
+            <img src="Foto-1.jpg" class="couple-photo">
+            <h3 style="font-size: 1.8em; color: #b8860b;">Siti Rohimah (Ima)</h3>
+            <p>Putri dari Bapak Ayo<br>& Ibu Nani</p>
+        </div>
+
+        <div class="section-card">
+            <h2 style="font-family: 'Playfair Display';">Our Love Story</h2>
             <div class="story-box">
-                <span class="story-date">Awal Bertemu</span>
-                <p>Momen makan malam pertama di bulan Juli 2026 menjadi awal segalanya.</p>
-                <span class="story-date">Pertunangan</span>
-                <p>Tepat pada 26 April 2026, kami mengikat janji suci di hadapan keluarga.</p>
-                <span class="story-date">Pernikahan</span>
-                <p>26 April 2027, babak baru kehidupan kami dimulai.</p>
+                <span class="story-date">Awal Bertemu (Juli 2026)</span>
+                <p>Pertemuan di tempat kerja yang berlanjut menjadi obrolan serius tentang masa depan.</p>
+                <span class="story-date">Pertunangan (26 April 2026)</span>
+                <p>Di hadapan orang tua, kami mengikat janji suci untuk melangkah ke pelaminan.</p>
+                <span class="story-date">Pernikahan (26 April 2027)</span>
+                <p>Hari di mana ibadah terpanjang kami dimulai sebagai sepasang suami istri.</p>
             </div>
         </div>
 
         <div class="section-card">
-            <h2>Gallery</h2>
+            <h2 style="font-family: 'Playfair Display';">Gallery</h2>
             <div class="gallery">
                 <img src="Foto-1.jpg"><img src="Foto-2.jpg">
                 <img src="Foto-3.jpg"><img src="VID-20250926-WA0059.jpg">
@@ -132,13 +121,13 @@
         </div>
 
         <div class="section-card">
-            <h2>Waktu & Lokasi</h2>
+            <h2 style="font-family: 'Playfair Display';">Waktu & Lokasi</h2>
             <p><strong>Minggu, 26 April 2027</strong><br>Kediaman Mempelai Wanita (Ima)</p>
             <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-action">📍 Lihat Lokasi</a>
-            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: #25d366;">Confirm RSVP (WA)</a>
+            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: #25d366; color:white;">Confirm RSVP (WA)</a>
         </div>
         
-        <p style="text-align: center; font-size: 0.7em; margin: 40px 0; color: #888;">Created with Love by <b>Alvian</b></p>
+        <p style="text-align: center; font-size: 0.8em; margin: 50px 0; color: #999; letter-spacing: 2px;">CREATED BY <b>ALVIAN</b></p>
     </div>
 
     <script>
@@ -146,7 +135,6 @@
         const nama = urlParams.get('to');
         if (nama) { document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' '); }
 
-        // REVEAL ON SCROLL
         const obs = new IntersectionObserver((es) => {
             es.forEach(e => { if (e.isIntersecting) e.target.classList.add('appear'); });
         }, { threshold: 0.1 });
@@ -154,16 +142,13 @@
 
         function bukaUndangan() {
             document.getElementById('lagu').play();
-            // Start video playback when opened
-            const vid = document.getElementById('videoMempelai');
-            vid.play();
-
+            document.getElementById('vidMempelai').play();
             document.getElementById('cover').classList.add('opened');
             setTimeout(() => {
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
                 document.body.style.overflow = 'auto';
-            }, 500);
+            }, 600);
         }
 
         function toggleMusic() {
@@ -177,7 +162,7 @@
             p.style.left = Math.random() * 100 + 'vw';
             const s = Math.random() * 8 + 5 + 'px';
             p.style.width = s; p.style.height = s;
-            p.style.animationDuration = Math.random() * 3 + 5 + 's';
+            p.style.animationDuration = Math.random() * 3 + 6 + 's';
             document.body.appendChild(p);
             setTimeout(() => p.remove(), 8000);
         }, 400);
