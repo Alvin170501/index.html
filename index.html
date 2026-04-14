@@ -4,152 +4,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Wedding of Alvin & Ima</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #fff; color: #333; overflow-x: hidden; }
+        body { font-family: 'Quicksand', sans-serif; background-color: #fffaf0; color: #333; overflow-x: hidden; }
 
-        /* --- ANIMASI BUNGA GUGUR --- */
-        .leaf { position: fixed; top: -10px; width: 15px; height: 15px; background: #ffe4e1; border-radius: 50% 0 50% 0; z-index: 5000; pointer-events: none; animation: fall linear infinite; opacity: 0.8; }
+        /* --- BACKGROUND DECORATION --- */
+        .bg-ornament {
+            position: fixed;
+            width: 300px;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .top-left { top: -50px; left: -50px; transform: rotate(180deg); }
+        .bottom-right { bottom: -50px; right: -50px; }
+
+        /* --- LEAF ANIMATION --- */
+        .leaf { position: fixed; top: -10px; width: 15px; height: 15px; background: #ffe4e1; border-radius: 50% 0 50% 0; z-index: 5000; pointer-events: none; animation: fall linear infinite; opacity: 0.6; }
         @keyframes fall {
             0% { transform: translateY(0) rotate(0deg); left: var(--left); }
             100% { transform: translateY(100vh) rotate(360deg); left: var(--left-end); }
         }
 
         /* --- LOADING & COVER --- */
-        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 6000; }
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; }
         .spinner { width: 70px; height: 70px; border: 5px solid #f3f3f3; border-top: 5px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.5s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; }
+        #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('VID-20250926-WA0059.jpg') center/cover; }
         #cover.opened { transform: translateY(-100%); }
 
-        /* --- MAIN CONTENT --- */
-        .main-content { padding: 80px 0; opacity: 0; transition: opacity 1s; background: #fffaf0; }
+        /* --- MAIN CONTENT (GLASSMORPHISM) --- */
+        .main-content { padding: 60px 0; opacity: 0; transition: opacity 1s; }
         .main-content.visible { opacity: 1; }
-        .section-card { background: #fff; margin: 0 auto 50px; padding: 40px 20px; border-radius: 30px; width: 90%; max-width: 450px; text-align: center; border: 1px solid rgba(212,175,55,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); opacity: 0; transform: translateY(30px); transition: 1s; }
+        
+        .section-card { 
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            margin: 0 auto 40px; 
+            padding: 40px 25px; 
+            border-radius: 30px; 
+            width: 90%; 
+            max-width: 450px; 
+            text-align: center; 
+            border: 1px solid rgba(212,175,55,0.2); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: 1s;
+            position: relative;
+            overflow: hidden;
+        }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* --- COUNTDOWN --- */
-        #countdown { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
-        .cd-item { background: #fdfaf0; border: 1px solid #d4af37; padding: 10px; border-radius: 15px; min-width: 70px; }
-        .cd-number { display: block; font-size: 1.5em; font-weight: bold; color: #b8860b; }
-        .cd-label { font-size: 0.7em; text-transform: uppercase; color: #999; }
+        /* --- DECORATIVE ELEMENTS --- */
+        .card-ornament { position: absolute; width: 60px; opacity: 0.3; pointer-events: none; }
+        .top-r { top: 0; right: 0; }
+        .bot-l { bottom: 0; left: 0; transform: rotate(180deg); }
 
-        /* --- GIFT BOX --- */
-        .gift-card { background: #f9f9f9; padding: 20px; border-radius: 20px; border: 1px dashed #d4af37; margin-top: 20px; }
-        .copy-btn { background: #d4af37; color: #fff; border: none; padding: 8px 15px; border-radius: 50px; font-size: 0.8em; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .copy-btn:active { transform: scale(0.9); }
-
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 7000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #fff; padding: 30px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #d4af37; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
-
-        .profile-slider { width: 160px; height: 160px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 3px solid #d4af37; position: relative; }
+        /* --- PROFILE SLIDER & FLOATING --- */
+        .profile-container { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
         .profile-slider img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:1s; }
         .profile-slider img.active { opacity:1; }
-        .nama-klik { color: #b8860b; cursor: pointer; font-weight: bold; font-size: 1.2em; text-decoration: underline dotted; }
-        .btn-modern { display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; margin-top: 20px; }
-        .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 5500; cursor: pointer; display: none; }
+
+        /* --- BUTTONS & SHIMMER --- */
+        .btn-modern { 
+            display: inline-block; 
+            padding: 15px 35px; 
+            background: linear-gradient(135deg, #d4af37, #b8860b); 
+            color: #fff; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            border: none; 
+            cursor: pointer; 
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+        }
+        .btn-modern::after {
+            content: ''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%;
+            background: rgba(255, 255, 255, 0.4); transform: rotate(30deg); animation: shimmer 4s infinite;
+        }
+        @keyframes shimmer { 100% { left: 150%; } }
+
+        /* --- COUNTDOWN --- */
+        #countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
+        .cd-item { background: white; border: 1px solid rgba(212,175,55,0.3); padding: 10px; border-radius: 12px; min-width: 65px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .cd-number { display: block; font-size: 1.4em; font-weight: bold; color: #b8860b; }
+        .cd-label { font-size: 0.65em; text-transform: uppercase; color: #888; }
+
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; z-index: 8000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 25px; width: 100%; max-width: 380px; text-align: center; position: relative; border: 2px solid #d4af37; animation: zoomIn 0.3s; }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; color: #999; }
+
+        /* --- MUSIC TOGGLE --- */
+        .music-btn { position: fixed; bottom: 25px; right: 25px; background: #d4af37; color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 7000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        .nama-klik { color: #b8860b; cursor: pointer; font-weight: 700; font-size: 1.1em; margin-top: 10px; display: inline-block; transition: 0.3s; border-bottom: 1px dashed #d4af37; }
     </style>
 </head>
 <body>
 
+    <img src="https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-12.png" class="bg-ornament top-left">
+    <img src="https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-12.png" class="bg-ornament bottom-right">
+
     <div id="loader">
-        <div style="position: relative; display: flex; align-items: center; justify-content: center;">
-            <div class="spinner"></div>
-            <div style="position: absolute; font-family: 'Dancing Script'; font-size: 1.5em; color: #d4af37; font-weight: bold;">A & I</div>
-        </div>
-        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 15px;">Menyiapkan Cerita Bahagia...</p>
+        <div class="spinner"></div>
+        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 20px;">Menyulam Kebahagiaan...</p>
     </div>
 
     <audio id="lagu" loop><source src="musik1.mp3" type="audio/mpeg"></audio>
-    <div id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</div>
+    <div id="musicToggle" class="music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i></div>
 
     <div id="modalAlvin" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="tutupModal('modalAlvin')">×</span>
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Profil Alvin</h2>
-            <p style="margin: 15px 0;">Cianjur, 17 Mei 2001<br>Anak ke 2 dari 3 Bersaudara</p>
-            <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
-            <img src="ortu-alvin.jpg" style="width:100%; border-radius:15px; margin-top:10px;">
-            <p style="font-size:0.8em; color:#666;">Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            <a href="https://www.instagram.com/alviannnnm" target="_blank" style="color:#b8860b; display:block; margin-top:15px; font-weight:bold;">📸 Instagram</a>
+            <span class="close-modal" onclick="tutupModal('modalAlvin')">&times;</span>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">M. Alvian</h2>
+            <p style="margin: 10px 0; font-size: 0.9em;">Cianjur, 17 Mei 2001<br>Anak ke 2 dari 3 Bersaudara</p>
+            <p style="font-weight: bold; color: #d4af37; margin-top: 15px;">Putra Dari:</p>
+            <p style="font-size: 0.9em; color: #555;">Bpk. Zen Abdul Aziz<br>&<br>Ibu Suryani Andriani</p>
+            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-modern" style="padding: 10px 20px; font-size: 0.8em;"><i class="fab fa-instagram"></i> Instagram</a>
         </div>
     </div>
 
     <div id="modalIma" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="tutupModal('modalIma')">×</span>
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Profil Ima</h2>
-            <p style="margin: 15px 0;">Cianjur, 23 April 2006<br>Anak ke 3 dari 3 Bersaudara</p>
-            <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
-            <img src="ortu-ima.jpg" style="width:100%; border-radius:15px; margin-top:10px;">
-            <p style="font-size:0.8em; color:#666;">Bpk. Ayo & Ibu Nani</p>
-            <a href="https://www.instagram.com/stimaaa_" target="_blank" style="color:#b8860b; display:block; margin-top:15px; font-weight:bold;">📸 Instagram</a>
+            <span class="close-modal" onclick="tutupModal('modalIma')">&times;</span>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Siti Rohimah</h2>
+            <p style="margin: 10px 0; font-size: 0.9em;">Cianjur, 23 April 2006<br>Anak ke 3 dari 3 Bersaudara</p>
+            <p style="font-weight: bold; color: #d4af37; margin-top: 15px;">Putri Dari:</p>
+            <p style="font-size: 0.9em; color: #555;">Bpk. Ayo<br>&<br>Ibu Nani</p>
+            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-modern" style="padding: 10px 20px; font-size: 0.8em;"><i class="fab fa-instagram"></i> Instagram</a>
         </div>
     </div>
 
     <div id="cover">
-        <h2 style="font-family: 'Dancing Script'; font-size: 2em; color: #d4af37;">The Wedding of</h2>
-        <h1 style="font-family: 'Playfair Display'; font-size: 3em;">Alvin & Ima</h1>
-        <div style="margin-top: 30px;">
-            <span id="nama-tamu" style="font-size: 1.5em; font-weight: bold; color: #d4af37;">Nama Tamu</span>
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37; margin-bottom: 10px;">The Wedding of</h2>
+        <h1 style="font-family: 'Playfair Display'; font-size: 3.5em; letter-spacing: 2px;">Alvin & Ima</h1>
+        <div style="margin: 30px 0; border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 15px;">
+            <p style="font-size: 0.9em; letter-spacing: 2px; text-transform: uppercase;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <h3 id="nama-tamu" style="font-size: 1.8em; margin-top: 10px; color: #d4af37;">Tamu Undangan</h3>
         </div>
         <button onclick="bukaUndangan()" class="btn-modern">📩 Buka Undangan</button>
     </div>
 
     <div id="isi" class="main-content">
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Assalamu’alaikum Wr. Wb.</h2>
-            <p style="font-style: italic; margin-top: 20px; font-size: 0.9em; color: #666;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
+            <img src="https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-12.png" class="card-ornament top-r">
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Assalamu’alaikum</h2>
+            <p style="font-style: italic; margin-top: 20px; font-size: 0.9em; color: #666; line-height: 1.6;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." <br><b>(Ar-Rum: 21)</b></p>
             
             <div id="countdown">
                 <div class="cd-item"><span id="days" class="cd-number">00</span><span class="cd-label">Hari</span></div>
                 <div class="cd-item"><span id="hours" class="cd-number">00</span><span class="cd-label">Jam</span></div>
                 <div class="cd-item"><span id="mins" class="cd-number">00</span><span class="cd-label">Menit</span></div>
+                <div class="cd-item"><span id="secs" class="cd-number">00</span><span class="cd-label">Detik</span></div>
             </div>
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; margin-bottom: 30px;">Mempelai</h2>
-            <div class="profile-slider" id="sliderA">
-                <img src="alvin-1.jpg" class="active"><img src="alvin-2.jpg"><img src="alvin-3.jpg">
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 35px; color: #b8860b;">Mempelai</h2>
+            
+            <div class="profile-container">
+                <div class="profile-slider" id="sliderA">
+                    <img src="alvin-1.jpg" class="active"><img src="alvin-2.jpg"><img src="alvin-3.jpg">
+                </div>
+                <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
             </div>
-            <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
-            <h1 style="font-family: 'Dancing Script'; margin: 20px 0; color: #d4af37; font-size: 2.5em;">&</h1>
-            <div class="profile-slider" id="sliderI">
-                <img src="ima-1.jpg" class="active"><img src="ima-2.jpg"><img src="ima-3.jpg">
+
+            <h1 style="font-family: 'Dancing Script'; margin: 25px 0; color: #d4af37; font-size: 3em;">&</h1>
+
+            <div class="profile-container">
+                <div class="profile-slider" id="sliderI">
+                    <img src="ima-1.jpg" class="active"><img src="ima-2.jpg"><img src="ima-3.jpg">
+                </div>
+                <div class="nama-klik" onclick="bukaModal('modalIma')">Siti Rohimah (Ima)</div>
             </div>
-            <div class="nama-klik" onclick="bukaModal('modalIma')">Siti Rohimah (Ima)</div>
+            <img src="https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-12.png" class="card-ornament bot-l">
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Waktu & Lokasi</h2>
-            <p style="margin-top: 15px;"><b>Minggu, 26 April 2026</b><br>09.00 WIB - Selesai</p>
-            <p style="color: #b8860b; font-weight: bold; margin-top: 10px;">Kediaman Mempelai Wanita (Ima)</p>
-            <p style="font-size: 0.9em;">Jatisari, Kec. Bojongpicung, Cianjur</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=-6.867571,107.230290" target="_blank" class="btn-modern">📍 Buka Google Maps</a>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Waktu & Lokasi</h2>
+            <div style="margin: 25px 0;">
+                <i class="far fa-calendar-alt" style="font-size: 2em; color: #d4af37; margin-bottom: 10px;"></i>
+                <p style="font-size: 1.2em; font-weight: bold;">Minggu, 26 April 2026</p>
+                <p>Pukul 09.00 WIB - Selesai</p>
+            </div>
+            <hr style="border: 0; border-top: 1px solid rgba(212,175,55,0.2); margin: 20px 0;">
+            <div style="margin-bottom: 25px;">
+                <i class="fas fa-map-marker-alt" style="font-size: 2em; color: #d4af37; margin-bottom: 10px;"></i>
+                <p style="color: #b8860b; font-weight: bold;">Kediaman Mempelai Wanita</p>
+                <p style="font-size: 0.9em; padding: 0 20px;">Jatisari, Kec. Bojongpicung, Cianjur</p>
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="btn-modern"><i class="fas fa-location-arrow"></i> Petunjuk Lokasi</a>
         </div>
 
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Wedding Gift</h2>
-            <p style="font-size: 0.9em; color: #666;">Doa restu Anda adalah kado terindah bagi kami. Namun jika ingin mengirim kado, silakan melalui:</p>
-            <div class="gift-card">
-                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/Aladin_Bank_logo.svg/1200px-Aladin_Bank_logo.svg.png" style="height: 30px; margin-bottom: 10px;">
-                <p style="font-weight: bold;" id="noRek">50121867211</p>
+        <div class="section-card" style="border: 2px solid rgba(212,175,55,0.3);">
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Wedding Gift</h2>
+            <p style="font-size: 0.85em; color: #777; margin: 15px 0;">Doa restu Anda adalah kado terindah, namun jika ingin memberi tanda kasih, silakan melalui:</p>
+            <div style="background: #fff; padding: 20px; border-radius: 20px; border: 1px dashed #d4af37; margin-top: 20px;">
+                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/Aladin_Bank_logo.svg/1200px-Aladin_Bank_logo.svg.png" style="height: 25px; margin-bottom: 10px;">
+                <p style="font-weight: bold; font-size: 1.2em; letter-spacing: 1px;" id="noRek">50121867211</p>
                 <p style="font-size: 0.8em; color: #888;">a.n Moh Alvian</p>
-                <button class="copy-btn" onclick="copyRek()">📋 Salin No. Rekening</button>
+                <button class="btn-modern" style="padding: 8px 20px; font-size: 0.8em; margin-top: 15px;" onclick="copyRek()">📋 Salin No. Rekening</button>
             </div>
         </div>
 
-        <p style="text-align: center; font-size: 0.6em; color: #aaa; letter-spacing: 3px; margin: 40px 0;">MADE BY ALVIAN</p>
+        <footer style="text-align: center; padding: 40px 0; color: #aaa; font-size: 0.7em; letter-spacing: 3px;">
+            DESIGNED BY ALVIAN &copy; 2026
+        </footer>
     </div>
 
     <script>
+        // Set Guest Name from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const to = urlParams.get('to');
+        if(to) document.getElementById('nama-tamu').innerText = to;
+
+        // Leaf Animation
         function createLeaf() {
             const leaf = document.createElement('div');
             leaf.classList.add('leaf');
@@ -159,51 +247,76 @@
             document.body.appendChild(leaf);
             setTimeout(() => leaf.remove(), 7000);
         }
-        setInterval(createLeaf, 500);
+        setInterval(createLeaf, 600);
 
-        function bukaModal(id) { document.getElementById(id).style.display = "flex"; document.body.style.overflow = "hidden"; }
-        function tutupModal(id) { document.getElementById(id).style.display = "none"; document.body.style.overflow = "auto"; }
+        // Loader
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 1500);
+        };
 
+        // Music & Invitation Control
+        function bukaUndangan() {
+            const lagu = document.getElementById('lagu');
+            lagu.play().catch(() => console.log("Autoplay blocked"));
+            
+            document.getElementById('cover').classList.add('opened');
+            document.body.style.overflow = "auto";
+            
+            setTimeout(() => {
+                document.getElementById('isi').classList.add('visible');
+                document.getElementById('musicToggle').style.display = 'flex';
+                startSlider('sliderA'); startSlider('sliderI');
+            }, 500);
+        }
+
+        function toggleMusic() {
+            const a = document.getElementById('lagu');
+            const btn = document.querySelector('.music-btn i');
+            if(a.paused) { a.play(); btn.className = 'fas fa-music'; }
+            else { a.pause(); btn.className = 'fas fa-pause'; }
+        }
+
+        // Slider Logic
+        function startSlider(id) {
+            let cur = 0; 
+            const imgs = document.querySelectorAll(`#${id} img`);
+            if(imgs.length < 2) return;
+            setInterval(() => {
+                imgs[cur].classList.remove('active');
+                cur = (cur + 1) % imgs.length;
+                imgs[cur].classList.add('active');
+            }, 3000);
+        }
+
+        // Countdown Logic
         const targetDate = new Date("April 26, 2026 09:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
             const diff = targetDate - now;
+            if(diff < 0) return;
             document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
 
-        function startSlider(id) {
-            let cur = 0; const imgs = document.querySelectorAll(`#${id} img`);
-            setInterval(() => { imgs[cur].classList.remove('active'); cur = (cur + 1) % imgs.length; imgs[cur].classList.add('active'); }, 3000);
-        }
+        // Modals
+        function bukaModal(id) { document.getElementById(id).style.display = "flex"; }
+        function tutupModal(id) { document.getElementById(id).style.display = "none"; }
 
-        function bukaUndangan() {
-            document.getElementById('loader').style.display = "flex";
-            document.getElementById('lagu').play();
-            setTimeout(() => {
-                document.getElementById('loader').style.display = "none";
-                document.getElementById('cover').classList.add('opened');
-                startSlider('sliderA'); startSlider('sliderI');
-                setTimeout(() => {
-                    document.getElementById('isi').classList.add('visible');
-                    document.getElementById('musicToggle').style.display = 'flex';
-                    document.body.style.overflow = "auto";
-                }, 600);
-            }, 2000);
-        }
-
+        // Copy Account
         function copyRek() {
             navigator.clipboard.writeText("50121867211");
-            alert("Nomor Rekening Berhasil Disalin!");
+            alert("Nomor Rekening disalin!");
         }
 
-        function toggleMusic() { const a = document.getElementById('lagu'); a.paused ? a.play() : a.pause(); }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('appear'); });
+        // Intersection Observer for Animation
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('appear'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.section-card').forEach(card => observer.observe(card));
+        document.querySelectorAll('.section-card').forEach(s => obs.observe(s));
     </script>
 </body>
 </html>
