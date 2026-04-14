@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,31 +12,12 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Quicksand', sans-serif; background-color: #000; color: #333; overflow-x: hidden; }
+        body { font-family: 'Quicksand', sans-serif; background-color: #fff; color: #333; overflow-x: hidden; }
 
-        /* --- COVER (STATIC IMAGE) --- */
-        #cover { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            z-index: 1000; transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); 
-            text-align: center; color: white;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('VID-20250926-WA0059.jpg') center/cover;
-        }
-        #cover.opened { transform: translateY(-100%); }
-
-        /* --- VIDEO BACKGROUND INSIDE --- */
-        #videoContainer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden; display: none; /* Muncul setelah dibuka */
-        }
-        #bgVideoInside {
-            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-            transform: translate(-50%, -50%); object-fit: cover; opacity: 0.6;
-        }
-        .video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 250, 240, 0.7); /* Warna cream transparan biar teks kebaca */
-        }
+        /* --- BACKGROUND ORNAMENT --- */
+        .bg-ornament { position: fixed; width: 300px; opacity: 0.15; z-index: -1; pointer-events: none; }
+        .top-left { top: -50px; left: -50px; transform: rotate(180deg); }
+        .bottom-right { bottom: -50px; right: -50px; }
 
         /* --- LEAF ANIMATION --- */
         .leaf { position: fixed; top: -10px; width: 15px; height: 15px; background: #ffe4e1; border-radius: 50% 0 50% 0; z-index: 5000; pointer-events: none; animation: fall linear infinite; opacity: 0.6; }
@@ -44,62 +26,91 @@
             100% { transform: translateY(100vh) rotate(360deg); left: var(--left-end); }
         }
 
-        /* --- LOADING --- */
+        /* --- LOADING SCREEN --- */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; }
-        .spinner { width: 70px; height: 70px; border: 5px solid #f3f3f3; border-top: 5px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 60px; height: 60px; border: 4px solid #f3f3f3; border-top: 4px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- MAIN CONTENT --- */
-        .main-content { padding: 60px 0; opacity: 0; transition: opacity 1s; }
+        /* --- COVER --- */
+        #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('VID-20250926-WA0059.jpg') center/cover; }
+        #cover.opened { transform: translateY(-100%); }
+
+        /* --- MAIN CONTENT & GLASSMORPHISM --- */
+        .main-content { padding: 60px 0; opacity: 0; transition: opacity 1s; background: linear-gradient(to bottom, #fffaf0, #ffffff); }
         .main-content.visible { opacity: 1; }
         
         .section-card { 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            margin: 0 auto 40px; padding: 40px 25px; border-radius: 30px; 
-            width: 90%; max-width: 450px; text-align: center; 
-            border: 1px solid rgba(212,175,55,0.2); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            opacity: 0; transform: translateY(30px); transition: 1s;
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            margin: 0 auto 40px; 
+            padding: 45px 25px; 
+            border-radius: 35px; 
+            width: 90%; 
+            max-width: 450px; 
+            text-align: center; 
+            border: 1px solid rgba(212,175,55,0.25); 
+            box-shadow: 0 15px 35px rgba(184, 134, 11, 0.08); 
+            opacity: 0; 
+            transform: translateY(40px); 
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
         }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* --- PROFILE --- */
-        .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; }
-        .profile-slider img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:1s; }
+        /* --- VIDEO STYLE --- */
+        .video-wrapper { width: 100%; border-radius: 20px; overflow: hidden; border: 3px solid #d4af37; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin: 20px 0; background: #000; position: relative; }
+        .video-wrapper video { width: 100%; display: block; }
+
+        /* --- PROFILE STYLE --- */
+        .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .profile-slider img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:1.2s; }
         .profile-slider img.active { opacity:1; }
 
         /* --- BUTTONS --- */
         .btn-modern { 
-            display: inline-block; padding: 15px 35px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; 
-            border-radius: 50px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; margin-top: 20px;
-            position: relative; overflow: hidden;
+            display: inline-block; 
+            padding: 14px 32px; 
+            background: linear-gradient(135deg, #d4af37, #b8860b); 
+            color: #fff; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            border: none; 
+            cursor: pointer; 
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
+            transition: 0.3s;
         }
-        .btn-modern::after { content: ''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%; background: rgba(255, 255, 255, 0.4); transform: rotate(30deg); animation: shimmer 4s infinite; }
-        @keyframes shimmer { 100% { left: 150%; } }
+        .btn-modern:active { transform: scale(0.95); }
+
+        /* --- COUNTDOWN --- */
+        #countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
+        .cd-item { background: white; border: 1px solid rgba(212,175,55,0.3); padding: 12px 8px; border-radius: 15px; min-width: 65px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .cd-number { display: block; font-size: 1.5em; font-weight: bold; color: #b8860b; }
+        .cd-label { font-size: 0.65em; text-transform: uppercase; color: #888; letter-spacing: 1px; }
 
         /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 8000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #fff; padding: 30px; border-radius: 25px; width: 100%; max-width: 380px; text-align: center; position: relative; border: 2px solid #d4af37; }
-        .foto-ortu { width: 100%; max-width: 250px; border-radius: 15px; border: 2px solid #d4af37; margin: 15px 0; }
+        .modal { display: none; position: fixed; z-index: 8000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #fff; padding: 35px 25px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #d4af37; animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
+        .foto-ortu { width: 100%; border-radius: 15px; border: 2px solid #d4af37; margin: 15px 0; }
 
-        .music-btn { position: fixed; bottom: 25px; right: 25px; background: #d4af37; color: white; width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 7000; cursor: pointer; }
-        .nama-klik { color: #b8860b; cursor: pointer; font-weight: 700; border-bottom: 1px dashed #d4af37; }
+        /* --- MISC --- */
+        .music-btn { position: fixed; bottom: 25px; right: 25px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 7000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .nama-klik { color: #b8860b; cursor: pointer; font-weight: 700; font-size: 1.3em; margin-top: 10px; display: inline-block; border-bottom: 1px dashed #d4af37; }
     </style>
 </head>
 <body>
 
+    <img src="https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-12.png" class="bg-ornament top-left">
+    <img src="https://www.transparentpng.com/download/floral/gold-floral-corner-decoration-png-12.png" class="bg-ornament bottom-right">
+
     <div id="loader">
         <div class="spinner"></div>
-        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 20px;">Menyiapkan Cerita Bahagia...</p>
-    </div>
-
-    <div id="videoContainer">
-        <video muted loop playsinline id="bgVideoInside">
-            <source src="video3.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
+        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 20px; letter-spacing: 2px;">Menyulam Kebahagiaan...</p>
     </div>
 
     <audio id="lagu" loop><source src="musik1.mp3" type="audio/mpeg"></audio>
@@ -107,30 +118,34 @@
 
     <div id="modalAlvin" class="modal">
         <div class="modal-content">
-            <span style="position:absolute; top:10px; right:15px; cursor:pointer;" onclick="tutupModal('modalAlvin')">×</span>
+            <span class="close-modal" onclick="tutupModal('modalAlvin')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">M. Alvian</h2>
+            <p style="margin: 10px 0; font-size: 0.95em;">Cianjur, 17 Mei 2001<br>Anak ke 2 dari 3 Bersaudara</p>
             <p style="font-weight: bold; color: #d4af37; margin-top: 15px;">Putra Dari:</p>
-            <img src="ortu-alvin.jpg" alt="Orang Tua Alvin" class="foto-ortu">
+            <img src="ortu-alvin.jpg" class="foto-ortu">
             <p style="font-size: 0.9em; color: #555;">Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
+            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-modern" style="padding: 10px 25px; font-size: 0.8em;"><i class="fab fa-instagram"></i> Instagram</a>
         </div>
     </div>
 
     <div id="modalIma" class="modal">
         <div class="modal-content">
-            <span style="position:absolute; top:10px; right:15px; cursor:pointer;" onclick="tutupModal('modalIma')">×</span>
+            <span class="close-modal" onclick="tutupModal('modalIma')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Siti Rohimah</h2>
+            <p style="margin: 10px 0; font-size: 0.95em;">Cianjur, 23 April 2006<br>Anak ke 3 dari 3 Bersaudara</p>
             <p style="font-weight: bold; color: #d4af37; margin-top: 15px;">Putri Dari:</p>
-            <img src="ortu-ima.jpg" alt="Orang Tua Ima" class="foto-ortu">
+            <img src="ortu-ima.jpg" class="foto-ortu">
             <p style="font-size: 0.9em; color: #555;">Bpk. Ayo & Ibu Nani</p>
+            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-modern" style="padding: 10px 25px; font-size: 0.8em;"><i class="fab fa-instagram"></i> Instagram</a>
         </div>
     </div>
 
     <div id="cover">
-        <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37;">The Wedding of</h2>
-        <h1 style="font-family: 'Playfair Display'; font-size: 3.5em; letter-spacing: 2px;">Alvin & Ima</h1>
-        <div style="margin: 30px 0; border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 15px;">
-            <p style="font-size: 0.9em; text-transform: uppercase;">Kepada Yth.</p>
-            <h3 id="nama-tamu" style="font-size: 1.8em; margin-top: 10px; color: #d4af37;">Tamu Undangan</h3>
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37; margin-bottom: 10px;">The Wedding of</h2>
+        <h1 style="font-family: 'Playfair Display'; font-size: 3.2em; letter-spacing: 2px;">Alvin & Ima</h1>
+        <div style="margin: 35px 0; border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 20px;">
+            <p style="font-size: 0.8em; letter-spacing: 3px; text-transform: uppercase;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <h3 id="nama-tamu" style="font-size: 1.8em; margin-top: 10px; color: #d4af37; font-family: 'Playfair Display';">Tamu Undangan</h3>
         </div>
         <button onclick="bukaUndangan()" class="btn-modern">📩 Buka Undangan</button>
     </div>
@@ -138,16 +153,26 @@
     <div id="isi" class="main-content">
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Assalamu’alaikum</h2>
-            <p style="font-style: italic; margin-top: 20px;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)</p>
+            <p style="font-style: italic; margin-top: 25px; font-size: 0.95em; color: #555; line-height: 1.8;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." <br><b>(QS. Ar-Rum: 21)</b></p>
+            
+            <div id="countdown">
+                <div class="cd-item"><span id="days" class="cd-number">00</span><span class="cd-label">Hari</span></div>
+                <div class="cd-item"><span id="hours" class="cd-number">00</span><span class="cd-label">Jam</span></div>
+                <div class="cd-item"><span id="mins" class="cd-number">00</span><span class="cd-label">Menit</span></div>
+                <div class="cd-item"><span id="secs" class="cd-number">00</span><span class="cd-label">Detik</span></div>
+            </div>
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; margin-bottom: 35px; color: #b8860b;">Mempelai</h2>
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 40px; color: #b8860b; letter-spacing: 2px;">Mempelai</h2>
+            
             <div class="profile-slider" id="sliderA">
                 <img src="alvin-1.jpg" class="active"><img src="alvin-2.jpg"><img src="alvin-3.jpg">
             </div>
             <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
-            <h1 style="font-family: 'Dancing Script'; margin: 25px 0; color: #d4af37; font-size: 3em;">&</h1>
+
+            <h1 style="font-family: 'Dancing Script'; margin: 30px 0; color: #d4af37; font-size: 3.5em;">&</h1>
+
             <div class="profile-slider" id="sliderI">
                 <img src="ima-1.jpg" class="active"><img src="ima-2.jpg"><img src="ima-3.jpg">
             </div>
@@ -155,24 +180,78 @@
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Waktu & Lokasi</h2>
-            <p style="font-weight: bold; margin-top: 10px;">Minggu, 26 April 2026</p>
-            <p>Jatisari, Kec. Bojongpicung, Cianjur</p>
-            <a href="https://maps.google.com" target="_blank" class="btn-modern">📍 Google Maps</a>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Our Story</h2>
+            <div class="video-wrapper">
+                <video id="videoCinematic" loop muted playsinline>
+                    <source src="video3.mp4" type="video/mp4">
+                    Browser lo gak support video bray.
+                </video>
+            </div>
+            <p style="font-size: 0.85em; color: #777; font-style: italic;">"Setiap detik bersamamu adalah cerita indah."</p>
         </div>
+
+        <div class="section-card">
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Waktu & Lokasi</h2>
+            <div style="margin: 30px 0;">
+                <i class="far fa-calendar-alt" style="font-size: 2.2em; color: #d4af37; margin-bottom: 12px;"></i>
+                <p style="font-size: 1.3em; font-weight: bold;">Minggu, 26 April 2026</p>
+                <p>Pukul 09.00 WIB - Selesai</p>
+            </div>
+            <hr style="border: 0; border-top: 1px solid rgba(212,175,55,0.25); margin: 25px 0;">
+            <div style="margin-bottom: 30px;">
+                <i class="fas fa-map-marker-alt" style="font-size: 2.2em; color: #d4af37; margin-bottom: 12px;"></i>
+                <p style="color: #b8860b; font-weight: bold; font-size: 1.1em;">Kediaman Mempelai Wanita</p>
+                <p style="font-size: 0.95em; padding: 0 10px; line-height: 1.5;">Jatisari, Kec. Bojongpicung, Cianjur</p>
+            </div>
+            <a href="https://www.google.com/maps?q=-6.867571,107.230290" target="_blank" class="btn-modern"><i class="fas fa-location-arrow"></i> Petunjuk Lokasi</a>
+        </div>
+
+        <div class="section-card">
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Wedding Gift</h2>
+            <p style="font-size: 0.9em; color: #666; margin: 20px 0; line-height: 1.6;">Doa restu Anda adalah kado terindah, namun jika ingin memberi tanda kasih, silakan melalui:</p>
+            <div style="background: #fdfdfd; padding: 25px; border-radius: 25px; border: 1px dashed #d4af37;">
+                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/Aladin_Bank_logo.svg/1200px-Aladin_Bank_logo.svg.png" style="height: 30px; margin-bottom: 15px;">
+                <p style="font-weight: bold; font-size: 1.3em; letter-spacing: 1.5px; color: #333;" id="noRek">50121867211</p>
+                <p style="font-size: 0.85em; color: #888;">a.n Moh Alvian</p>
+                <button class="btn-modern" style="padding: 10px 25px; font-size: 0.8em; margin-top: 15px;" onclick="copyRek()">📋 Salin No. Rekening</button>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 50px 0; color: #bbb; font-size: 0.7em; letter-spacing: 4px; text-transform: uppercase;">
+            Made with Love by Alvian © 2026
+        </footer>
     </div>
 
     <script>
+        // Guest Name from URL (?to=Nama)
         const urlParams = new URLSearchParams(window.location.search);
         const to = urlParams.get('to');
         if(to) document.getElementById('nama-tamu').innerText = to;
 
-        window.onload = () => { setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 1000); };
+        // Falling Leaf Animation
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.setProperty('--left', Math.random() * 100 + 'vw');
+            leaf.style.setProperty('--left-end', (Math.random() * 100 - 20) + 'vw');
+            leaf.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 8000);
+        }
+        setInterval(createLeaf, 700);
 
+        // Hide Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 1500);
+        });
+
+        // Open Invitation
         function bukaUndangan() {
-            document.getElementById('lagu').play();
-            document.getElementById('bgVideoInside').play(); // Putar video saat dibuka
-            document.getElementById('videoContainer').style.display = 'block'; // Tampilkan container video
+            const lagu = document.getElementById('lagu');
+            const video = document.getElementById('videoCinematic');
+            
+            lagu.play().catch(e => console.log("Music error"));
+            video.play().catch(e => console.log("Video error"));
             
             document.getElementById('cover').classList.add('opened');
             document.body.style.overflow = "auto";
@@ -181,11 +260,20 @@
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
                 startSlider('sliderA'); startSlider('sliderI');
-            }, 500);
+            }, 600);
+        }
+
+        function toggleMusic() {
+            const a = document.getElementById('lagu');
+            const btn = document.querySelector('.music-btn i');
+            if(a.paused) { a.play(); btn.className = 'fas fa-music'; }
+            else { a.pause(); btn.className = 'fas fa-pause'; }
         }
 
         function startSlider(id) {
-            let cur = 0; const imgs = document.querySelectorAll(`#${id} img`);
+            let cur = 0; 
+            const imgs = document.querySelectorAll(`#${id} img`);
+            if(imgs.length < 2) return;
             setInterval(() => {
                 imgs[cur].classList.remove('active');
                 cur = (cur + 1) % imgs.length;
@@ -193,14 +281,27 @@
             }, 3000);
         }
 
-        function toggleMusic() {
-            const a = document.getElementById('lagu');
-            a.paused ? a.play() : a.pause();
-        }
+        // Countdown Logic
+        const targetDate = new Date("April 26, 2026 09:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            if(diff < 0) return;
+            document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById('mins').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById('secs').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        }, 1000);
 
         function bukaModal(id) { document.getElementById(id).style.display = "flex"; }
         function tutupModal(id) { document.getElementById(id).style.display = "none"; }
 
+        function copyRek() {
+            navigator.clipboard.writeText("50121867211");
+            alert("Nomor Rekening Berhasil Disalin!");
+        }
+
+        // Reveal on Scroll
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('appear'); });
         }, { threshold: 0.1 });
