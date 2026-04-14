@@ -4,61 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Wedding of Alvin & Ima</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #fdfcf5; color: #333; overflow-x: hidden; }
+        body { font-family: 'Quicksand', sans-serif; background-color: #fdfcf5; color: #333; overflow-x: hidden; }
 
         /* --- COVER SCREEN --- */
-        #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1); text-align: center; color: white; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.5s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; overflow: hidden; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; }
         #cover.opened { transform: translateY(-100%); }
-        .cover-bg { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; z-index: -1; }
-        .nama-tamu-cover { font-size: 1.8em; font-weight: bold; color: #d4af37; margin: 15px 0; display: block; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .cover-content h2 { font-family: 'Dancing Script', cursive; font-size: 2.5em; color: #d4af37; margin-bottom: 10px; }
+        .cover-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5em; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .nama-tamu-cover { font-size: 1.8em; font-weight: bold; color: #d4af37; margin: 15px 0; display: block; }
 
         /* --- MAIN CONTENT & REVEAL --- */
-        .main-content { padding-top: 50px; opacity: 0; transition: opacity 1.5s; }
+        .main-content { padding: 80px 0; background: #fdfcf5; opacity: 0; transition: opacity 1s; }
         .main-content.visible { opacity: 1; }
-        
-        .section-card {
-            background: #fff; margin: 30px auto; padding: 40px 20px; border-radius: 30px 5px; 
-            width: 92%; max-width: 450px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05); opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out;
-        }
+        .section-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px); margin: 0 auto 60px; padding: 60px 25px; border-radius: 50px 5px; width: 90%; max-width: 500px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.05); opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* --- VIDEO SECTION --- */
-        .video-break {
-            width: 92%; max-width: 450px; height: 350px; margin: 40px auto; border-radius: 30px 5px;
-            overflow: hidden; position: relative; border: 2px solid #d4af37;
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); opacity: 0; transform: scale(0.9); transition: all 1.5s ease;
-        }
-        .video-break.appear { opacity: 1; transform: scale(1); }
-        .video-break video { width: 100%; height: 100%; object-fit: cover; }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
-        .video-overlay h1 { font-family: 'Dancing Script', cursive; color: #d4af37; font-size: 3.5em; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); margin: 0; }
-
-        .couple-photo { width: 180px; height: 180px; border-radius: 50%; border: 4px solid #d4af37; object-fit: cover; margin-bottom: 20px; }
-        
-        /* TOMBOL SOSMED */
-        .btn-ig {
-            display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; padding: 8px 18px;
-            background: #fff; color: #b8860b; border: 1px solid #d4af37; border-radius: 20px;
-            text-decoration: none; font-size: 0.8em; font-weight: bold; transition: 0.3s;
-        }
+        .btn-modern { display: inline-block; margin: 15px 5px; padding: 16px 32px; background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%); color: white; border-radius: 50px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); letter-spacing: 2px; text-transform: uppercase; font-size: 0.8em; transition: 0.3s; }
+        .btn-modern:active { transform: scale(0.95); }
+        .btn-ig { display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; padding: 10px 20px; background: #fff; color: #b8860b; border: 1px solid #d4af37; border-radius: 20px; text-decoration: none; font-size: 0.8em; font-weight: bold; transition: 0.3s; }
         .btn-ig:hover { background: #fdfcf5; transform: scale(1.05); }
 
-        .btn-action { display: inline-block; margin: 15px 5px; padding: 15px 30px; background: linear-gradient(45deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; border: none; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8em; }
-        
-        .story-box { text-align: left; font-size: 0.9em; line-height: 2; color: #555; padding: 0 10px; }
-        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 15px; border-left: 4px solid #d4af37; padding-left: 15px; font-size: 1.1em; }
-        
-        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px; }
-        .gallery img { width: 100%; border-radius: 15px; height: 140px; object-fit: cover; border: 1px solid rgba(212, 175, 55, 0.2); }
+        /* --- MINI SLIDESHOW INDIVIDUAL DENGAN LIGHTBOX --- */
+        .profile-slider { width: 200px; height: 200px; margin: 0 auto 25px; border-radius: 50%; overflow: hidden; border: 5px solid #d4af37; position: relative; box-shadow: 0 10px 30px rgba(212,175,55,0.2); cursor: pointer; }
+        .profile-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; z-index: 1; }
+        .profile-slider img.active { opacity: 1; z-index: 2; }
 
-        .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1100; cursor: pointer; display: none; font-size: 1.5em; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 100; animation: fall linear infinite; opacity: 0.4; }
-        @keyframes fall { 0% { top: -10%; transform: rotate(0deg); } 100% { top: 110%; transform: rotate(720deg); } }
+        /* --- SECTION FOTO BERDUA GACOR --- */
+        .together-slider { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; position: relative; margin-top: 30px; border: 2px solid #d4af37; box-shadow: 0 10px 30px rgba(0,0,0,0.1); cursor: pointer; }
+        .together-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 1; }
+        .together-slider img.active { opacity: 1; z-index: 2; }
+        
+        .story-box { text-align: left; font-size: 0.9em; line-height: 2; color: #555; }
+        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 20px; font-size: 1.1em; border-left: 4px solid #d4af37; padding-left: 15px; }
+        h2 { font-family: 'Playfair Display', serif; color: #b8860b; font-size: 2.2em; margin-bottom: 40px; text-shadow: 1px 1px 2px rgba(212,175,55,0.1); }
+
+        .music-btn { position: fixed; bottom: 30px; right: 30px; background: rgba(212, 175, 55, 0.8); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1100; cursor: pointer; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-size: 1.2em; }
+        .petal { position: fixed; top: -10%; background-color: #d4af37; border-radius: 100% 0 100% 0; pointer-events: none; z-index: 100; animation: fall linear infinite; opacity: 0.5; }
+        @keyframes fall { 0% { top: -10%; transform: rotate(0deg) translateX(0); } 100% { top: 110%; transform: rotate(720deg) translateX(50px); } }
+    
+        /* Atur warna Lightbox biar premium */
+        .lb-outerContainer, .lb-dataContainer { background-color: rgba(253, 252, 245, 0.95); backdrop-filter: blur(10px); }
+        .lb-caption { color: #333; font-family: 'Quicksand', sans-serif; font-weight: bold; }
+        .lb-number { color: #b8860b; }
     </style>
 </head>
 <body>
@@ -67,98 +59,122 @@
     <div id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</div>
 
     <div id="cover">
-        <div class="cover-bg"></div>
+        <div class="cover-overlay"></div>
         <div class="cover-content">
-            <h2 style="font-family: 'Dancing Script'; font-size: 2.5em; color: #d4af37;">The Wedding of</h2>
-            <h1 style="font-family: 'Playfair Display'; font-size: 3.5em; margin: 10px 0; letter-spacing: 3px;">Alvin & Ima</h1>
-            <p style="letter-spacing: 5px; font-weight: bold; color: #d4af37;">26 APRIL 2027</p>
-            <div style="margin-top: 40px; font-size: 0.9em; opacity: 0.9;">
-                Kpd. Bapak/Ibu/Saudara/i:
+            <h2>The Wedding of</h2>
+            <h1>Alvin & Ima</h1>
+            <p style="letter-spacing: 5px; font-weight: bold; color: #d4af37;">26 . 04 . 2027</p>
+            <div style="margin-top: 40px; font-size: 0.9em; opacity: 0.9; color: #eee;">
+                Kepada Yth. Bapak/Ibu/Saudara/i:
                 <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
             </div>
-            <button onclick="bukaUndangan()" class="btn-action" style="padding: 18px 40px; font-size: 1em; margin-top: 20px;">📩 Buka Undangan</button>
+            <button onclick="bukaUndangan()" class="btn-modern" style="padding: 18px 45px; font-size: 0.9em; margin-top: 20px;">Buka Undangan</button>
         </div>
     </div>
 
     <div id="isi" class="main-content">
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Assalamu’alaikum</h2>
-            <p style="font-style: italic; color: #777;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..." (Ar-Rum: 21)</p>
-            <hr style="border:0; border-top:1px solid rgba(212,175,55,0.1); margin: 25px 0;">
+        <div class="section-card reveal-scroll">
+            <h2>Assalamu’alaikum</h2>
+            <p style="font-style: italic; color: #666; line-height: 1.8;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..." (Ar-Rum: 21)</p>
+            <hr style="border:0; border-top:1px solid rgba(212,175,55,0.1); margin: 30px 0;">
             <p>Maha suci Allah yang telah mempertautkan dua hati dalam ikatan suci pernikahan.</p>
         </div>
 
-        <div class="section-card">
-            <img src="VID-20250926-WA0059.jpg" class="couple-photo">
+        <div class="section-card reveal-scroll">
+            <h2>Mempelai</h2>
+            
+            <div class="profile-slider" id="sliderAlvin">
+                <a href="alvin-1.jpg" data-lightbox="alvin" data-title="Alvin"><img src="alvin-1.jpg" class="active"></a>
+                <a href="alvin-2.jpg" data-lightbox="alvin" data-title="Alvin"><img src="alvin-2.jpg"></a>
+                <a href="alvin-3.jpg" data-lightbox="alvin" data-title="Alvin"><img src="alvin-3.jpg"></a>
+            </div>
             <h3 style="font-size: 1.8em; color: #b8860b;">M. Alvian (Alvin)</h3>
             <p>Putra dari Bapak Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
-            <a href="https://www.instagram.com/alviannnnm?igsh=MXAzMTAxZms5bzJ2MA==" target="_blank" class="btn-ig">
-                📸 @alviannnnm
-            </a>
-        </div>
-
-        <div class="video-break section-card">
-            <video id="vidMempelai" loop muted playsinline>
-                <source src="video3.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay">
-                <h1>Alvin & Ima</h1>
+            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-ig">📸 @alviannnnm</a>
+            
+            <h1 style="font-family: 'Dancing Script'; color: #d4af37; font-size: 3em; margin: 30px 0;">&</h1>
+            
+            <div class="profile-slider" id="sliderIma">
+                <a href="ima-1.jpg" data-lightbox="ima" data-title="Ima"><img src="ima-1.jpg" class="active"></a>
+                <a href="ima-2.jpg" data-lightbox="ima" data-title="Ima"><img src="ima-2.jpg"></a>
+                <a href="ima-3.jpg" data-lightbox="ima" data-title="Ima"><img src="ima-3.jpg"></a>
             </div>
-        </div>
-
-        <div class="section-card">
-            <img src="Foto-1.jpg" class="couple-photo">
             <h3 style="font-size: 1.8em; color: #b8860b;">Siti Rohimah (Ima)</h3>
             <p>Putri dari Bapak Ayo<br>& Ibu Nani</p>
-            <a href="https://www.instagram.com/stimaaa_?igsh=MXdvajNmcDVsZ2w0ag==" target="_blank" class="btn-ig">
-                📸 @stimaaa_
-            </a>
+            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-ig">📸 @stimaaa_</a>
         </div>
 
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Our Love Story</h2>
+        <div class="section-card reveal-scroll">
+            <h2>Our Journey</h2>
             <div class="story-box">
-                <span class="story-date">Awal Bertemu (Juli 2025)</span>
-                <p>Pertemuan di tempat kerja yang berlanjut menjadi obrolan serius tentang masa depan.</p>
-                <span class="story-date">Pertunangan (26 April 2026)</span>
-                <p>Di hadapan orang tua, kami mengikat janji suci untuk melangkah ke pelaminan.</p>
-                <span class="story-date">Pernikahan (26 April 2027)</span>
-                <p>Hari di mana ibadah terpanjang kami dimulai sebagai sepasang suami istri.</p>
+                <span class="story-date">Juli 2026</span>
+                <p>Momen makan malam pertama yang menjadi awal segalanya.</p>
+                <span class="story-date">26 April 2026</span>
+                <p>Kami mengikat janji suci di hadapan keluarga.</p>
+                <span class="story-date">26 April 2027</span>
+                <p>Langkah baru kehidupan kami dimulai.</p>
             </div>
         </div>
 
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Gallery</h2>
-            <div class="gallery">
-                <img src="Foto-1.jpg"><img src="Foto-2.jpg">
-                <img src="Foto-3.jpg"><img src="VID-20250926-WA0059.jpg">
+        <div class="section-card reveal-scroll" style="padding: 0; overflow: hidden; border-radius: 30px; position: relative;">
+            <div class="together-slider" id="sliderBerdua">
+                <a href="berdua-1.jpg" data-lightbox="berdua" data-title="Alvin & Ima"><img src="berdua-1.jpg" class="active"></a>
+                <a href="berdua-2.jpg" data-lightbox="berdua" data-title="Alvin & Ima"><img src="berdua-2.jpg"></a>
+                <a href="berdua-3.jpg" data-lightbox="berdua" data-title="Alvin & Ima"><img src="berdua-3.jpg"></a>
+                
+                <div style="position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 10; pointer-events: none;"></div>
+                <h1 style="font-family: 'Dancing Script'; color: #d4af37; font-size: 3.5em; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); position: absolute; z-index: 20; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; pointer-events: none;">Alvin & Ima</h1>
             </div>
         </div>
 
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Waktu & Lokasi</h2>
-            <p><strong>Minggu, 26 April 2027</strong><br>Kediaman Mempelai Wanita (Ima)</p>
-            <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-action">📍 Lihat Lokasi</a>
-            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-action" style="background: #25d366; color:white;">Confirm RSVP (WA)</a>
+        <div class="section-card reveal-scroll">
+            <h2>Time & Location</h2>
+            <p style="font-size: 1.1em;"><strong>Minggu, 26 April 2027</strong></p>
+            <p>Pukul 10:00 WIB - Selesai</p>
+            <p style="color: #b8860b; font-weight: bold;">Kediaman Mempelai Wanita (Ima)</p>
+            <br>
+            <a href="https://maps.app.goo.gl/P2xXfQ9jT6J3v6Wv8" target="_blank" class="btn-modern">📍 Google Maps</a>
+            <a href="https://api.whatsapp.com/send?phone=6285723463132" target="_blank" class="btn-modern" style="background: linear-gradient(135deg, #128c7e, #25d366); color: white;">RSVP via WA</a>
         </div>
         
-        <p style="text-align: center; font-size: 0.8em; margin: 50px 0; color: #999; letter-spacing: 2px;">CREATED BY <b>ALVIAN</b></p>
+        <p style="text-align: center; font-size: 0.8em; margin: 50px 0; color: #999; letter-spacing: 3px;">DESIGN BY <b>ALVIAN</b></p>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
+        // Tangkap Nama Tamu dari Link (?to=Nama)
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
         if (nama) { document.getElementById('nama-tamu').innerText = nama.replace(/\+/g, ' '); }
 
+        // REVEAL ON SCROLL
         const obs = new IntersectionObserver((es) => {
             es.forEach(e => { if (e.isIntersecting) e.target.classList.add('appear'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.section-card').forEach(c => obs.observe(c));
+        document.querySelectorAll('.reveal-scroll').forEach(c => obs.observe(c));
+
+        // FUNGSI SLIDESHOW OTOMATIS
+        function startSlider(id, interval = 3000) {
+            let current = 0;
+            const images = document.querySelectorAll(`#${id} img`);
+            if (images.length <= 1) return; // Gak usah gerak kalau fotonya cuma 1
+            setInterval(() => {
+                images[current].classList.remove('active');
+                current = (current + 1) % images.length;
+                images[current].classList.add('active');
+            }, interval);
+        }
 
         function bukaUndangan() {
             document.getElementById('lagu').play();
-            document.getElementById('vidMempelai').play();
             document.getElementById('cover').classList.add('opened');
+            
+            // Jalankan semua slideshow pas dibuka
+            startSlider('sliderAlvin', 3000);   // Ganti tiap 3 detik
+            startSlider('sliderIma', 3500);     // Ganti tiap 3.5 detik (biar gak barengan)
+            startSlider('sliderBerdua', 4000);  // Ganti tiap 4 detik
+
             setTimeout(() => {
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
@@ -166,11 +182,10 @@
             }, 600);
         }
 
-        function toggleMusic() {
-            const a = document.getElementById('lagu');
-            a.paused ? a.play() : a.pause();
-        }
+        // TUGGLE MUSIK
+        function toggleMusic() { const a = document.getElementById('lagu'); a.paused ? a.play() : a.pause(); }
 
+        // BUNGA EMAS GUGUR
         setInterval(() => {
             const p = document.createElement('div');
             p.classList.add('petal');
@@ -181,6 +196,9 @@
             document.body.appendChild(p);
             setTimeout(() => p.remove(), 8000);
         }, 400);
+
+        // Setting Lightbox biar lebih mantap
+        lightbox.option({ 'wrapAround': true, 'albumLabel': "Foto %1 dari %2", 'fadeDuration': 300, 'resizeDuration': 200, 'fitImagesInViewport': true });
     </script>
 </body>
 </html>
