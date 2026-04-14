@@ -11,6 +11,19 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; }
 
+        /* --- LOADING OVERLAY --- */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #ffffff; display: none; align-items: center; justify-content: center;
+            flex-direction: column; z-index: 3000;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid #f3f3f3;
+            border-top: 5px solid #d4af37; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* --- COVER --- */
         #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.5s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('VID-20250926-WA0059.jpg') center/cover; }
         #cover.opened { transform: translateY(-100%); }
@@ -22,14 +35,6 @@
         .section-card { background: #fff; margin: 0 auto 50px; padding: 50px 25px; border-radius: 40px 5px; width: 90%; max-width: 500px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.15); box-shadow: 0 15px 45px rgba(0,0,0,0.08); opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .section-card.appear { opacity: 1; transform: translateY(0); }
 
-        /* --- SLIDERS --- */
-        .profile-slider { width: 180px; height: 180px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; cursor: pointer; }
-        .profile-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
-        .profile-slider img.active { opacity: 1; }
-
-        .nama-klik { color: #b8860b; cursor: pointer; text-decoration: underline dotted; transition: 0.3s; display: inline-block; margin-top: 10px; font-weight: bold; font-size: 1.3em; letter-spacing: 1px; }
-        .nama-klik:hover { color: #d4af37; transform: scale(1.05); }
-
         /* --- MODAL PROFIL --- */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: #fff; padding: 30px; border-radius: 30px; max-width: 400px; width: 100%; text-align: center; position: relative; animation: zoomIn 0.4s; border: 1px solid #d4af37; }
@@ -37,18 +42,24 @@
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
         .ortu-img { width: 100%; max-height: 180px; border-radius: 15px; object-fit: cover; margin-top: 15px; border: 1px solid #d4af37; }
 
-        /* --- BUTTONS --- */
-        .btn-modern { display: inline-block; padding: 15px 35px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 20px rgba(212,175,55,0.4); margin-top: 20px; border: none; cursor: pointer; font-size: 0.9em; }
-        .btn-ig { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; padding: 10px 25px; background: #fff; color: #b8860b; border: 1px solid #d4af37; border-radius: 50px; text-decoration: none; font-size: 0.8em; font-weight: bold; transition: 0.3s; }
-        .btn-ig:hover { background: #fdfcf5; transform: translateY(-2px); }
-
+        /* --- BUTTONS & SLIDERS --- */
+        .profile-slider { width: 180px; height: 180px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; cursor: pointer; }
+        .profile-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s; }
+        .profile-slider img.active { opacity: 1; }
+        .btn-modern { display: inline-block; padding: 15px 35px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; border-radius: 50px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 20px rgba(212,175,55,0.4); margin-top: 20px; border: none; cursor: pointer; }
+        .btn-ig { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; padding: 10px 25px; background: #fff; color: #b8860b; border: 1px solid #d4af37; border-radius: 50px; text-decoration: none; font-size: 0.8em; font-weight: bold; }
         .video-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; margin: 20px 0; border: 2px solid #d4af37; }
         .video-container video { width: 100%; height: 100%; object-fit: cover; }
         .music-btn { position: fixed; bottom: 30px; right: 30px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1100; cursor: pointer; display: none; }
-        .story-date { color: #b8860b; font-weight: bold; display: block; margin-top: 15px; }
+        .nama-klik { color: #b8860b; cursor: pointer; text-decoration: underline dotted; font-weight: bold; font-size: 1.3em; margin-top: 10px; display: inline-block; }
     </style>
 </head>
 <body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="font-family: 'Playfair Display'; color: #b8860b; letter-spacing: 2px;">Menyiapkan Cerita Bahagia...</p>
+    </div>
 
     <audio id="lagu" loop><source src="musik1.mp3" type="audio/mpeg"></audio>
     <div id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</div>
@@ -58,14 +69,14 @@
             <span class="close-modal" onclick="tutupModal('modalAlvin')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Profil Alvin</h2>
             <hr style="margin: 15px 0; opacity: 0.1;">
-            <p style="margin-bottom: 5px;"><b>Tempat, Tgl Lahir:</b><br>Cianjur, 17 Mei 2001</p>
+            <p><b>Tempat, Tgl Lahir:</b><br>Cianjur, 17 Mei 2001</p>
             <p><b>Anak ke:</b> 2 dari 3 Bersaudara</p>
             <div style="margin-top: 20px;">
                 <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
                 <img src="ortu-alvin.jpg" class="ortu-img">
-                <p style="font-size: 0.85em; margin-top: 10px; color: #555;">Bpk. Zen Abdul Aziz<br>& Ibu Suryani Andriani</p>
+                <p style="font-size: 0.85em; margin-top: 10px; color: #555;">Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
             </div>
-            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-ig">📸 Follow Alvin on Instagram</a>
+            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-ig">📸 Instagram Alvin</a>
         </div>
     </div>
 
@@ -74,22 +85,21 @@
             <span class="close-modal" onclick="tutupModal('modalIma')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Profil Ima</h2>
             <hr style="margin: 15px 0; opacity: 0.1;">
-            <p style="margin-bottom: 5px;"><b>Tempat, Tgl Lahir:</b><br>Cianjur, 23 April 2006</p>
+            <p><b>Tempat, Tgl Lahir:</b><br>Cianjur, 23 April 2006</p>
             <p><b>Anak ke:</b> 3 dari 3 Bersaudara</p>
             <div style="margin-top: 20px;">
                 <p style="font-weight: bold; color: #d4af37;">Orang Tua:</p>
                 <img src="ortu-ima.jpg" class="ortu-img">
-                <p style="font-size: 0.85em; margin-top: 10px; color: #555;">Bpk. Ayo<br>& Ibu Nani</p>
+                <p style="font-size: 0.85em; margin-top: 10px; color: #555;">Bpk. Ayo & Ibu Nani</p>
             </div>
-            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-ig">📸 Follow Ima on Instagram</a>
+            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-ig">📸 Instagram Ima</a>
         </div>
     </div>
 
     <div id="cover">
         <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37;">The Wedding of</h2>
-        <h1 style="font-family: 'Playfair Display'; font-size: 3.5em; letter-spacing: 2px;">Alvin & Ima</h1>
+        <h1 style="font-family: 'Playfair Display'; font-size: 3.5em;">Alvin & Ima</h1>
         <div style="margin-top: 30px;">
-            <p style="font-size: 0.9em; opacity: 0.8;">Kpd. Bapak/Ibu/Saudara/i:</p>
             <span id="nama-tamu" class="nama-tamu-cover">Nama Tamu</span>
         </div>
         <button onclick="bukaUndangan()" class="btn-modern">📩 Buka Undangan</button>
@@ -99,26 +109,20 @@
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display';">Assalamu’alaikum Wr. Wb.</h2>
             <p style="font-style: italic; color: #666; margin-top: 20px; font-size: 0.9em; line-height: 1.8;">
-                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."<br><b>(QS. Ar-Rum: 21)</b>
+                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." (QS. Ar-Rum: 21)
             </p>
-            <hr style="margin: 25px auto; width: 50%; opacity: 0.2;">
-            <p style="line-height: 1.8; color: #444;">
-                Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:
-            </p>
+            <p style="margin-top: 20px;">Kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
         </div>
 
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; margin-bottom: 30px;">Mempelai</h2>
-            
             <div class="profile-slider" id="sliderAlvin">
                 <a href="alvin-1.jpg" data-lightbox="alvin"><img src="alvin-1.jpg" class="active"></a>
                 <a href="alvin-2.jpg" data-lightbox="alvin"><img src="alvin-2.jpg"></a>
                 <a href="alvin-3.jpg" data-lightbox="alvin"><img src="alvin-3.jpg"></a>
             </div>
             <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
-            
             <h1 style="font-family: 'Dancing Script'; margin: 25px 0; color: #d4af37; font-size: 3em;">&</h1>
-
             <div class="profile-slider" id="sliderIma">
                 <a href="ima-1.jpg" data-lightbox="ima"><img src="ima-1.jpg" class="active"></a>
                 <a href="ima-2.jpg" data-lightbox="ima"><img src="ima-2.jpg"></a>
@@ -127,37 +131,19 @@
             <div class="nama-klik" onclick="bukaModal('modalIma')">Siti Rohimah (Ima)</div>
         </div>
 
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display';">Our Journey</h2>
-            <div style="text-align: left; padding: 0 10px; font-size: 0.95em;">
-                <span class="story-date">Juli 2025</span>
-                <p>Awal di mana dua takdir dipertemukan untuk saling mengenal.</p>
-                <span class="story-date">26 April 2026</span>
-                <p>Ikatan janji suci dalam pertunangan yang membawa kami lebih dekat.</p>
-                <span class="story-date">26 April 2027</span>
-                <p>Hari bahagia di mana kami menyatukan langkah dalam pernikahan.</p>
-            </div>
-        </div>
-
         <div class="section-card" style="padding: 10px;">
             <div class="video-container">
                 <video id="vidMempelai" loop muted playsinline>
                     <source src="video3.mp4" type="video/mp4">
                 </video>
             </div>
-            <p style="font-family: 'Dancing Script'; font-size: 1.8em; color: #d4af37; margin-top: 10px;">Forever Together</p>
         </div>
 
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display';">Time & Location</h2>
-            <p style="margin-top: 10px;"><b>Minggu, 26 April 2027</b></p>
-            <p>Pukul 10:00 WIB - Selesai</p>
-            <p style="color: #b8860b; font-weight: bold; margin-top: 10px;">Kediaman Mempelai Wanita (Ima)</p>
-            <br>
-            <a href="http://google.com/maps" target="_blank" class="btn-modern">📍 Buka Google Maps</a>
+            <p><b>Minggu, 26 April 2027</b><br>Kediaman Mempelai Wanita (Ima)</p>
+            <a href="http://google.com/maps" target="_blank" class="btn-modern">📍 Google Maps</a>
         </div>
-        
-        <p style="text-align: center; font-size: 0.7em; margin: 40px 0; color: #999; letter-spacing: 2px;">DESIGNED BY ALVIAN</p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -165,37 +151,38 @@
     <script>
         function bukaModal(id) { document.getElementById(id).style.display = "flex"; document.body.style.overflow = "hidden"; }
         function tutupModal(id) { document.getElementById(id).style.display = "none"; document.body.style.overflow = "auto"; }
-        window.onclick = function(e) { if (e.target.className === 'modal') { e.target.style.display = "none"; document.body.style.overflow = "auto"; } }
 
         function startSlider(id) {
-            let cur = 0;
-            const imgs = document.querySelectorAll(`#${id} img`);
+            let cur = 0; const imgs = document.querySelectorAll(`#${id} img`);
             if (imgs.length <= 1) return;
-            setInterval(() => {
-                imgs[cur].classList.remove('active');
-                cur = (cur + 1) % imgs.length;
-                imgs[cur].classList.add('active');
-            }, 3000);
+            setInterval(() => { imgs[cur].classList.remove('active'); cur = (cur + 1) % imgs.length; imgs[cur].classList.add('active'); }, 3000);
         }
 
         function bukaUndangan() {
+            // Tampilkan Loading Screen
+            document.getElementById('loader').style.display = "flex";
+            
+            // Putar musik di background
             document.getElementById('lagu').play();
-            document.getElementById('vidMempelai').play();
-            document.getElementById('cover').classList.add('opened');
-            startSlider('sliderAlvin');
-            startSlider('sliderIma');
+
             setTimeout(() => {
-                document.getElementById('isi').classList.add('visible');
-                document.getElementById('musicToggle').style.display = 'flex';
-                document.body.style.overflow = 'auto';
-            }, 600);
+                // Sembunyikan Loading & Cover
+                document.getElementById('loader').style.display = "none";
+                document.getElementById('cover').classList.add('opened');
+                document.getElementById('vidMempelai').play();
+                
+                startSlider('sliderAlvin');
+                startSlider('sliderIma');
+                
+                setTimeout(() => {
+                    document.getElementById('isi').classList.add('visible');
+                    document.getElementById('musicToggle').style.display = 'flex';
+                    document.body.style.overflow = "auto";
+                }, 600);
+            }, 2000); // DURASI LOADING (2 DETIK)
         }
 
-        function toggleMusic() { 
-            const a = document.getElementById('lagu'); 
-            a.paused ? a.play() : a.pause(); 
-        }
-
+        function toggleMusic() { const a = document.getElementById('lagu'); a.paused ? a.play() : a.pause(); }
         const obs = new IntersectionObserver((es) => {
             es.forEach(e => { if (e.isIntersecting) e.target.classList.add('appear'); });
         }, { threshold: 0.1 });
