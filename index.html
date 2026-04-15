@@ -190,6 +190,74 @@
             <p style="font-size: 0.85em; color: #777; font-style: italic;">"Setiap detik bersamamu adalah cerita indah."</p>
         </div>
                 <div class="section-card">
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Guest Book</h2>
+            <p style="font-size: 0.85em; color: #777; margin-bottom: 25px;">Berikan ucapan manis & doa restu Anda untuk kami</p>
+            
+            <form id="guestForm" style="text-align: left;">
+                <div style="margin-bottom: 15px;">
+                    <input type="text" id="namaPengirim" placeholder="Nama Anda" required 
+                        style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; outline: none;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <textarea id="pesanDoa" placeholder="Tulis ucapan & doa..." rows="4" required 
+                        style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; outline: none; resize: none;"></textarea>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <select id="konfirmasi" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; background: white;">
+                        <option value="">Konfirmasi Kehadiran</option>
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                        <option value="Masih Ragu">Masih Ragu</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-modern" style="width: 100%; margin-top: 0;">
+                    <i class="fas fa-paper-plane"></i> Kirim Ucapan
+                </button>
+            </form>
+
+            <div id="displayUcapan" style="margin-top: 30px; max-height: 300px; overflow-y: auto; text-align: left; padding-right: 5px;">
+                <div style="background: rgba(212,175,55,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 3px solid #d4af37;">
+                    <strong style="color: #b8860b; font-size: 0.9em;">Alvin & Ima</strong>
+                    <p style="font-size: 0.85em; margin-top: 5px; color: #555;">Terima kasih sudah menyempatkan waktu untuk mengirimkan doa. Sampai jumpa di hari bahagia kami!</p>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Logika Guestbook Sederhana
+        document.getElementById('guestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nama = document.getElementById('namaPengirim').value;
+            const pesan = document.getElementById('pesanDoa').value;
+            const status = document.getElementById('konfirmasi').value;
+            
+            // 1. Tambahkan ke tampilan (instan)
+            const wrapper = document.getElementById('displayUcapan');
+            const newComment = document.createElement('div');
+            newComment.style = "background: white; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.02);";
+            newComment.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong style="color: #333; font-size: 0.9em;">${nama}</strong>
+                    <span style="font-size: 0.7em; background: #d4af37; color: white; padding: 2px 8px; border-radius: 10px;">${status}</span>
+                </div>
+                <p style="font-size: 0.85em; margin-top: 8px; color: #666; line-height: 1.4;">${pesan}</p>
+            `;
+            wrapper.prepend(newComment);
+
+            // 2. Bonus: Kirim Notifikasi ke WA Lo (biar lo tau siapa yang ngisi)
+            const waPesan = `Halo Alvin & Ima, ada ucapan baru di web! \n\nDari: ${nama}\nStatus: ${status}\nPesan: ${pesan}`;
+            const linkWA = `https://wa.me/628123456789?text=${encodeURIComponent(waPesan)}`; // GANTI NO WA LO DISINI
+            
+            alert("Terima kasih atas ucapannya! Kamu juga akan diarahkan ke WhatsApp untuk mengirim pesan ini secara personal.");
+            window.open(linkWA, '_blank');
+
+            // Reset Form
+            this.reset();
+        });
+    </script>
+
+                <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 30px;">Our Love Journey</h2>
             
             <div style="text-align: left; padding: 0 10px; border-left: 2px solid #d4af37; margin-left: 15px;">
