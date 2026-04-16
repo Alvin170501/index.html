@@ -255,73 +255,93 @@
                 <button class="btn-modern" style="padding: 10px 25px; font-size: 0.8em; margin-top: 15px;" onclick="copyRek()">📋 Salin No. Rekening</button>
             </div>
         </div>
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Guest Book</h2>
-            <p style="font-size: 0.85em; color: #777; margin-bottom: 25px;">Berikan ucapan manis & doa restu Anda untuk kami</p>
-            
-            <form id="guestForm" style="text-align: left;">
-                <div style="margin-bottom: 15px;">
-                    <input type="text" id="namaPengirim" placeholder="Nama Anda" required 
-                        style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; outline: none;">
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <textarea id="pesanDoa" placeholder="Tulis ucapan & doa..." rows="4" required 
-                        style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; outline: none; resize: none;"></textarea>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <select id="konfirmasi" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; background: white;">
-                        <option value="">Konfirmasi Kehadiran</option>
-                        <option value="Hadir">Hadir</option>
-                        <option value="Tidak Hadir">Tidak Hadir</option>
-                        <option value="Masih Ragu">Masih Ragu</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-modern" style="width: 100%; margin-top: 0;">
-                    <i class="fas fa-paper-plane"></i> Kirim Ucapan
-                </button>
-            </form>
+        <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-            <div id="displayUcapan" style="margin-top: 30px; max-height: 300px; overflow-y: auto; text-align: left; padding-right: 5px;">
-                <div style="background: rgba(212,175,55,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 3px solid #d4af37;">
-                    <strong style="color: #b8860b; font-size: 0.9em;">Alvin & Ima</strong>
-                    <p style="font-size: 0.85em; margin-top: 5px; color: #555;">Terima kasih sudah menyempatkan waktu untuk mengirimkan doa. Sampai jumpa di hari bahagia kami!</p>
-                </div>
-            </div>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPbK3U6Yoe8qNINXCwrX5WOMyGgfHqwiU",
+    authDomain: "wedding-alvin-ima.firebaseapp.com",
+    projectId: "wedding-alvin-ima",
+    storageBucket: "wedding-alvin-ima.firebasestorage.app",
+    messagingSenderId: "1026738748582",
+    appId: "1:1026738748582:web:eeb9029dbe1987cfdd4867"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const ucapanRef = collection(db, "ucapan");
+
+  // Tampilkan ucapan realtime
+  const q = query(ucapanRef, orderBy("timestamp", "desc"));
+  onSnapshot(q, (snapshot) => {
+    const wrapper = document.getElementById('displayUcapan');
+    wrapper.innerHTML = `
+      <div style="background:rgba(212,175,55,0.05); padding:15px; border-radius:15px; 
+                  margin-bottom:10px; border-left:3px solid #d4af37;">
+        <strong style="color:#b8860b; font-size:0.9em;">Alvin & Ima 💍</strong>
+        <p style="font-size:0.85em; margin-top:5px; color:#555;">
+          Terima kasih sudah menyempatkan waktu untuk mengirimkan doa. 
+          Sampai jumpa di hari bahagia kami!
+        </p>
+      </div>`;
+
+    snapshot.forEach((doc) => {
+      const d = doc.data();
+      const div = document.createElement('div');
+      div.style = "background:white; padding:15px; border-radius:15px; margin-bottom:10px; border:1px solid #eee;";
+      div.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="color:#333; font-size:0.9em;">${d.nama}</strong>
+          <span style="font-size:0.7em; background:#d4af37; color:white; 
+                       padding:2px 8px; border-radius:10px;">${d.status}</span>
         </div>
+        <p style="font-size:0.85em; margin-top:8px; color:#666; line-height:1.4;">${d.pesan}</p>`;
+      wrapper.appendChild(div);
+    });
+  });
 
-    <script>
-        // Logika Guestbook Sederhana
-        document.getElementById('guestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nama = document.getElementById('namaPengirim').value;
-            const pesan = document.getElementById('pesanDoa').value;
-            const status = document.getElementById('konfirmasi').value;
-            
-            // 1. Tambahkan ke tampilan (instan)
-            const wrapper = document.getElementById('displayUcapan');
-            const newComment = document.createElement('div');
-            newComment.style = "background: white; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.02);";
-            newComment.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong style="color: #333; font-size: 0.9em;">${nama}</strong>
-                    <span style="font-size: 0.7em; background: #d4af37; color: white; padding: 2px 8px; border-radius: 10px;">${status}</span>
-                </div>
-                <p style="font-size: 0.85em; margin-top: 8px; color: #666; line-height: 1.4;">${pesan}</p>
-            `;
-            wrapper.prepend(newComment);
+  // Submit ucapan
+  document.getElementById('guestForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-            // 2. Bonus: Kirim Notifikasi ke WA Lo (biar lo tau siapa yang ngisi)
-            const waPesan = `Halo Alvin & Ima, ada ucapan baru di web! \n\nDari: ${nama}\nStatus: ${status}\nPesan: ${pesan}`;
-            const linkWA = `https://wa.me/6285156390455?text=${encodeURIComponent(waPesan)}`; // GANTI NO WA LO DISINI
-            
-            alert("Terima kasih atas ucapannya! Kamu juga akan diarahkan ke WhatsApp untuk mengirim pesan ini secara personal.");
-            window.open(linkWA, '_blank');
+    const nama = document.getElementById('namaPengirim').value.trim();
+    const pesan = document.getElementById('pesanDoa').value.trim();
+    const status = document.getElementById('konfirmasi').value;
+    const btn = this.querySelector('button[type="submit"]');
 
-            // Reset Form
-            this.reset();
-        });
-    </script>
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Mengirim...';
+
+    try {
+      await addDoc(ucapanRef, { nama, pesan, status, timestamp: serverTimestamp() });
+
+      const waPesan = `Halo Alvin & Ima! 🎊\n\nDari: ${nama}\nStatus: ${status}\nPesan: ${pesan}`;
+      const linkWA = `https://wa.me/6285156390455?text=${encodeURIComponent(waPesan)}`;
+
+      const notif = document.createElement('div');
+      notif.style = "background:#f0fdf4; border:1px solid #86efac; padding:15px; border-radius:12px; margin-top:15px; text-align:center;";
+      notif.innerHTML = `
+        <p style="color:#166534; font-size:0.9em; margin-bottom:10px;">✅ Ucapan berhasil terkirim!</p>
+        <a href="${linkWA}" target="_blank" 
+           style="background:#25D366; color:white; padding:10px 20px; 
+                  border-radius:20px; text-decoration:none; font-size:0.85em; display:inline-block;">
+          <i class="fab fa-whatsapp"></i> Kirim juga via WhatsApp
+        </a>`;
+      document.getElementById('guestForm').after(notif);
+      setTimeout(() => notif.remove(), 10000);
+      this.reset();
+
+    } catch (err) {
+      alert("Gagal mengirim, coba lagi 🙏");
+      console.error(err);
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Ucapan';
+  });
+</script>
 
         <footer style="text-align: center; padding: 50px 0; color: #bbb; font-size: 0.7em; letter-spacing: 4px; text-transform: uppercase;">
             Made with Love by Alvian © 2026
