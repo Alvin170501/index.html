@@ -12,8 +12,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Quicksand', sans-serif; background-color: #fff; color: #333; overflow-x: hidden; }
-        
-        /* Ornamen & Animasi Kelopak */
         .bg-ornament { position: fixed; width: 300px; opacity: 0.15; z-index: -1; pointer-events: none; }
         .top-left { top: -50px; left: -50px; transform: rotate(180deg); }
         .bottom-right { bottom: -50px; right: -50px; }
@@ -22,15 +20,11 @@
             0% { transform: translateY(0) rotate(0deg); left: var(--left); }
             100% { transform: translateY(100vh) rotate(360deg); left: var(--left-end); }
         }
-
-        /* Loader & Cover */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; }
         .spinner { width: 60px; height: 60px; border: 4px solid #f3f3f3; border-top: 4px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('VID-20250926-WA0059.jpg') center/cover; }
         #cover.opened { transform: translateY(-100%); }
-
-        /* Main Content & Section Cards */
         .main-content { padding: 60px 0; opacity: 0; transition: opacity 1s; background: linear-gradient(to bottom, #fffaf0, #ffffff); }
         .main-content.visible { opacity: 1; }
         .section-card { 
@@ -52,44 +46,33 @@
             overflow: hidden;
         }
         .section-card.appear { opacity: 1; transform: translateY(0); }
-
-        /* Video & Profile Slider */
         .video-wrapper { width: 100%; border-radius: 20px; overflow: hidden; border: 3px solid #d4af37; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin: 20px 0; background: #000; position: relative; }
         .video-wrapper video { width: 100%; display: block; }
         .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .profile-slider img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:1.2s; }
         .profile-slider img.active { opacity:1; }
-
-        /* Buttons & Countdown */
         .btn-modern { 
-            display: inline-block; padding: 14px 32px; 
+            display: inline-block; 
+            padding: 14px 32px; 
             background: linear-gradient(135deg, #d4af37, #b8860b); 
-            color: #fff; border-radius: 50px; font-weight: bold; 
-            text-decoration: none; border: none; cursor: pointer; 
-            margin-top: 20px; box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4); transition: 0.3s;
+            color: #fff; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            border: none; 
+            cursor: pointer; 
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
+            transition: 0.3s;
         }
         .btn-modern:active { transform: scale(0.95); }
         #countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
-        .cd-item { background: white; border: 1px solid rgba(212,175,55,0.3); padding: 12px 8px; border-radius: 15px; min-width: 65px; }
+        .cd-item { background: white; border: 1px solid rgba(212,175,55,0.3); padding: 12px 8px; border-radius: 15px; min-width: 65px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .cd-number { display: block; font-size: 1.5em; font-weight: bold; color: #b8860b; }
-        .cd-label { font-size: 0.65em; text-transform: uppercase; color: #888; }
-
-        /* Love Journey Styles */
-        .btn-journey {
-            padding: 8px 18px; border: 1px solid #d4af37; background: transparent;
-            color: #b8860b; border-radius: 20px; cursor: pointer; font-family: 'Quicksand';
-            font-size: 0.85em; transition: 0.3s;
-        }
-        .btn-journey.active-j { background: #d4af37; color: white; }
-        .journey-content { display: none; animation: fadeIn 0.5s ease; }
-        .journey-content.active-content { display: block; }
-        .journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .journey-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; border: 1px solid #eee; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Modals & UI Misc */
+        .cd-label { font-size: 0.65em; text-transform: uppercase; color: #888; letter-spacing: 1px; }
         .modal { display: none; position: fixed; z-index: 8000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: #fff; padding: 35px 25px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #d4af37; animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
         .foto-ortu { width: 100%; border-radius: 15px; border: 2px solid #d4af37; margin: 15px 0; }
         .music-btn { position: fixed; bottom: 25px; right: 25px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 7000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -145,6 +128,7 @@
 
     <div id="isi" class="main-content">
 
+        <!-- AYAT & COUNTDOWN -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Assalamu'alaikum</h2>
             <p style="font-style: italic; margin-top: 25px; font-size: 0.95em; color: #555; line-height: 1.8;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." <br><b>(QS. Ar-Rum: 21)</b></p>
@@ -156,6 +140,7 @@
             </div>
         </div>
 
+        <!-- MEMPELAI -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; margin-bottom: 40px; color: #b8860b; letter-spacing: 2px;">Mempelai</h2>
             <div class="profile-slider" id="sliderA">
@@ -169,6 +154,7 @@
             <div class="nama-klik" onclick="bukaModal('modalIma')">Siti Rohimah (Ima)</div>
         </div>
 
+        <!-- OUR STORY -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Our Story</h2>
             <div class="video-wrapper">
@@ -179,37 +165,35 @@
             <p style="font-size: 0.85em; color: #777; font-style: italic;">"Setiap detik bersamamu adalah cerita indah."</p>
         </div>
 
+        <!-- LOVE JOURNEY -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 30px;">Our Love Journey</h2>
-            
-            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
-                <button onclick="showJourney(event, 'awal')" class="btn-journey active-j">Awal</button>
-                <button onclick="showJourney(event, 'tunangan')" class="btn-journey">Tunangan</button>
-                <button onclick="showJourney(event, 'nikah')" class="btn-journey">Nikah</button>
-            </div>
-
-            <div id="awal" class="journey-content active-content">
-                <div class="journey-grid">
-                    <img src="foto-awal-1.jpg"><img src="foto-awal-2.jpg">
+            <div style="text-align: left; padding: 0 10px; border-left: 2px solid #d4af37; margin-left: 15px;">
+                <div style="position: relative; margin-bottom: 40px; padding-left: 25px;">
+                    <div style="position: absolute; left: -34px; top: 0; background: #fff; padding: 5px;">
+                        <i class="fas fa-comment-dots" style="color: #d4af37;"></i>
+                    </div>
+                    <h3 style="font-family: 'Playfair Display'; color: #b8860b; font-size: 1.1em;">Juli 2025 – Awal Mula</h3>
+                    <p style="font-size: 0.9em; line-height: 1.6; color: #555; margin-top: 8px;">Semesta punya cara yang unik untuk mempertemukan dua jiwa. Di bulan Juli yang tenang, langkah kaki kami tak sengaja berada di jalur yang sama. Bukan sekadar perkenalan biasa, melainkan sebuah percikan awal yang membawa rasa nyaman dalam setiap percakapan sederhana yang kami lalui.</p>
                 </div>
-                <p style="font-size: 0.9em; color: #555; margin-top: 15px;"><b>Juli 2025:</b> Semesta mempertemukan kita dalam percakapan sederhana.</p>
-            </div>
-
-            <div id="tunangan" class="journey-content">
-                <div class="journey-grid">
-                    <img src="foto-tunangan-1.jpg"><img src="foto-tunangan-2.jpg">
+                <div style="position: relative; margin-bottom: 40px; padding-left: 25px;">
+                    <div style="position: absolute; left: -34px; top: 0; background: #fff; padding: 5px;">
+                        <i class="fas fa-ring" style="color: #d4af37;"></i>
+                    </div>
+                    <h3 style="font-family: 'Playfair Display'; color: #b8860b; font-size: 1.1em;">April 2026 – Pengikat Janji</h3>
+                    <p style="font-size: 0.9em; line-height: 1.6; color: #555; margin-top: 8px;">Satu tahun berlalu, keyakinan pun tumbuh menjadi sebuah keteguhan hati. Di hadapan keluarga dan orang-orang terkasih, kami memutuskan untuk mengikat komitmen. Pertunangan ini menjadi tonggak sejarah di mana dua keluarga besar mulai bersatu dalam doa dan harapan yang sama.</p>
                 </div>
-                <p style="font-size: 0.9em; color: #555; margin-top: 15px;"><b>April 2026:</b> Pengikat janji di depan keluarga besar.</p>
-            </div>
-
-            <div id="nikah" class="journey-content">
-                <div class="journey-grid">
-                    <img src="foto-nikah-1.jpg">
+                <div style="position: relative; padding-left: 25px;">
+                    <div style="position: absolute; left: -34px; top: 0; background: #fff; padding: 5px;">
+                        <i class="fas fa-heart" style="color: #d4af37;"></i>
+                    </div>
+                    <h3 style="font-family: 'Playfair Display'; color: #b8860b; font-size: 1.1em;">April 2027 – Akhir dari Penantian</h3>
+                    <p style="font-size: 0.9em; line-height: 1.6; color: #555; margin-top: 8px;">Kini, penantian itu telah sampai di muaranya. Di bawah restu langit, kami berikrar untuk saling menjaga, saling mencintai, dan membangun mahligai rumah tangga yang sakinah. Inilah babak baru dalam hidup kami, sebuah perjalanan panjang yang akan kami tulis bersama selamanya.</p>
                 </div>
-                <p style="font-size: 0.9em; color: #555; margin-top: 15px;"><b>April 2027:</b> Memulai babak baru sebagai suami istri.</p>
             </div>
         </div>
 
+        <!-- WAKTU & LOKASI -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Waktu & Lokasi</h2>
             <div style="margin: 30px 0;">
@@ -223,43 +207,63 @@
                 <p style="color: #b8860b; font-weight: bold; font-size: 1.1em;">Kediaman Mempelai Wanita</p>
                 <p style="font-size: 0.95em; padding: 0 10px; line-height: 1.5;">Jatisari, Kec. Bojongpicung, Cianjur</p>
             </div>
-            <a href="https://maps.google.com" target="_blank" class="btn-modern"><i class="fas fa-location-arrow"></i> Petunjuk Lokasi</a>
+            <a href="https://www.google.com/maps?q=-6.867571,107.230290" target="_blank" class="btn-modern"><i class="fas fa-location-arrow"></i> Petunjuk Lokasi</a>
         </div>
 
+        <!-- WEDDING GIFT -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Wedding Gift</h2>
-            <p style="font-size: 0.9em; color: #666; margin: 20px 0;">Jika ingin memberi tanda kasih, silakan melalui:</p>
+            <p style="font-size: 0.9em; color: #666; margin: 20px 0; line-height: 1.6;">Doa restu Anda adalah kado terindah, namun jika ingin memberi tanda kasih, silakan melalui:</p>
             <div style="background: #fdfdfd; padding: 25px; border-radius: 25px; border: 1px dashed #d4af37;">
                 <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/Aladin_Bank_logo.svg/1200px-Aladin_Bank_logo.svg.png" style="height: 30px; margin-bottom: 15px;">
-                <p style="font-weight: bold; font-size: 1.3em;" id="noRek">50121867211</p>
+                <p style="font-weight: bold; font-size: 1.3em; letter-spacing: 1.5px; color: #333;" id="noRek">50121867211</p>
                 <p style="font-size: 0.85em; color: #888;">a.n Moh Alvian</p>
-                <button class="btn-modern" style="padding: 10px 25px; font-size: 0.8em; margin-top: 15px;" onclick="copyRek()">📋 Salin Rekening</button>
+                <button class="btn-modern" style="padding: 10px 25px; font-size: 0.8em; margin-top: 15px;" onclick="copyRek()">📋 Salin No. Rekening</button>
             </div>
         </div>
 
+        <!-- GUEST BOOK -->
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Guest Book</h2>
+            <p style="font-size: 0.85em; color: #777; margin-bottom: 25px;">Berikan ucapan manis & doa restu Anda untuk kami</p>
+            
             <form id="guestForm" style="text-align: left;">
-                <input type="text" id="namaPengirim" placeholder="Nama Anda" required style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px; font-family: 'Quicksand'; outline: none;">
-                <textarea id="pesanDoa" placeholder="Tulis ucapan..." rows="4" required style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px; font-family: 'Quicksand'; outline: none; resize: none;"></textarea>
-                <select id="konfirmasi" required style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 20px; font-family: 'Quicksand';">
-                    <option value="">Konfirmasi Kehadiran</option>
-                    <option value="Hadir">Hadir</option>
-                    <option value="Tidak Hadir">Tidak Hadir</option>
-                </select>
-                <button type="submit" class="btn-modern" style="width: 100%; margin-top: 0;"><i class="fas fa-paper-plane"></i> Kirim</button>
+                <div style="margin-bottom: 15px;">
+                    <input type="text" id="namaPengirim" placeholder="Nama Anda" required 
+                        style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; outline: none;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <textarea id="pesanDoa" placeholder="Tulis ucapan & doa..." rows="4" required 
+                        style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; outline: none; resize: none;"></textarea>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <select id="konfirmasi" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd; font-family: 'Quicksand'; background: white;">
+                        <option value="">Konfirmasi Kehadiran</option>
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                        <option value="Masih Ragu">Masih Ragu</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-modern" style="width: 100%; margin-top: 0;">
+                    <i class="fas fa-paper-plane"></i> Kirim Ucapan
+                </button>
             </form>
-            <div id="displayUcapan" style="margin-top: 30px; max-height: 350px; overflow-y: auto; text-align: left;"></div>
+
+            <div id="displayUcapan" style="margin-top: 30px; max-height: 350px; overflow-y: auto; text-align: left; padding-right: 5px;">
+                <!-- Ucapan akan muncul di sini -->
+            </div>
         </div>
 
         <footer style="text-align: center; padding: 50px 0; color: #bbb; font-size: 0.7em; letter-spacing: 4px; text-transform: uppercase;">
-            Made with Love by Alvian © 2026
+            Made with Love by Alvian © 2026<br>Instagram : @alviannnnm
         </footer>
     </div>
 
+    <!-- FIREBASE GUESTBOOK SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } 
+            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDPbK3U6Yoe8qNINXCwrX5WOMyGgfHqwiU",
@@ -269,39 +273,81 @@
             messagingSenderId: "1026738748582",
             appId: "1:1026738748582:web:eeb9029dbe1987cfdd4867"
         };
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const ucapanRef = collection(db, "ucapan");
 
-        onSnapshot(query(ucapanRef, orderBy("timestamp", "desc")), (snapshot) => {
+        // Tampilkan ucapan realtime
+        const q = query(ucapanRef, orderBy("timestamp", "desc"));
+        onSnapshot(q, (snapshot) => {
             const wrapper = document.getElementById('displayUcapan');
-            wrapper.innerHTML = "";
+            wrapper.innerHTML = `
+                <div style="background:rgba(212,175,55,0.05); padding:15px; border-radius:15px; 
+                            margin-bottom:10px; border-left:3px solid #d4af37;">
+                    <strong style="color:#b8860b; font-size:0.9em;">Alvin & Ima 💍</strong>
+                    <p style="font-size:0.85em; margin-top:5px; color:#555;">
+                        Terima kasih sudah menyempatkan waktu untuk mengirimkan doa. 
+                        Sampai jumpa di hari bahagia kami!
+                    </p>
+                </div>`;
+
             snapshot.forEach((doc) => {
                 const d = doc.data();
                 const div = document.createElement('div');
-                div.style = "background:white; padding:15px; border-radius:15px; margin-bottom:10px; border:1px solid #eee;";
-                div.innerHTML = `<strong>${d.nama}</strong> <small style="float:right">${d.status}</small><p style="font-size:0.85em; margin-top:5px;">${d.pesan}</p>`;
+                div.style = "background:white; padding:15px; border-radius:15px; margin-bottom:10px; border:1px solid #eee; box-shadow:0 2px 5px rgba(0,0,0,0.03);";
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="color:#333; font-size:0.9em;">${d.nama}</strong>
+                        <span style="font-size:0.7em; background:#d4af37; color:white; padding:2px 8px; border-radius:10px;">${d.status}</span>
+                    </div>
+                    <p style="font-size:0.85em; margin-top:8px; color:#666; line-height:1.4;">${d.pesan}</p>`;
                 wrapper.appendChild(div);
             });
         });
 
+        // Submit ucapan
         document.getElementById('guestForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const btn = this.querySelector('button');
+
+            const nama = document.getElementById('namaPengirim').value.trim();
+            const pesan = document.getElementById('pesanDoa').value.trim();
+            const status = document.getElementById('konfirmasi').value;
+            const btn = this.querySelector('button[type="submit"]');
+
             btn.disabled = true;
+            btn.innerHTML = '⏳ Mengirim...';
+
             try {
-                await addDoc(ucapanRef, {
-                    nama: document.getElementById('namaPengirim').value,
-                    pesan: document.getElementById('pesanDoa').value,
-                    status: document.getElementById('konfirmasi').value,
-                    timestamp: serverTimestamp()
-                });
+                await addDoc(ucapanRef, { nama, pesan, status, timestamp: serverTimestamp() });
+
+                const waPesan = `Halo Alvin & Ima! 🎊\n\nDari: ${nama}\nStatus: ${status}\nPesan: ${pesan}`;
+                const linkWA = `https://wa.me/6285156390455?text=${encodeURIComponent(waPesan)}`;
+
+                const notif = document.createElement('div');
+                notif.style = "background:#f0fdf4; border:1px solid #86efac; padding:15px; border-radius:12px; margin-top:15px; text-align:center;";
+                notif.innerHTML = `
+                    <p style="color:#166534; font-size:0.9em; margin-bottom:10px;">✅ Ucapan berhasil terkirim!</p>
+                    <a href="${linkWA}" target="_blank" 
+                       style="background:#25D366; color:white; padding:10px 20px; 
+                              border-radius:20px; text-decoration:none; font-size:0.85em; display:inline-block;">
+                        <i class="fab fa-whatsapp"></i> Kirim juga via WhatsApp
+                    </a>`;
+                document.getElementById('guestForm').after(notif);
+                setTimeout(() => notif.remove(), 10000);
                 this.reset();
-            } catch (err) { alert("Error!"); }
+
+            } catch (err) {
+                alert("Gagal mengirim, coba lagi 🙏");
+                console.error(err);
+            }
+
             btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Ucapan';
         });
     </script>
 
+    <!-- SCRIPT UTAMA -->
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const to = urlParams.get('to');
@@ -323,31 +369,31 @@
         });
 
         function bukaUndangan() {
-            document.getElementById('lagu').play();
-            document.getElementById('videoCinematic').play();
+            const lagu = document.getElementById('lagu');
+            const video = document.getElementById('videoCinematic');
+            lagu.play().catch(e => console.log("Music error"));
+            video.play().catch(e => console.log("Video error"));
             document.getElementById('cover').classList.add('opened');
             document.body.style.overflow = "auto";
             setTimeout(() => {
                 document.getElementById('isi').classList.add('visible');
                 document.getElementById('musicToggle').style.display = 'flex';
-                startSlider('sliderA'); startSlider('sliderI');
+                startSlider('sliderA'); 
+                startSlider('sliderI');
             }, 600);
         }
 
         function toggleMusic() {
             const a = document.getElementById('lagu');
-            if(a.paused) a.play(); else a.pause();
-        }
-
-        function showJourney(e, id) {
-            document.querySelectorAll('.journey-content').forEach(el => el.classList.remove('active-content'));
-            document.querySelectorAll('.btn-journey').forEach(el => el.classList.remove('active-j'));
-            document.getElementById(id).classList.add('active-content');
-            e.currentTarget.classList.add('active-j');
+            const btn = document.querySelector('.music-btn i');
+            if(a.paused) { a.play(); btn.className = 'fas fa-music'; }
+            else { a.pause(); btn.className = 'fas fa-pause'; }
         }
 
         function startSlider(id) {
-            let cur = 0; const imgs = document.querySelectorAll(`#${id} img`);
+            let cur = 0; 
+            const imgs = document.querySelectorAll(`#${id} img`);
+            if(imgs.length < 2) return;
             setInterval(() => {
                 imgs[cur].classList.remove('active');
                 cur = (cur + 1) % imgs.length;
@@ -360,15 +406,19 @@
             const now = new Date().getTime();
             const diff = targetDate - now;
             if(diff < 0) return;
-            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById('mins').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById('secs').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
         }, 1000);
 
         function bukaModal(id) { document.getElementById(id).style.display = "flex"; }
         function tutupModal(id) { document.getElementById(id).style.display = "none"; }
-        function copyRek() { navigator.clipboard.writeText("50121867211"); alert("Copied!"); }
+
+        function copyRek() {
+            navigator.clipboard.writeText("50121867211");
+            alert("Nomor Rekening Berhasil Disalin!");
+        }
 
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('appear'); });
