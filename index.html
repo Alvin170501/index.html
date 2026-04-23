@@ -77,6 +77,45 @@
         .foto-ortu { width: 100%; border-radius: 15px; border: 2px solid #d4af37; margin: 15px 0; }
         .music-btn { position: fixed; bottom: 25px; right: 25px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 7000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .nama-klik { color: #b8860b; cursor: pointer; font-weight: 700; font-size: 1.3em; margin-top: 10px; display: inline-block; border-bottom: 1px dashed #d4af37; }
+        .btn-journey {
+    padding: 8px 18px;
+    border: 1px solid #d4af37;
+    background: transparent;
+    color: #b8860b;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Quicksand';
+    font-size: 0.85em;
+    transition: 0.3s;
+}
+.btn-journey.active-j {
+    background: #d4af37;
+    color: white;
+}
+.journey-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+.journey-content.active-content {
+    display: block;
+}
+.journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.journey-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 <body>
@@ -166,32 +205,37 @@
         </div>
 
         <!-- LOVE JOURNEY -->
-        <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 30px;">Our Love Journey</h2>
-            <div style="text-align: left; padding: 0 10px; border-left: 2px solid #d4af37; margin-left: 15px;">
-                <div style="position: relative; margin-bottom: 40px; padding-left: 25px;">
-                    <div style="position: absolute; left: -34px; top: 0; background: #fff; padding: 5px;">
-                        <i class="fas fa-comment-dots" style="color: #d4af37;"></i>
-                    </div>
-                    <h3 style="font-family: 'Playfair Display'; color: #b8860b; font-size: 1.1em;">Juli 2025 – Awal Mula</h3>
-                    <p style="font-size: 0.9em; line-height: 1.6; color: #555; margin-top: 8px;">Semesta punya cara yang unik untuk mempertemukan dua jiwa. Di bulan Juli yang tenang, langkah kaki kami tak sengaja berada di jalur yang sama. Bukan sekadar perkenalan biasa, melainkan sebuah percikan awal yang membawa rasa nyaman dalam setiap percakapan sederhana yang kami lalui.</p>
-                </div>
-                <div style="position: relative; margin-bottom: 40px; padding-left: 25px;">
-                    <div style="position: absolute; left: -34px; top: 0; background: #fff; padding: 5px;">
-                        <i class="fas fa-ring" style="color: #d4af37;"></i>
-                    </div>
-                    <h3 style="font-family: 'Playfair Display'; color: #b8860b; font-size: 1.1em;">April 2026 – Pengikat Janji</h3>
-                    <p style="font-size: 0.9em; line-height: 1.6; color: #555; margin-top: 8px;">Satu tahun berlalu, keyakinan pun tumbuh menjadi sebuah keteguhan hati. Di hadapan keluarga dan orang-orang terkasih, kami memutuskan untuk mengikat komitmen. Pertunangan ini menjadi tonggak sejarah di mana dua keluarga besar mulai bersatu dalam doa dan harapan yang sama.</p>
-                </div>
-                <div style="position: relative; padding-left: 25px;">
-                    <div style="position: absolute; left: -34px; top: 0; background: #fff; padding: 5px;">
-                        <i class="fas fa-heart" style="color: #d4af37;"></i>
-                    </div>
-                    <h3 style="font-family: 'Playfair Display'; color: #b8860b; font-size: 1.1em;">April 2027 – Akhir dari Penantian</h3>
-                    <p style="font-size: 0.9em; line-height: 1.6; color: #555; margin-top: 8px;">Kini, penantian itu telah sampai di muaranya. Di bawah restu langit, kami berikrar untuk saling menjaga, saling mencintai, dan membangun mahligai rumah tangga yang sakinah. Inilah babak baru dalam hidup kami, sebuah perjalanan panjang yang akan kami tulis bersama selamanya.</p>
-                </div>
-            </div>
-        </div>
+        <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 30px;">Our Love Journey</h2>
+
+<div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+    <button onclick="showJourney('awal')" class="btn-journey active-j">Awal</button>
+    <button onclick="showJourney('tunangan')" class="btn-journey">Tunangan</button>
+    <button onclick="showJourney('nikah')" class="btn-journey">Nikah</button>
+</div>
+
+<div id="awal" class="journey-content active-content">
+    <div class="journey-grid">
+        <img src="foto-awal-1.jpg" alt="Awal Kenalan">
+        <img src="foto-awal-2.jpg" alt="Awal Kenalan">
+    </div>
+    <p style="font-size: 0.9em; color: #555; margin-top: 15px;"><b>Juli 2025:</b> Semesta mempertemukan kita dalam sebuah percakapan sederhana yang berujung rasa nyaman.</p>
+</div>
+
+<div id="tunangan" class="journey-content">
+    <div class="journey-grid">
+        <img src="foto-tunangan-1.jpg" alt="Tunangan">
+        <img src="foto-tunangan-2.jpg" alt="Tunangan">
+    </div>
+    <p style="font-size: 0.9em; color: #555; margin-top: 15px;"><b>April 2026:</b> Pengikat janji di depan keluarga besar sebagai tanda keseriusan kita.</p>
+</div>
+
+<div id="nikah" class="journey-content">
+    <div class="journey-grid">
+        <img src="foto-nikah-1.jpg" alt="Pernikahan">
+    </div>
+    <p style="font-size: 0.9em; color: #555; margin-top: 15px;"><b>April 2027:</b> Puncak dari penantian, memulai babak baru sebagai suami istri.</p>
+</div>
+
 
         <!-- WAKTU & LOKASI -->
         <div class="section-card">
@@ -424,6 +468,18 @@
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('appear'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.section-card').forEach(s => obs.observe(s));
+        function showJourney(id) {
+    // Sembunyikan semua konten
+    document.querySelectorAll('.journey-content').forEach(el => el.classList.remove('active-content'));
+    // Hilangkan warna aktif di semua tombol
+    document.querySelectorAll('.btn-journey').forEach(el => el.classList.remove('active-j'));
+    
+    // Tampilkan konten yang dipilih
+    document.getElementById(id).classList.add('active-content');
+    // Kasih warna aktif ke tombol yang diklik
+    event.currentTarget.classList.add('active-j');
+}
+
     </script>
 </body>
 </html>
