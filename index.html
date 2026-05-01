@@ -372,6 +372,13 @@
         document.querySelectorAll('.section-card').forEach(s => obs.observe(s));
         function createLeaf() { const leaf = document.createElement('div'); leaf.classList.add('leaf'); leaf.style.setProperty('--left', Math.random() * 100 + 'vw'); leaf.style.setProperty('--left-end', (Math.random() * 100 - 20) + 'vw'); leaf.style.animationDuration = (Math.random() * 3 + 5) + 's'; document.body.appendChild(leaf); setTimeout(() => leaf.remove(), 8000); }
         setInterval(createLeaf, 700);
+        // Letakkan di dalam script biasa
+const urlParams = new URLSearchParams(window.location.search);
+const namaTamu = urlParams.get('to');
+if (namaTamu) {
+    document.getElementById('nama-tamu').innerText = namaTamu;
+}
+
     </script>
 </body>
 </html>
