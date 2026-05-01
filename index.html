@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Wedding of Alvin & Ima</title>
 
-    <link rel="icon" href="https://ui-avatars.com/api/?name=IA&background=d4af37&color=fff&font-size=0.6&bold=true" type="image/x-icon">
+    <link rel="icon" href="https://ui-avatars.com/api/?name=AI&background=d4af37&color=fff&font-size=0.6&bold=true" type="image/x-icon">
+    
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -14,7 +15,7 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Quicksand', sans-serif; background-color: #fff; color: #333; overflow-x: hidden; }
 
-        /* --- TAMBAHAN EFEK GERBANG --- */
+        /* --- FITUR GERBANG POHON --- */
         #tirai-container {
             position: fixed;
             top: 0;
@@ -29,23 +30,21 @@
             transform: scale(2.5);
         }
         #tirai-container.zoom-out { transform: scale(1); }
-                .panel-pohon {
+        .panel-pohon {
             width: 50%;
             height: 100%;
-            /* Pastikan nama file di bawah ini sesuai: berdua1.jpg */
             background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('berdua1.jpg');
             background-repeat: no-repeat;
             background-size: 200% 100%; 
-            transition: transform 0.5s ease-in-out;
+            transition: transform 0.8s ease-in-out;
             transition-delay: 0.3s;
         }
-        .pohon-kiri { 
-            background-position: left center; 
-        }
-        .pohon-kanan { 
-            background-position: right center; 
-        }
+        .pohon-kiri { background-position: left center; }
+        .pohon-kanan { background-position: right center; }
+        .opened .pohon-kiri { transform: translateX(-100%); }
+        .opened .pohon-kanan { transform: translateX(100%); }
 
+        /* --- UI ELEMENTS --- */
         .bg-ornament { position: fixed; width: 300px; opacity: 0.15; z-index: -1; pointer-events: none; }
         .top-left { top: -50px; left: -50px; transform: rotate(180deg); }
         .bottom-right { bottom: -50px; right: -50px; }
@@ -57,14 +56,15 @@
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; }
         .spinner { width: 60px; height: 60px; border: 4px solid #f3f3f3; border-top: 4px solid #d4af37; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
         #cover { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 3000; transition: opacity 0.8s ease; text-align: center; color: white; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg1.jpg') center/cover; }
         
-        .main-content { padding: 60px 0; opacity: 0; transition: opacity 1s; background: linear-gradient(to bottom, #fffaf0, #ffffff); }
-        .main-content.visible { opacity: 1; }
+        .main-content { padding: 60px 0; opacity: 0; visibility: hidden; transition: opacity 1s; background: linear-gradient(to bottom, #fffaf0, #ffffff); }
+        .main-content.visible { opacity: 1; visibility: visible; }
+        
         .section-card { 
             background: rgba(255, 255, 255, 0.75); 
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             margin: 0 auto 40px; 
             padding: 45px 25px; 
             border-radius: 35px; 
@@ -76,13 +76,11 @@
             opacity: 0; 
             transform: translateY(40px); 
             transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
         }
         .section-card.appear { opacity: 1; transform: translateY(0); }
-        .video-wrapper { width: 100%; border-radius: 20px; overflow: hidden; border: 3px solid #d4af37; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin: 20px 0; background: #000; position: relative; }
+        .video-wrapper { width: 100%; border-radius: 20px; overflow: hidden; border: 3px solid #d4af37; margin: 20px 0; background: #000; }
         .video-wrapper video { width: 100%; display: block; }
-        .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #d4af37; position: relative; }
         .profile-slider img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:1.2s; }
         .profile-slider img.active { opacity:1; }
         .btn-modern { 
@@ -93,20 +91,17 @@
             border-radius: 50px; 
             font-weight: bold; 
             text-decoration: none; 
-            border: none; 
             cursor: pointer; 
             margin-top: 20px;
             box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
-            transition: 0.3s;
+            border: none;
         }
-        .btn-modern:active { transform: scale(0.95); }
         #countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
-        .cd-item { background: white; border: 1px solid rgba(212,175,55,0.3); padding: 12px 8px; border-radius: 15px; min-width: 65px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .cd-item { background: white; border: 1px solid rgba(212,175,55,0.3); padding: 12px 8px; border-radius: 15px; min-width: 65px; }
         .cd-number { display: block; font-size: 1.5em; font-weight: bold; color: #b8860b; }
-        .cd-label { font-size: 0.65em; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+        .cd-label { font-size: 0.65em; text-transform: uppercase; color: #888; }
         .modal { display: none; position: fixed; z-index: 8000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #fff; padding: 35px 25px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #d4af37; animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-content { background: #fff; padding: 35px 25px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #d4af37; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
         .foto-ortu { width: 100%; border-radius: 15px; border: 2px solid #d4af37; margin: 15px 0; }
         .music-btn { position: fixed; bottom: 25px; right: 25px; background: #d4af37; color: white; width: 50px; height: 50px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 7000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -125,7 +120,7 @@
 
     <div id="loader">
         <div class="spinner"></div>
-        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 20px; letter-spacing: 2px;">Menyulam Kebahagiaan...</p>
+        <p style="font-family: 'Playfair Display'; color: #b8860b; margin-top: 20px;">Menyulam Kebahagiaan...</p>
     </div>
 
     <audio id="lagu" loop><source src="musik2.mp3" type="audio/mpeg"></audio>
@@ -135,11 +130,11 @@
         <div class="modal-content">
             <span class="close-modal" onclick="tutupModal('modalAlvin')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">M. Alvian</h2>
-            <p style="margin: 10px 0; font-size: 0.95em;">Cianjur, 17 Mei 2001<br>Anak ke 2 dari 3 Bersaudara</p>
+            <p>Cianjur, 17 Mei 2001</p>
             <p style="font-weight: bold; color: #d4af37; margin-top: 15px;">Putra Dari:</p>
             <img src="ortualvin1.jpg" class="foto-ortu">
-            <p style="font-size: 0.9em; color: #555;">Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
-            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-modern" style="padding: 10px 25px; font-size: 0.8em;"><i class="fab fa-instagram"></i> Instagram</a>
+            <p>Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
+            <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-modern">Instagram</a>
         </div>
     </div>
 
@@ -147,28 +142,29 @@
         <div class="modal-content">
             <span class="close-modal" onclick="tutupModal('modalIma')">×</span>
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Siti Rohimah</h2>
-            <p style="margin: 10px 0; font-size: 0.95em;">Cianjur, 23 April 2006<br>Anak ke 3 dari 3 Bersaudara</p>
+            <p>Cianjur, 23 April 2006</p>
             <p style="font-weight: bold; color: #d4af37; margin-top: 15px;">Putri Dari:</p>
             <img src="ortuima1.jpg" class="foto-ortu">
-            <p style="font-size: 0.9em; color: #555;">Bpk. Ayo & Ibu Nani</p>
-            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-modern" style="padding: 10px 25px; font-size: 0.8em;"><i class="fab fa-instagram"></i> Instagram</a>
+            <p>Bpk. Ayo & Ibu Nani</p>
+            <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-modern">Instagram</a>
         </div>
     </div>
 
     <div id="cover">
-        <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37; margin-bottom: 10px;">The Wedding of</h2>
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.2em; color: #d4af37;">The Wedding of</h2>
         <h1 style="font-family: 'Playfair Display'; font-size: 3.2em; letter-spacing: 2px;">Alvin & Ima</h1>
         <div style="margin: 35px 0; border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 20px;">
-            <p style="font-size: 0.8em; letter-spacing: 3px; text-transform: uppercase;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <h3 id="nama-tamu" style="font-size: 1.8em; margin-top: 10px; color: #d4af37; font-family: 'Playfair Display';">Tamu Undangan</h3>
+            <p style="font-size: 0.8em; letter-spacing: 3px;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <h3 id="nama-tamu" style="font-size: 1.8em; color: #d4af37; font-family: 'Playfair Display';">Tamu Undangan</h3>
         </div>
         <button onclick="bukaUndangan()" class="btn-modern">📩 Buka Undangan</button>
     </div>
 
     <div id="isi" class="main-content">
+        
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Assalamu'alaikum</h2>
-            <p style="font-style: italic; margin-top: 25px; font-size: 0.95em; color: #555; line-height: 1.8;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." <br><b>(QS. Ar-Rum: 21)</b></p>
+            <p style="font-style: italic; margin-top: 25px;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya..." <br><b>(QS. Ar-Rum: 21)</b></p>
             <div id="countdown">
                 <div class="cd-item"><span id="days" class="cd-number">00</span><span class="cd-label">Hari</span></div>
                 <div class="cd-item"><span id="hours" class="cd-number">00</span><span class="cd-label">Jam</span></div>
@@ -178,12 +174,12 @@
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; margin-bottom: 40px; color: #b8860b; letter-spacing: 2px;">Mempelai</h2>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Mempelai</h2>
             <div class="profile-slider" id="sliderA">
                 <img src="alvin-1.jpg" class="active"><img src="alvin-2.jpg"><img src="alvin-3.jpg">
             </div>
             <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
-            <h1 style="font-family: 'Dancing Script'; margin: 30px 0; color: #d4af37; font-size: 3.5em;">&</h1>
+            <h1 style="font-family: 'Dancing Script'; margin: 30px 0; color: #d4af37;">&</h1>
             <div class="profile-slider" id="sliderI">
                 <img src="ima-1.jpg" class="active"><img src="ima-2.jpg"><img src="ima-3.jpg">
             </div>
@@ -191,16 +187,16 @@
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Our Story</h2>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Our Story</h2>
             <div class="video-wrapper">
                 <video id="videoCinematic" loop muted playsinline>
                     <source src="video3.mp4" type="video/mp4">
                 </video>
-
             </div>
             <p style="font-size: 0.85em; color: #777; font-style: italic;">"Setiap detik bersamamu adalah cerita indah."</p>
         </div>
-                    <div class="section-card">
+
+        <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 30px;">Our Love Journey</h2>
             <div style="text-align: left; padding: 0 10px; border-left: 2px solid #d4af37; margin-left: 15px;">
                 <div style="position: relative; margin-bottom: 40px; padding-left: 25px;">
@@ -227,58 +223,41 @@
             </div>
         </div>
 
-        </div>
-        
-
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Waktu & Lokasi</h2>
             <div style="margin: 30px 0;">
-                <i class="far fa-calendar-alt" style="font-size: 2.2em; color: #d4af37; margin-bottom: 12px;"></i>
                 <p style="font-size: 1.3em; font-weight: bold;">Minggu, 26 April 2027</p>
                 <p>Pukul 09.00 WIB - Selesai</p>
             </div>
-            <hr style="border: 0; border-top: 1px solid rgba(212,175,55,0.25); margin: 25px 0;">
-            <div style="margin-bottom: 30px;">
-                <i class="fas fa-map-marker-alt" style="font-size: 2.2em; color: #d4af37; margin-bottom: 12px;"></i>
-                <p style="color: #b8860b; font-weight: bold; font-size: 1.1em;">Kediaman Mempelai Wanita</p>
-                <p style="font-size: 0.95em; padding: 0 10px; line-height: 1.5;">Jatisari, Kec. Bojongpicung, Cianjur</p>
-            </div>
-            <a href="https://maps.app.goo.gl/ckvUj7CuXuR8XCAa6?g_st=ac" target="_blank" class="btn-modern"><i class="fas fa-location-arrow"></i> Petunjuk Lokasi</a>
+            <p><b>Kediaman Mempelai Wanita</b></p>
+            <p>Jatisari, Kec. Bojongpicung, Cianjur</p>
+            <a href="https://maps.app.goo.gl/9ZpZ6W3v2qX7" target="_blank" class="btn-modern">📍 Petunjuk Lokasi</a>
         </div>
 
         <div class="section-card">
             <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Wedding Gift</h2>
-            <p style="font-size: 0.9em; color: #666; margin: 20px 0; line-height: 1.6;">Doa restu Anda adalah kado terindah, namun jika ingin memberi tanda kasih, silakan melalui:</p>
             <div style="background: #fdfdfd; padding: 25px; border-radius: 25px; border: 1px dashed #d4af37;">
-                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/Aladin_Bank_logo.svg/1200px-Aladin_Bank_logo.svg.png" style="height: 30px; margin-bottom: 15px;">
-                <p style="font-weight: bold; font-size: 1.3em; letter-spacing: 1.5px; color: #333;" id="noRek">50121867211</p>
-                <p style="font-size: 0.85em; color: #888;">a.n Moh Alvian</p>
-                <button class="btn-modern" style="padding: 10px 25px; font-size: 0.8em; margin-top: 15px;" onclick="copyRek()">📋 Salin No. Rekening</button>
+                <p id="noRek" style="font-weight: bold; font-size: 1.3em;">50121867211</p>
+                <p>a.n Moh Alvian (Aladin Bank)</p>
+                <button class="btn-modern" onclick="copyRek()">📋 Salin Rekening</button>
             </div>
         </div>
 
         <div class="section-card">
-            <h2 style="font-family: 'Playfair Display'; color: #b8860b; margin-bottom: 20px;">Guest Book</h2>
+            <h2 style="font-family: 'Playfair Display'; color: #b8860b;">Guest Book</h2>
             <form id="guestForm" style="text-align: left;">
-                <div style="margin-bottom: 15px;">
-                    <input type="text" id="namaPengirim" placeholder="Nama Anda" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd;">
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <textarea id="pesanDoa" placeholder="Tulis ucapan & doa..." rows="4" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd;"></textarea>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <select id="konfirmasi" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #ddd;">
-                        <option value="">Konfirmasi Kehadiran</option>
-                        <option value="Hadir">Hadir</option>
-                        <option value="Tidak Hadir">Tidak Hadir</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-modern" style="width: 100%; margin-top: 0;">Kirim Ucapan</button>
+                <input type="text" id="namaPengirim" placeholder="Nama Anda" required style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #ddd;">
+                <textarea id="pesanDoa" placeholder="Tulis ucapan..." rows="4" required style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #ddd;"></textarea>
+                <select id="konfirmasi" required style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px;">
+                    <option value="Hadir">Hadir</option>
+                    <option value="Tidak Hadir">Tidak Hadir</option>
+                </select>
+                <button type="submit" class="btn-modern" style="width: 100%;">Kirim Ucapan</button>
             </form>
             <div id="displayUcapan" style="margin-top: 30px; max-height: 350px; overflow-y: auto;"></div>
         </div>
 
-        <footer style="text-align: center; padding: 50px 0; color: #bbb; font-size: 0.7em; letter-spacing: 4px; text-transform: uppercase;">
+        <footer style="text-align: center; padding: 50px 0; color: #bbb; font-size: 0.8em;">
             Made with Love by Alvian © 2027
         </footer>
     </div>
@@ -323,11 +302,11 @@
     </script>
 
     <script>
-        // 1. Fungsi Buka Undangan & Musik
         function bukaUndangan() {
             const lagu = document.getElementById('lagu');
             const video = document.getElementById('videoCinematic');
             const tirai = document.getElementById('tirai-container');
+            const isi = document.getElementById('isi');
             
             lagu.play().catch(e => console.log("Music error"));
             video.play().catch(e => console.log("Video error"));
@@ -342,32 +321,23 @@
                 setTimeout(() => {
                     tirai.classList.add('opened');
                     document.body.style.overflow = "auto";
-                    document.getElementById('isi').classList.add('visible');
+                    isi.classList.add('visible');
                     document.getElementById('musicToggle').style.display = 'flex';
                     startSlider('sliderA'); 
                     startSlider('sliderI');
-                }, 1500);
+                }, 1000);
             }, 800);
         }
 
-        // 2. Salin Rekening Dinamis (Mengambil teks dari ID noRek)
         function copyRek() {
             const noRek = document.getElementById('noRek').innerText;
-            navigator.clipboard.writeText(noRek).then(() => {
-                alert("Nomor Rekening " + noRek + " berhasil disalin!");
-            }).catch(err => {
-                console.error('Gagal menyalin: ', err);
-            });
+            navigator.clipboard.writeText(noRek).then(() => alert("Nomor Rekening Disalin!"));
         }
 
-        // 3. Nama Tamu dari URL (?to=Nama)
         const urlParams = new URLSearchParams(window.location.search);
-        const namaTamu = urlParams.get('to');
-        if (namaTamu) {
-            document.getElementById('nama-tamu').innerText = namaTamu;
-        }
+        const nameParam = urlParams.get('to');
+        if (nameParam) document.getElementById('nama-tamu').innerText = nameParam;
 
-        // --- Sisanya Fungsi Pendukung ---
         const targetDate = new Date("April 26, 2027 09:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -379,7 +349,7 @@
             document.getElementById('secs').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
         }, 1000);
 
-        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 1500); });
+        window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').style.display = 'none', 1000));
         function toggleMusic() { const a = document.getElementById('lagu'); const btn = document.querySelector('.music-btn i'); if(a.paused) { a.play(); btn.className = 'fas fa-music'; } else { a.pause(); btn.className = 'fas fa-pause'; } }
         function startSlider(id) { let cur = 0; const imgs = document.querySelectorAll(`#${id} img`); if(imgs.length < 2) return; setInterval(() => { imgs[cur].classList.remove('active'); cur = (cur + 1) % imgs.length; imgs[cur].classList.add('active'); }, 3000); }
         function bukaModal(id) { document.getElementById(id).style.display = "flex"; }
