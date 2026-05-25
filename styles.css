@@ -1,0 +1,41 @@
+/* ============================================
+   MODERN WEDDING INVITATION - STYLES
+   ============================================ */
+
+/* --- RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #fff;
+    color: #333;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+:root {
+    --gold: #d4af37;
+    --gold-dark: #b8860b;
+    --cream: #fffaf0;
+}
+
+.section-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
