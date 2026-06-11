@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Pernikahan Alvin & Ima | Blue Floral</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Pernikahan Alvin & Ima | Biru Elegan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,91 +13,144 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --blue: #2c7da0;
-            --blue-light: #61a5c2;
-            --blue-soft: #89c2d9;
-            --blue-pale: #e0f2fe;
-            --cream: #f8fafc;
-            --white: #ffffff;
-            --shadow: 0 20px 35px rgba(44,125,160,0.12);
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f0f9ff;
-            color: #1e3a5f;
+            background-color: #eef2f5;
+            color: #1e2a3e;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Background bunga-bunga seperti link referensi */
-        .bg-flowers {
+        /* ========== ORNAMEN PELAMINAN: TIRAI + ATAP + BUNGA ========== */
+        .wedding-ornament {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
-            background-image: url('https://www.transparentpng.com/download/floral/floral-pattern-background-png-12.png');
-            background-repeat: repeat;
-            background-size: 280px;
-            opacity: 0.08;
+            z-index: 1;
         }
 
-        /* Tambahan bunga floating */
-        .floating-flower {
-            position: fixed;
-            pointer-events: none;
-            z-index: 0;
-            font-size: 24px;
-            opacity: 0.15;
-            animation: floatSlow 20s infinite linear;
+        /* Tirai / Gorden Kanan Kiri */
+        .curtain-left, .curtain-right {
+            position: absolute;
+            top: 0;
+            width: 14%;
+            height: 100%;
+            background: linear-gradient(135deg, #f4ede4, #e6d8cc);
+            box-shadow: 4px 0 12px rgba(0,0,0,0.08);
+            z-index: 2;
         }
-        @keyframes floatSlow {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
+        .curtain-left {
+            left: 0;
+            border-right: 1px solid #d4c4b2;
+            background-image: repeating-linear-gradient(90deg, rgba(160,120,80,0.08) 0px, rgba(160,120,80,0.08) 2px, transparent 2px, transparent 8px);
+        }
+        .curtain-right {
+            right: 0;
+            border-left: 1px solid #d4c4b2;
+            background-image: repeating-linear-gradient(270deg, rgba(160,120,80,0.08) 0px, rgba(160,120,80,0.08) 2px, transparent 2px, transparent 8px);
+        }
+        /* Lipatan tirai */
+        .curtain-left::before, .curtain-right::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 3px, transparent 3px, transparent 18px);
         }
 
+        /* Atap Rumah / Pelaminan (lengkung khas Sunda) */
+        .roof-ornament {
+            position: absolute;
+            top: 0;
+            left: 14%;
+            width: 72%;
+            height: 170px;
+            background: linear-gradient(165deg, #fef7e8, #fff2e0);
+            border-bottom-left-radius: 60% 40%;
+            border-bottom-right-radius: 60% 40%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            z-index: 1;
+        }
+        .roof-ornament::after {
+            content: "❦ ❦ ❦";
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            letter-spacing: 8px;
+            opacity: 0.3;
+        }
+
+        /* Bunga-bunga di samping kiri & kanan (dekorasi) */
+        .flower-left, .flower-right {
+            position: absolute;
+            bottom: 10%;
+            width: 100px;
+            height: auto;
+            font-size: 2rem;
+            text-align: center;
+            z-index: 2;
+            opacity: 0.75;
+        }
+        .flower-left {
+            left: 2%;
+            transform: rotate(-10deg);
+        }
+        .flower-right {
+            right: 2%;
+            transform: rotate(10deg);
+        }
+        .flower-left i, .flower-right i {
+            display: block;
+            margin: 8px 0;
+            color: #5d9bb3;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Loader */
         .loader {
             position: fixed;
             inset: 0;
-            background: var(--cream);
+            background: #fffef9;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10000;
-            transition: 0.6s;
+            z-index: 11000;
+            transition: 0.5s;
         }
         .loader.hide {
             opacity: 0;
             visibility: hidden;
         }
         .loader-ring {
-            width: 70px;
-            height: 70px;
-            border: 3px solid var(--blue-light);
-            border-top: 3px solid var(--blue);
+            width: 65px;
+            height: 65px;
+            border: 3px solid #bdd4e7;
+            border-top: 3px solid #2c7da0;
             border-radius: 50%;
             animation: spin 1s ease infinite;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* COVER PAGE */
         .cover {
             position: fixed;
             inset: 0;
-            background: linear-gradient(145deg, #f0f9ff 0%, #e0f2fe 100%);
+            background: rgba(255, 253, 250, 0.98);
+            backdrop-filter: blur(2px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            z-index: 9500;
-            transition: 0.8s;
+            z-index: 10500;
+            transition: 0.7s;
             padding: 30px;
         }
         .cover.hide {
@@ -105,78 +158,71 @@
             visibility: hidden;
             pointer-events: none;
         }
-        .cover-icon {
-            font-size: 3rem;
-            color: var(--blue);
-            margin-bottom: 20px;
-            animation: floatHeart 2s ease infinite;
-        }
-        @keyframes floatHeart {
-            0%,100%{ transform: translateY(0); }
-            50%{ transform: translateY(-8px); }
-        }
-        .cover h2 {
+        .cover h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 10vw, 4rem);
-            color: var(--blue);
-            letter-spacing: 2px;
+            font-size: clamp(2.8rem, 12vw, 4.8rem);
+            color: #2c7da0;
+            letter-spacing: 5px;
         }
-        .cover .divider {
-            width: 80px;
+        .cover h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #5d9bb3;
+            margin-top: 10px;
+        }
+        .divider-gold {
+            width: 70px;
             height: 2px;
-            background: var(--blue-light);
-            margin: 20px auto;
+            background: #7f8c8d;
+            margin: 25px auto;
         }
-        .guest-badge {
-            background: white;
+        .guest-name {
+            background: #e0f2fe;
             padding: 10px 28px;
-            border-radius: 50px;
-            box-shadow: var(--shadow);
-            margin: 20px 0;
-            color: var(--blue);
+            border-radius: 60px;
+            color: #2c7da0;
             font-weight: 600;
+            margin: 20px 0;
         }
         .btn-open {
-            background: var(--blue);
+            background: #2c7da0;
             border: none;
-            padding: 14px 40px;
-            border-radius: 40px;
+            padding: 14px 44px;
+            border-radius: 50px;
             color: white;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(44,125,160,0.3);
-            margin-top: 20px;
+            box-shadow: 0 6px 14px rgba(44,125,160,0.3);
+            transition: 0.2s;
         }
-        .btn-open:hover {
-            transform: scale(1.02);
-            background: var(--blue-light);
-        }
+        .btn-open:hover { transform: scale(1.02); background: #1f5a74; }
 
-        .main {
+        /* MAIN CONTENT */
+        .main-content {
             position: relative;
-            z-index: 2;
-            max-width: 550px;
+            z-index: 20;
+            max-width: 580px;
             margin: 0 auto;
-            padding: 60px 20px 50px;
+            padding: 80px 20px 60px;
             opacity: 0;
-            transition: 0.8s;
+            transition: 0.7s;
         }
-        .main.show {
+        .main-content.show {
             opacity: 1;
         }
 
+        /* CARD PUTIH DENGAN SHADOW */
         .card {
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(2px);
+            background: rgba(255,255,255,0.96);
             border-radius: 32px;
-            margin-bottom: 30px;
-            padding: 30px 24px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(97,165,194,0.25);
+            margin-bottom: 28px;
+            padding: 28px 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
             transform: translateY(30px);
             opacity: 0;
             transition: all 0.6s ease;
+            border: 1px solid #dee6ef;
         }
         .card.visible {
             transform: translateY(0);
@@ -184,176 +230,186 @@
         }
         .card-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--blue);
-            margin-bottom: 20px;
+            font-size: 1.7rem;
+            color: #2c7da0;
             text-align: center;
-        }
-        .card-title i {
-            margin-right: 10px;
-            color: var(--blue-light);
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        .countdown-grid {
+        /* COUNTDOWN */
+        .countdown-box {
             display: flex;
-            justify-content: space-between;
             gap: 12px;
-            margin: 20px 0;
+            justify-content: space-between;
+            margin: 25px 0 10px;
         }
-        .cd-box {
+        .cd-item {
+            background: #f2f6fa;
             flex: 1;
-            background: white;
-            border-radius: 20px;
-            padding: 15px 5px;
+            padding: 14px 6px;
             text-align: center;
-            border: 1px solid var(--blue-soft);
+            border-radius: 24px;
         }
         .cd-number {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--blue);
+            color: #2c7da0;
         }
         .cd-label {
             font-size: 0.7rem;
-            color: #6c8da3;
+            letter-spacing: 1px;
+            color: #5b6e8c;
         }
 
-        .couple-row {
+        /* FOTO COUPLE */
+        .couple-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
-            flex-wrap: wrap;
+            margin: 20px 0;
         }
-        .couple-item {
-            flex: 1;
+        .couple-single {
             text-align: center;
+            flex: 1;
         }
-        .couple-photo {
-            width: 120px;
-            height: 120px;
+        .circle-photo {
+            width: 125px;
+            height: 125px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--blue);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 3px solid #8bbcd6;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.1);
             margin-bottom: 12px;
         }
-        .couple-name {
+        .nama-pengantin {
             font-weight: 700;
-            color: var(--blue);
+            color: #2c7da0;
             cursor: pointer;
+            font-size: 1rem;
         }
-        .and-circle {
-            background: var(--blue-pale);
+        .and-icon {
+            background: #deedf5;
             width: 48px;
             height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            color: var(--blue);
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c7da0;
         }
 
-        /* Journey panjang sesuai permintaan */
-        .journey-list {
+        /* OUR JOURNEY PANJANG */
+        .journey-timeline {
             position: relative;
-            padding-left: 20px;
+            padding-left: 10px;
         }
-        .journey-item {
+        .journey-node {
             position: relative;
-            margin-bottom: 35px;
-            padding-left: 28px;
-            border-left: 2px solid var(--blue-soft);
+            margin-bottom: 32px;
+            padding-left: 32px;
+            border-left: 2px solid #b9d4e8;
         }
         .journey-dot {
             position: absolute;
             left: -9px;
-            top: 0;
-            width: 16px;
-            height: 16px;
-            background: var(--blue);
+            top: 3px;
+            width: 14px;
+            height: 14px;
+            background: #2c7da0;
             border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 2px var(--blue-light);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #b9d4e8;
         }
         .journey-date {
             font-weight: 800;
-            color: var(--blue);
-            font-size: 0.8rem;
-            margin-bottom: 5px;
+            color: #2c7da0;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
         }
         .journey-title {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .journey-desc {
+            font-size: 0.88rem;
+            color: #2c3e50;
+            line-height: 1.5;
         }
 
         .video-box {
-            border-radius: 25px;
+            border-radius: 28px;
             overflow: hidden;
             margin: 20px 0;
             aspect-ratio: 16/9;
-            background: #cbd5e1;
+            background: #1e293b;
         }
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        video { width: 100%; height: 100%; object-fit: cover; }
 
-        .loc-card {
-            background: var(--blue-pale);
+        .lokasi-card {
+            background: #f2f6fa;
             border-radius: 24px;
-            padding: 20px;
+            padding: 18px;
             text-align: center;
             margin: 15px 0;
         }
-
         .btn-blue {
-            background: var(--blue);
+            background: #2c7da0;
             border: none;
-            padding: 12px 25px;
-            border-radius: 40px;
+            padding: 12px;
+            border-radius: 60px;
             color: white;
             font-weight: 600;
             width: 100%;
-            cursor: pointer;
+            display: block;
+            text-align: center;
+            text-decoration: none;
             transition: 0.2s;
         }
-        .btn-blue:hover {
-            background: var(--blue-light);
+        .btn-blue:hover { background: #1f5a74; }
+
+        .gift-card {
+            background: #f2f6fa;
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+            border: 1px dashed #8bbcd6;
         }
 
         input, textarea, select {
             width: 100%;
             padding: 12px 16px;
             margin: 8px 0;
-            border: 1px solid #cbd5e1;
-            border-radius: 28px;
+            border: 1px solid #cbdbe2;
+            border-radius: 34px;
             font-family: 'Poppins', sans-serif;
-            background: white;
         }
-        input:focus, textarea:focus {
-            border-color: var(--blue);
-            outline: none;
-        }
+        input:focus, textarea:focus { border-color: #2c7da0; outline: none; }
 
-        .guest-item {
-            background: #f0f9ff;
+        .guestbook-list {
+            margin-top: 25px;
+            max-height: 380px;
+            overflow-y: auto;
+        }
+        .guest-card {
+            background: #fafcff;
             border-radius: 20px;
             padding: 14px;
             margin-bottom: 12px;
-            border-left: 4px solid var(--blue);
+            border-left: 5px solid #2c7da0;
         }
 
-        .music-float {
+        .music-player {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            width: 55px;
-            height: 55px;
-            background: var(--blue);
+            width: 54px;
+            height: 54px;
+            background: #2c7da0;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -361,29 +417,26 @@
             color: white;
             font-size: 1.3rem;
             cursor: pointer;
-            z-index: 2000;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 3000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             border: none;
         }
-
         .modal-custom {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(4px);
-            z-index: 11000;
+            z-index: 12000;
             align-items: center;
             justify-content: center;
         }
-        .modal-custom.active {
-            display: flex;
-        }
-        .modal-box {
+        .modal-custom.active { display: flex; }
+        .modal-inner {
             background: white;
             width: 90%;
             max-width: 380px;
-            border-radius: 40px;
+            border-radius: 44px;
             padding: 30px;
             text-align: center;
             position: relative;
@@ -392,162 +445,180 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
         }
-
         footer {
             text-align: center;
-            padding: 30px 20px;
-            color: #7ea6b5;
-            font-size: 0.75rem;
+            padding: 35px 20px;
+            color: #7d9ab0;
+            font-size: 0.7rem;
         }
-
-        @media (max-width: 480px) {
-            .couple-photo { width: 100px; height: 100px; }
-            .card { padding: 25px 18px; }
+        @media (max-width: 550px) {
+            .curtain-left, .curtain-right { width: 8%; }
+            .roof-ornament { left: 8%; width: 84%; height: 130px; }
+            .flower-left, .flower-right { font-size: 1.5rem; bottom: 5%; }
+            .circle-photo { width: 100px; height: 100px; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-flowers"></div>
+<div class="wedding-ornament">
+    <div class="curtain-left"></div>
+    <div class="curtain-right"></div>
+    <div class="roof-ornament"></div>
+    <div class="flower-left">
+        <i class="fas fa-seedling"></i>
+        <i class="fas fa-leaf"></i>
+        <i class="fas fa-feather-alt"></i>
+    </div>
+    <div class="flower-right">
+        <i class="fas fa-feather-alt"></i>
+        <i class="fas fa-leaf"></i>
+        <i class="fas fa-seedling"></i>
+    </div>
+</div>
+
 <div class="loader" id="loader">
     <div class="loader-ring"></div>
 </div>
 
 <div class="cover" id="coverPage">
-    <div class="cover-icon"><i class="fas fa-heart"></i></div>
-    <h2>Alvin & Ima</h2>
-    <div class="divider"></div>
-    <p style="font-size:0.9rem;">Kami mengundang Anda</p>
-    <div class="guest-badge" id="guestNameHere">Tamu Undangan</div>
-    <button class="btn-open" id="openBtn"><i class="fas fa-envelope-open-text"></i> Buka Undangan</button>
+    <h3>Alvin</h3>
+    <h1>&</h1>
+    <h3>Ima</h3>
+    <div class="divider-gold"></div>
+    <div class="guest-name" id="guestNameDisplay">Yth. Alumni TKJ 4</div>
+    <button class="btn-open" id="openWeddingBtn"><i class="fas fa-envelope-open-text"></i> Buka Undangan</button>
 </div>
 
-<audio id="bgSound" loop>
+<audio id="bgm" loop>
     <source src="musik2.mp3" type="audio/mpeg">
 </audio>
-<button class="music-float" id="musicFloat"><i class="fas fa-music"></i></button>
+<button class="music-player" id="musicBtn"><i class="fas fa-music"></i></button>
 
-<!-- MODALS -->
+<!-- Modal Alvin & Ima -->
 <div id="modalAlvin" class="modal-custom">
-    <div class="modal-box">
+    <div class="modal-inner">
         <span class="close-modal" onclick="closeModal('modalAlvin')">✕</span>
-        <h3 style="color:var(--blue)">M. Alvian</h3>
+        <h3 style="color:#2c7da0;">M. Alvian</h3>
         <p>Cianjur, 17 Mei 2001</p>
-        <img src="ortualvin1.jpg" style="width:100%; border-radius:20px; margin:15px 0;" onerror="this.src='https://placehold.co/400x300/e0f2fe/2c7da0?text=Keluarga+Alvin'">
+        <img src="ortualvin1.jpg" style="width:100%; border-radius:28px; margin:15px 0;" onerror="this.src='https://placehold.co/400x300/bdd4e7/2c7da0?text=Keluarga+Alvin'">
         <p>Putra dari Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
-        <a href="https://www.instagram.com/alviannnnm" target="_blank" style="color:var(--blue);">@alviannnnm</a>
     </div>
 </div>
 <div id="modalIma" class="modal-custom">
-    <div class="modal-box">
+    <div class="modal-inner">
         <span class="close-modal" onclick="closeModal('modalIma')">✕</span>
-        <h3 style="color:var(--blue)">Siti Rohimah</h3>
+        <h3 style="color:#2c7da0;">Siti Rohimah</h3>
         <p>Cianjur, 23 April 2006</p>
-        <img src="ortuima1.jpg" style="width:100%; border-radius:20px; margin:15px 0;" onerror="this.src='https://placehold.co/400x300/e0f2fe/2c7da0?text=Keluarga+Ima'">
+        <img src="ortuima1.jpg" style="width:100%; border-radius:28px; margin:15px 0;" onerror="this.src='https://placehold.co/400x300/bdd4e7/2c7da0?text=Keluarga+Ima'">
         <p>Putri dari Bpk. Ayo & Ibu Nani</p>
-        <a href="https://www.instagram.com/stimaaa_" target="_blank" style="color:var(--blue);">@stimaaa_</a>
     </div>
 </div>
 
-<div class="main" id="mainContent">
+<div class="main-content" id="mainContainer">
     <div class="card">
-        <div class="card-title"><i class="fas fa-hand-peace"></i> Assalamu'alaikum</div>
-        <p style="text-align:center; font-style:italic;">"Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat." (QS. Adz-Dhariyat:49)</p>
-        <div class="countdown-grid">
-            <div class="cd-box"><span class="cd-number" id="dDay">00</span><div class="cd-label">Hari</div></div>
-            <div class="cd-box"><span class="cd-number" id="hHour">00</span><div class="cd-label">Jam</div></div>
-            <div class="cd-box"><span class="cd-number" id="mMin">00</span><div class="cd-label">Menit</div></div>
-            <div class="cd-box"><span class="cd-number" id="sSec">00</span><div class="cd-label">Detik</div></div>
+        <div class="card-title">Assalamu'alaikum</div>
+        <p style="text-align:center; font-style:italic;">"Dan di antara tanda-tanda kekuasaan-Nya, Dia menciptakan untukmu pasangan agar kamu tentram."</p>
+        <div class="countdown-box">
+            <div class="cd-item"><span class="cd-number" id="days">00</span><div class="cd-label">Hari</div></div>
+            <div class="cd-item"><span class="cd-number" id="hours">00</span><div class="cd-label">Jam</div></div>
+            <div class="cd-item"><span class="cd-number" id="minutes">00</span><div class="cd-label">Menit</div></div>
+            <div class="cd-item"><span class="cd-number" id="seconds">00</span><div class="cd-label">Detik</div></div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-title"><i class="fas fa-crown"></i> Mempelai</div>
-        <div class="couple-row">
-            <div class="couple-item">
-                <img src="alvin-1.jpg" class="couple-photo" alt="Alvin" onerror="this.src='https://placehold.co/300x300/89c2d9/2c7da0?text=Alvin'">
-                <div class="couple-name" onclick="openModal('modalAlvin')">M. Alvian <br><small>Alvin</small></div>
+        <div class="card-title">Mempelai</div>
+        <div class="couple-wrapper">
+            <div class="couple-single">
+                <img src="alvin-1.jpg" class="circle-photo" alt="Alvin" onerror="this.src='https://placehold.co/300x300/bdd4e7/2c7da0?text=Alvin'">
+                <div class="nama-pengantin" onclick="openModal('modalAlvin')">M. Alvian <br><span style="font-size:0.7rem;">(Alvin)</span></div>
             </div>
-            <div class="and-circle">&</div>
-            <div class="couple-item">
-                <img src="ima-1.jpg" class="couple-photo" alt="Ima" onerror="this.src='https://placehold.co/300x300/89c2d9/2c7da0?text=Ima'">
-                <div class="couple-name" onclick="openModal('modalIma')">Siti Rohimah <br><small>Ima</small></div>
+            <div class="and-icon">&</div>
+            <div class="couple-single">
+                <img src="ima-1.jpg" class="circle-photo" alt="Ima" onerror="this.src='https://placehold.co/300x300/bdd4e7/2c7da0?text=Ima'">
+                <div class="nama-pengantin" onclick="openModal('modalIma')">Siti Rohimah <br><span style="font-size:0.7rem;">(Ima)</span></div>
             </div>
         </div>
     </div>
 
-    <!-- OUR JOURNEY - versi panjang sesuai request -->
+    <!-- OUR JOURNEY PANJANG sesuai keinginan ANDA -->
     <div class="card">
-        <div class="card-title"><i class="fas fa-road"></i> Our Love Journey</div>
-        <div class="journey-list">
-            <div class="journey-item">
+        <div class="card-title">✨ Our Love Journey ✨</div>
+        <div class="journey-timeline">
+            <div class="journey-node">
                 <div class="journey-dot"></div>
-                <div class="journey-date">🌿 Awal Bertemu - Juli 2025</div>
-                <div class="journey-title">Awal Mula Perkenalan</div>
-                <p>Saat itu Alvin sedang melakukan kunjungan ke tempat kerja Ima. Dari pertemuan yang awalnya biasa saja, ternyata semesta punya rencana lain. Mereka mulai berbincang, bertukar cerita, dan akhirnya saling menukar nomor telepon. Sejak saat itu, komunikasi mereka semakin intens dan benih-benih ketertarikan mulai tumbuh.</p>
+                <div class="journey-date">🌼 Juli 2025 — Awal Bertemu</div>
+                <div class="journey-title">Perkenalan yang Tak Terlupakan</div>
+                <div class="journey-desc">Alvin melakukan kunjungan ke tempat kerja Ima. Saat itu obrolan ringan mengalir begitu alami, tanpa disadari waktu berlalu. Sebelum berpisah, mereka bertukar nomor telepon. Dari situlah komunikasi semakin erat. Setiap malam diisi dengan telepon panjang, saling bercerita tentang mimpi dan keseharian. Itulah awal benih cinta mulai bersemi.</div>
             </div>
-            <div class="journey-item">
+            <div class="journey-node">
                 <div class="journey-dot"></div>
-                <div class="journey-date">💍 Lamaran - April 2026</div>
-                <div class="journey-title">Mengikat Janji</div>
-                <p>Setelah melalui proses saling mengenal dan meyakinkan hati, keluarga pun memberikan restunya. Pada bulan April 2026, Alvin resmi melamar Ima dalam acara yang penuh kebahagiaan dan doa. Hari itu menjadi tonggak penting di mana komitmen untuk melangkah ke jenjang yang lebih serius diresmikan di hadapan keluarga tercinta.</p>
+                <div class="journey-date">💍 April 2026 — Lamaran & Ikatan Janji</div>
+                <div class="journey-title">Restu Keluarga</div>
+                <div class="journey-desc">Setelah setahun menjalin kedekatan, Alvin memberanikan diri untuk meminta restu kepada keluarga Ima. Dengan hati yang gemetar namun penuh keyakinan, lamaran pun dilaksanakan di bulan April 2026. Acara berlangsung khidmat, penuh doa dan kebahagiaan. Keluarga besar merestui, dan kami resmi bertunangan. Hari itu menjadi tonggak komitmen kami menuju jenjang yang lebih serius.</div>
             </div>
-            <div class="journey-item">
+            <div class="journey-node">
                 <div class="journey-dot"></div>
-                <div class="journey-date">💒 Pernikahan - April 2027</div>
+                <div class="journey-date">💒 April 2027 — Pernikahan Impian</div>
                 <div class="journey-title">Hari yang Dinanti</div>
-                <p>Dan puncak dari perjalanan cinta ini adalah saat kami bersatu dalam ikatan pernikahan yang suci. Di bulan April 2027, dengan restu dan doa dari orang-orang tersayang, kami resmi menjadi pasangan suami istri. Semoga perjalanan ini senantiasa diberkahi Allah dan menjadi keluarga yang sakinah, mawaddah, warahmah.</p>
+                <div class="journey-desc">Setelah perjalanan indah penuh suka dan duka, akhirnya sampailah kami di gerbang suci pernikahan. Pada bulan April 2027, dengan restu Allah SWT, kami resmi menjadi pasangan suami istri. Semoga perjalanan panjang ini senantiasa dilimpahi berkah, menjadi keluarga yang sakinah, mawaddah, warahmah. Doa dan dukungan dari Anda semua adalah kebahagiaan terbesar bagi kami.</div>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-title"><i class="fas fa-video"></i> Prewedding Story</div>
+        <div class="card-title">🎬 Galeri Kenangan</div>
         <div class="video-box">
-            <video id="storyVideo" loop muted playsinline>
+            <video id="weddingVideo" loop muted playsinline>
                 <source src="video3.mp4" type="video/mp4">
             </video>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-title"><i class="fas fa-map-marker-alt"></i> Lokasi & Waktu</div>
-        <div class="loc-card">
-            <i class="far fa-calendar-alt" style="font-size:1.8rem; color:var(--blue);"></i>
-            <p><strong>Minggu, 26 April 2027 | 09:00 WIB</strong></p>
-            <i class="fas fa-home"></i>
-            <p>Kediaman Mempelai Wanita<br>Jatisari, Bojongpicung, Cianjur</p>
+        <div class="card-title">📍 Detail Acara</div>
+        <div class="lokasi-card">
+            <i class="far fa-calendar-alt" style="font-size:1.8rem; color:#2c7da0;"></i>
+            <p style="font-weight:700; margin:8px 0;">Minggu, 26 April 2027</p>
+            <p>Akad Nikah: 08:00 - 10:00 WIB</p>
+            <p>Resepsi: 10:00 - 16:00 WIB</p>
         </div>
-        <a href="https://maps.app.goo.gl/yXAWRDwW9CcvxqB48" target="_blank" class="btn-blue" style="text-decoration:none; display:block; text-align:center;"><i class="fas fa-directions"></i> Buka Lokasi</a>
+        <div class="lokasi-card">
+            <i class="fas fa-map-marker-alt" style="font-size:1.8rem; color:#2c7da0;"></i>
+            <p style="font-weight:700;">Kediaman Mempelai Wanita</p>
+            <p>Jatisari, Kec. Bojongpicung, Kab. Cianjur, Jawa Barat</p>
+        </div>
+        <a href="https://maps.app.goo.gl/yXAWRDwW9CcvxqB48" target="_blank" class="btn-blue"><i class="fas fa-location-dot"></i> Lihat Lokasi</a>
     </div>
 
     <div class="card">
-        <div class="card-title"><i class="fas fa-gift"></i> Amplop Digital</div>
-        <div style="background:#e6f2f9; border-radius:25px; padding:18px; text-align:center;">
+        <div class="card-title">🎁 Amplop Digital</div>
+        <div class="gift-card">
             <p>BANK BCA</p>
-            <h3 style="color:var(--blue);">50121867211</h3>
+            <h3 style="color:#2c7da0; letter-spacing:2px;">50121867211</h3>
             <p>a.n Moh Alvian</p>
-            <button class="btn-blue" id="copyBtn" style="margin-top:8px;">Salin Rekening</button>
+            <button class="btn-blue" id="copyBtn" style="margin-top:12px;"><i class="fas fa-copy"></i> Salin Rekening</button>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-title"><i class="fas fa-book-open"></i> Buku Tamu & Ucapan</div>
-        <form id="guestForm">
-            <input type="text" id="fullName" placeholder="Nama Lengkap" required>
-            <textarea id="msgText" rows="2" placeholder="Ucapan & doa untuk kami..." required></textarea>
-            <select id="attendSelect">
+        <div class="card-title">📖 Buku Tamu & Ucapan</div>
+        <form id="formUcapan">
+            <input type="text" id="namaTamu" placeholder="Nama Lengkap" required>
+            <textarea id="pesanTamu" rows="2" placeholder="Doa dan ucapan untuk Alvin & Ima..." required></textarea>
+            <select id="kehadiran">
                 <option value="Hadir">✅ InsyaAllah Hadir</option>
-                <option value="Tidak Hadir">❌ Mohon maaf tidak bisa hadir</option>
+                <option value="Tidak Hadir">❌ Mohon maaf tidak hadir</option>
             </select>
             <button type="submit" class="btn-blue"><i class="fas fa-paper-plane"></i> Kirim Ucapan</button>
         </form>
-        <div id="guestList" style="margin-top:25px;"></div>
+        <div class="guestbook-list" id="daftarUcapan"></div>
     </div>
-    <footer>💙 Doa restu Anda adalah kebahagiaan bagi kami 💙<br>Alvin & Ima</footer>
+    <footer>💙 Doa restu Anda adalah hadiah terindah untuk kami 💙<br>Alvin & Ima</footer>
 </div>
 
 <script type="module">
@@ -564,97 +635,73 @@
     };
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const ucapanRef = collection(db, "ucapan");
-    const qMessages = query(ucapanRef, orderBy("timestamp", "desc"));
-    onSnapshot(qMessages, (snap) => {
-        const container = document.getElementById("guestList");
-        if(!container) return;
-        container.innerHTML = "";
-        snap.forEach(doc => {
-            const d = doc.data();
-            const div = document.createElement("div");
-            div.className = "guest-item";
-            div.innerHTML = `<strong style="color:var(--blue);">${d.nama || 'Tamu'}</strong> <span style="float:right; background:${d.status === 'Hadir' ? '#2c7da0' : '#94a3b8'}; color:white; border-radius:30px; padding:2px 12px; font-size:0.7rem;">${d.status}</span><p style="margin-top:8px;">${d.pesan}</p>`;
-            container.appendChild(div);
-        });
+    const ucapanCollection = collection(db, "ucapan");
+    const qry = query(ucapanCollection, orderBy("timestamp", "desc"));
+    onSnapshot(qry, (snapshot) => {
+        const container = document.getElementById("daftarUcapan");
+        if(container) {
+            container.innerHTML = "";
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const div = document.createElement("div");
+                div.className = "guest-card";
+                div.innerHTML = `<strong style="color:#2c7da0;">${data.nama || 'Tamu'}</strong> <span style="float:right; background:${data.status === 'Hadir' ? '#2c7da0' : '#8aaec0'}; color:white; padding:2px 12px; border-radius:50px; font-size:0.7rem;">${data.status}</span><p style="margin-top:8px;">${data.pesan}</p>`;
+                container.appendChild(div);
+            });
+        }
     });
-    document.getElementById("guestForm")?.addEventListener("submit", async (e) => {
+    document.getElementById("formUcapan")?.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const nama = document.getElementById("fullName").value.trim();
-        const pesan = document.getElementById("msgText").value.trim();
-        const status = document.getElementById("attendSelect").value;
-        if(!nama || !pesan) { alert("Isi nama & ucapan dulu ya 💙"); return; }
-        await addDoc(ucapanRef, { nama, pesan, status, timestamp: serverTimestamp() });
-        document.getElementById("guestForm").reset();
-        alert("Terima kasih atas doa & ucapannya ✨");
+        const nama = document.getElementById("namaTamu").value.trim();
+        const pesan = document.getElementById("pesanTamu").value.trim();
+        const status = document.getElementById("kehadiran").value;
+        if(!nama || !pesan) { alert("Nama dan ucapan harus diisi 💙"); return; }
+        await addDoc(ucapanCollection, { nama, pesan, status, timestamp: serverTimestamp() });
+        document.getElementById("formUcapan").reset();
+        alert("✨ Ucapan terkirim! Terima kasih atas doanya ✨");
     });
 </script>
 
 <script>
-    const params = new URLSearchParams(location.search);
-    let guestParam = params.get('to') || "Tamu Undangan";
-    if(guestParam === "Alumni TKJ 4") guestParam = "Alumni TKJ 4 🎓";
-    document.getElementById("guestNameHere").innerText = guestParam;
+    const urlParam = new URLSearchParams(window.location.search);
+    let guestFromUrl = urlParam.get('to') || "Alumni TKJ 4";
+    document.getElementById("guestNameDisplay").innerHTML = `Yth. ${guestFromUrl}`;
 
-    const weddingDate = new Date("April 26, 2027 09:00:00").getTime();
+    const weddingTime = new Date("April 26, 2027 09:00:00").getTime();
     setInterval(() => {
         const now = Date.now();
-        const diff = weddingDate - now;
+        const diff = weddingTime - now;
         if(diff < 0) return;
-        document.getElementById("dDay").innerText = String(Math.floor(diff/(1000*60*60*24))).padStart(2,'0');
-        document.getElementById("hHour").innerText = String(Math.floor((diff%(1000*60*60*24))/(1000*60*60))).padStart(2,'0');
-        document.getElementById("mMin").innerText = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,'0');
-        document.getElementById("sSec").innerText = String(Math.floor((diff%(1000*60))/1000)).padStart(2,'0');
+        document.getElementById("days").innerText = String(Math.floor(diff/(1000*60*60*24))).padStart(2,'0');
+        document.getElementById("hours").innerText = String(Math.floor((diff%(1000*60*60*24))/(1000*60*60))).padStart(2,'0');
+        document.getElementById("minutes").innerText = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,'0');
+        document.getElementById("seconds").innerText = String(Math.floor((diff%(1000*60))/1000)).padStart(2,'0');
     }, 1000);
 
-    const audio = document.getElementById("bgSound");
-    const musicBtn = document.getElementById("musicFloat");
-    let musicPlaying = false;
+    const bgAudio = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
     musicBtn.onclick = () => {
-        if(audio.paused) {
-            audio.play().catch(()=>{});
-            musicBtn.innerHTML = "<i class='fas fa-music'></i>";
-            musicBtn.style.background = "#1e5a7a";
-            musicPlaying = true;
-        } else {
-            audio.pause();
-            musicBtn.innerHTML = "<i class='fas fa-pause'></i>";
-            musicBtn.style.background = "#2c7da0";
-            musicPlaying = false;
-        }
+        if(bgAudio.paused) { bgAudio.play().catch(()=>{}); musicBtn.innerHTML = "<i class='fas fa-music'></i>"; }
+        else { bgAudio.pause(); musicBtn.innerHTML = "<i class='fas fa-pause'></i>"; }
     };
-    document.getElementById("openBtn").onclick = () => {
-        audio.play().catch(()=>{});
-        document.getElementById("storyVideo")?.play().catch(()=>{});
+    document.getElementById("openWeddingBtn").onclick = () => {
+        bgAudio.play().catch(()=>{});
+        document.getElementById("weddingVideo")?.play().catch(()=>{});
         document.getElementById("coverPage").classList.add("hide");
         setTimeout(() => {
-            document.getElementById("mainContent").classList.add("show");
-            document.querySelectorAll(".card").forEach((card,idx) => setTimeout(()=> card.classList.add("visible"), idx*120));
-        }, 300);
+            document.getElementById("mainContainer").classList.add("show");
+            document.querySelectorAll(".card").forEach((c, idx) => setTimeout(() => c.classList.add("visible"), idx * 100));
+        }, 200);
         musicBtn.style.display = "flex";
-        musicBtn.innerHTML = "<i class='fas fa-music'></i>";
-        musicBtn.style.background = "#1e5a7a";
     };
-    window.openModal = (id) => document.getElementById(id).classList.add("active");
-    window.closeModal = (id) => document.getElementById(id).classList.remove("active");
-    window.onclick = (e) => { if(e.target.classList?.contains('modal-custom')) e.target.classList.remove('active'); };
     document.getElementById("copyBtn")?.addEventListener("click", () => {
         navigator.clipboard.writeText("50121867211");
         alert("Nomor rekening tersalin ✅");
     });
-    setTimeout(() => document.getElementById("loader")?.classList.add("hide"), 1200);
-
-    // Background floating flowers
-    for(let i=0; i<12; i++) {
-        let flower = document.createElement("div");
-        flower.className = "floating-flower";
-        flower.innerHTML = ["🌸","🌼","🌺","🌸","🌿","🌷"][Math.floor(Math.random()*6)];
-        flower.style.left = Math.random() * 100 + "%";
-        flower.style.animationDuration = 15 + Math.random() * 20 + "s";
-        flower.style.animationDelay = Math.random() * 10 + "s";
-        flower.style.fontSize = 20 + Math.random() * 25 + "px";
-        document.body.appendChild(flower);
-    }
+    window.openModal = (id) => document.getElementById(id).classList.add("active");
+    window.closeModal = (id) => document.getElementById(id).classList.remove("active");
+    window.onclick = (e) => { if(e.target.classList?.contains('modal-custom')) e.target.classList.remove('active'); };
+    setTimeout(() => document.getElementById("loader")?.classList.add("hide"), 1100);
 </script>
 </body>
 </html>
