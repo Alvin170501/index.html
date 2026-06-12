@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Pernikahan Alvin & Ima | Biru Elegan</title>
+    <title>Pernikahan Alvin & Ima</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -20,100 +20,7 @@
             overflow-x: hidden;
         }
 
-        /* ========== ORNAMEN PELAMINAN: TIRAI + ATAP + BUNGA ========== */
-        .wedding-ornament {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Tirai / Gorden Kanan Kiri */
-        .curtain-left, .curtain-right {
-            position: absolute;
-            top: 0;
-            width: 14%;
-            height: 100%;
-            background: linear-gradient(135deg, #f4ede4, #e6d8cc);
-            box-shadow: 4px 0 12px rgba(0,0,0,0.08);
-            z-index: 2;
-        }
-        .curtain-left {
-            left: 0;
-            border-right: 1px solid #d4c4b2;
-            background-image: repeating-linear-gradient(90deg, rgba(160,120,80,0.08) 0px, rgba(160,120,80,0.08) 2px, transparent 2px, transparent 8px);
-        }
-        .curtain-right {
-            right: 0;
-            border-left: 1px solid #d4c4b2;
-            background-image: repeating-linear-gradient(270deg, rgba(160,120,80,0.08) 0px, rgba(160,120,80,0.08) 2px, transparent 2px, transparent 8px);
-        }
-        /* Lipatan tirai */
-        .curtain-left::before, .curtain-right::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 3px, transparent 3px, transparent 18px);
-        }
-
-        /* Atap Rumah / Pelaminan (lengkung khas Sunda) */
-        .roof-ornament {
-            position: absolute;
-            top: 0;
-            left: 14%;
-            width: 72%;
-            height: 170px;
-            background: linear-gradient(165deg, #fef7e8, #fff2e0);
-            border-bottom-left-radius: 60% 40%;
-            border-bottom-right-radius: 60% 40%;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            z-index: 1;
-        }
-        .roof-ornament::after {
-            content: "❦ ❦ ❦";
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 1.3rem;
-            color: #7f8c8d;
-            letter-spacing: 8px;
-            opacity: 0.3;
-        }
-
-        /* Bunga-bunga di samping kiri & kanan (dekorasi) */
-        .flower-left, .flower-right {
-            position: absolute;
-            bottom: 10%;
-            width: 100px;
-            height: auto;
-            font-size: 2rem;
-            text-align: center;
-            z-index: 2;
-            opacity: 0.75;
-        }
-        .flower-left {
-            left: 2%;
-            transform: rotate(-10deg);
-        }
-        .flower-right {
-            right: 2%;
-            transform: rotate(10deg);
-        }
-        .flower-left i, .flower-right i {
-            display: block;
-            margin: 8px 0;
-            color: #5d9bb3;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Loader */
+        /* ========== LOADER ========== */
         .loader {
             position: fixed;
             inset: 0;
@@ -138,52 +45,59 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* COVER PAGE */
+        /* ========== COVER PAGE (PAKAI GAMBAR CANVA) ========== */
         .cover {
             position: fixed;
             inset: 0;
-            background: rgba(255, 253, 250, 0.98);
-            backdrop-filter: blur(2px);
+            z-index: 10500;
+            transition: 0.7s;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            z-index: 10500;
-            transition: 0.7s;
-            padding: 30px;
         }
         .cover.hide {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-        .cover h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 12vw, 4.8rem);
-            color: #2c7da0;
-            letter-spacing: 5px;
+
+        .cover-img-wrapper {
+            width: 100%;
+            height: 100vh;
+            position: relative;
         }
-        .cover h3 {
-            font-size: 1.4rem;
-            font-weight: 400;
-            color: #5d9bb3;
-            margin-top: 10px;
+
+        .cover-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
-        .divider-gold {
-            width: 70px;
-            height: 2px;
-            background: #7f8c8d;
-            margin: 25px auto;
+
+        /* Overlay teks & tombol di atas gambar cover */
+        .cover-overlay {
+            position: absolute;
+            bottom: 15%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            padding: 0 20px;
         }
+
         .guest-name {
-            background: #e0f2fe;
+            background: rgba(224, 242, 254, 0.85);
             padding: 10px 28px;
             border-radius: 60px;
             color: #2c7da0;
             font-weight: 600;
-            margin: 20px 0;
+            margin-bottom: 20px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            font-size: 1rem;
         }
+
         .btn-open {
             background: #2c7da0;
             border: none;
@@ -195,16 +109,17 @@
             cursor: pointer;
             box-shadow: 0 6px 14px rgba(44,125,160,0.3);
             transition: 0.2s;
+            display: block;
+            margin: 0 auto;
         }
         .btn-open:hover { transform: scale(1.02); background: #1f5a74; }
 
-        /* MAIN CONTENT */
+        /* ========== MAIN CONTENT (ISI UNDANGAN) ========== */
         .main-content {
             position: relative;
             z-index: 20;
             max-width: 580px;
             margin: 0 auto;
-            padding: 80px 20px 60px;
             opacity: 0;
             transition: 0.7s;
         }
@@ -212,197 +127,13 @@
             opacity: 1;
         }
 
-        /* CARD PUTIH DENGAN SHADOW */
-        .card {
-            background: rgba(255,255,255,0.96);
-            border-radius: 32px;
-            margin-bottom: 28px;
-            padding: 28px 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            transform: translateY(30px);
-            opacity: 0;
-            transition: all 0.6s ease;
-            border: 1px solid #dee6ef;
-        }
-        .card.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.7rem;
-            color: #2c7da0;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        /* COUNTDOWN */
-        .countdown-box {
-            display: flex;
-            gap: 12px;
-            justify-content: space-between;
-            margin: 25px 0 10px;
-        }
-        .cd-item {
-            background: #f2f6fa;
-            flex: 1;
-            padding: 14px 6px;
-            text-align: center;
-            border-radius: 24px;
-        }
-        .cd-number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #2c7da0;
-        }
-        .cd-label {
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            color: #5b6e8c;
-        }
-
-        /* FOTO COUPLE */
-        .couple-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .couple-single {
-            text-align: center;
-            flex: 1;
-        }
-        .circle-photo {
-            width: 125px;
-            height: 125px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #8bbcd6;
-            box-shadow: 0 10px 18px rgba(0,0,0,0.1);
-            margin-bottom: 12px;
-        }
-        .nama-pengantin {
-            font-weight: 700;
-            color: #2c7da0;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .and-icon {
-            background: #deedf5;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #2c7da0;
-        }
-
-        /* OUR JOURNEY PANJANG */
-        .journey-timeline {
-            position: relative;
-            padding-left: 10px;
-        }
-        .journey-node {
-            position: relative;
-            margin-bottom: 32px;
-            padding-left: 32px;
-            border-left: 2px solid #b9d4e8;
-        }
-        .journey-dot {
-            position: absolute;
-            left: -9px;
-            top: 3px;
-            width: 14px;
-            height: 14px;
-            background: #2c7da0;
-            border-radius: 50%;
-            border: 2px solid white;
-            box-shadow: 0 0 0 2px #b9d4e8;
-        }
-        .journey-date {
-            font-weight: 800;
-            color: #2c7da0;
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-        }
-        .journey-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-        .journey-desc {
-            font-size: 0.88rem;
-            color: #2c3e50;
-            line-height: 1.5;
-        }
-
-        .video-box {
-            border-radius: 28px;
-            overflow: hidden;
-            margin: 20px 0;
-            aspect-ratio: 16/9;
-            background: #1e293b;
-        }
-        video { width: 100%; height: 100%; object-fit: cover; }
-
-        .lokasi-card {
-            background: #f2f6fa;
-            border-radius: 24px;
-            padding: 18px;
-            text-align: center;
-            margin: 15px 0;
-        }
-        .btn-blue {
-            background: #2c7da0;
-            border: none;
-            padding: 12px;
-            border-radius: 60px;
-            color: white;
-            font-weight: 600;
+        .main-content img {
             width: 100%;
             display: block;
-            text-align: center;
-            text-decoration: none;
-            transition: 0.2s;
-        }
-        .btn-blue:hover { background: #1f5a74; }
-
-        .gift-card {
-            background: #f2f6fa;
-            border-radius: 24px;
-            padding: 20px;
-            text-align: center;
-            border: 1px dashed #8bbcd6;
+            border-radius: 0;
         }
 
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 16px;
-            margin: 8px 0;
-            border: 1px solid #cbdbe2;
-            border-radius: 34px;
-            font-family: 'Poppins', sans-serif;
-        }
-        input:focus, textarea:focus { border-color: #2c7da0; outline: none; }
-
-        .guestbook-list {
-            margin-top: 25px;
-            max-height: 380px;
-            overflow-y: auto;
-        }
-        .guest-card {
-            background: #fafcff;
-            border-radius: 20px;
-            padding: 14px;
-            margin-bottom: 12px;
-            border-left: 5px solid #2c7da0;
-        }
-
+        /* ========== MUSIC PLAYER ========== */
         .music-player {
             position: fixed;
             bottom: 25px;
@@ -411,7 +142,7 @@
             height: 54px;
             background: #2c7da0;
             border-radius: 50%;
-            display: flex;
+            display: none; /* Awalnya hidden, muncul setelah buka */
             align-items: center;
             justify-content: center;
             color: white;
@@ -421,6 +152,8 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             border: none;
         }
+
+        /* ========== MODAL (Opsional, buat keluarga) ========== */
         .modal-custom {
             display: none;
             position: fixed;
@@ -448,57 +181,52 @@
             font-size: 26px;
             cursor: pointer;
         }
-        footer {
-            text-align: center;
-            padding: 35px 20px;
-            color: #7d9ab0;
-            font-size: 0.7rem;
-        }
+
+        /* Responsive tweak */
         @media (max-width: 550px) {
-            .curtain-left, .curtain-right { width: 8%; }
-            .roof-ornament { left: 8%; width: 84%; height: 130px; }
-            .flower-left, .flower-right { font-size: 1.5rem; bottom: 5%; }
-            .circle-photo { width: 100px; height: 100px; }
+            .guest-name {
+                font-size: 0.9rem;
+                padding: 8px 20px;
+            }
+            .btn-open {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="wedding-ornament">
-    <div class="curtain-left"></div>
-    <div class="curtain-right"></div>
-    <div class="roof-ornament"></div>
-    <div class="flower-left">
-        <i class="fas fa-seedling"></i>
-        <i class="fas fa-leaf"></i>
-        <i class="fas fa-feather-alt"></i>
-    </div>
-    <div class="flower-right">
-        <i class="fas fa-feather-alt"></i>
-        <i class="fas fa-leaf"></i>
-        <i class="fas fa-seedling"></i>
-    </div>
-</div>
-
+<!-- ========== LOADER ========== -->
 <div class="loader" id="loader">
     <div class="loader-ring"></div>
 </div>
 
+<!-- ========== COVER PAGE ========== -->
 <div class="cover" id="coverPage">
-    <h3>Alvin</h3>
-    <h1>&</h1>
-    <h3>Ima</h3>
-    <div class="divider-gold"></div>
-    <div class="guest-name" id="guestNameDisplay">Yth. Alumni TKJ 4</div>
-    <button class="btn-open" id="openWeddingBtn"><i class="fas fa-envelope-open-text"></i> Buka Undangan</button>
+    <div class="cover-img-wrapper">
+        <!-- Gambar Cover dari Canva -->
+        <img src="cover.png" alt="Cover Undangan">
+        
+        <!-- Tombol & Teks Tamu di atas gambar -->
+        <div class="cover-overlay">
+            <div class="guest-name" id="guestNameDisplay">Yth. Alumni TKJ 4</div>
+            <button class="btn-open" id="openWeddingBtn">
+                <i class="fas fa-envelope-open-text"></i> Buka Undangan
+            </button>
+        </div>
+    </div>
 </div>
 
+<!-- ========== AUDIO ========== -->
 <audio id="bgm" loop>
     <source src="musik2.mp3" type="audio/mpeg">
 </audio>
+
+<!-- ========== MUSIC BUTTON ========== -->
 <button class="music-player" id="musicBtn"><i class="fas fa-music"></i></button>
 
-<!-- Modal Alvin & Ima -->
+<!-- ========== MODALS (Opsional) ========== -->
 <div id="modalAlvin" class="modal-custom">
     <div class="modal-inner">
         <span class="close-modal" onclick="closeModal('modalAlvin')">✕</span>
@@ -518,109 +246,28 @@
     </div>
 </div>
 
+<!-- ========== MAIN CONTENT (ISI UNDANGAN) ========== -->
 <div class="main-content" id="mainContainer">
-    <div class="card">
-        <div class="card-title">Assalamu'alaikum</div>
-        <p style="text-align:center; font-style:italic;">"Dan di antara tanda-tanda kekuasaan-Nya, Dia menciptakan untukmu pasangan agar kamu tentram."</p>
-        <div class="countdown-box">
-            <div class="cd-item"><span class="cd-number" id="days">00</span><div class="cd-label">Hari</div></div>
-            <div class="cd-item"><span class="cd-number" id="hours">00</span><div class="cd-label">Jam</div></div>
-            <div class="cd-item"><span class="cd-number" id="minutes">00</span><div class="cd-label">Menit</div></div>
-            <div class="cd-item"><span class="cd-number" id="seconds">00</span><div class="cd-label">Detik</div></div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">Mempelai</div>
-        <div class="couple-wrapper">
-            <div class="couple-single">
-                <img src="alvin-1.jpg" class="circle-photo" alt="Alvin" onerror="this.src='https://placehold.co/300x300/bdd4e7/2c7da0?text=Alvin'">
-                <div class="nama-pengantin" onclick="openModal('modalAlvin')">M. Alvian <br><span style="font-size:0.7rem;">(Alvin)</span></div>
-            </div>
-            <div class="and-icon">&</div>
-            <div class="couple-single">
-                <img src="ima-1.jpg" class="circle-photo" alt="Ima" onerror="this.src='https://placehold.co/300x300/bdd4e7/2c7da0?text=Ima'">
-                <div class="nama-pengantin" onclick="openModal('modalIma')">Siti Rohimah <br><span style="font-size:0.7rem;">(Ima)</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- OUR JOURNEY PANJANG sesuai keinginan ANDA -->
-    <div class="card">
-        <div class="card-title">✨ Our Love Journey ✨</div>
-        <div class="journey-timeline">
-            <div class="journey-node">
-                <div class="journey-dot"></div>
-                <div class="journey-date">🌼 Juli 2025 — Awal Bertemu</div>
-                <div class="journey-title">Perkenalan yang Tak Terlupakan</div>
-                <div class="journey-desc">Alvin melakukan kunjungan ke tempat kerja Ima. Saat itu obrolan ringan mengalir begitu alami, tanpa disadari waktu berlalu. Sebelum berpisah, mereka bertukar nomor telepon. Dari situlah komunikasi semakin erat. Setiap malam diisi dengan telepon panjang, saling bercerita tentang mimpi dan keseharian. Itulah awal benih cinta mulai bersemi.</div>
-            </div>
-            <div class="journey-node">
-                <div class="journey-dot"></div>
-                <div class="journey-date">💍 April 2026 — Lamaran & Ikatan Janji</div>
-                <div class="journey-title">Restu Keluarga</div>
-                <div class="journey-desc">Setelah setahun menjalin kedekatan, Alvin memberanikan diri untuk meminta restu kepada keluarga Ima. Dengan hati yang gemetar namun penuh keyakinan, lamaran pun dilaksanakan di bulan April 2026. Acara berlangsung khidmat, penuh doa dan kebahagiaan. Keluarga besar merestui, dan kami resmi bertunangan. Hari itu menjadi tonggak komitmen kami menuju jenjang yang lebih serius.</div>
-            </div>
-            <div class="journey-node">
-                <div class="journey-dot"></div>
-                <div class="journey-date">💒 April 2027 — Pernikahan Impian</div>
-                <div class="journey-title">Hari yang Dinanti</div>
-                <div class="journey-desc">Setelah perjalanan indah penuh suka dan duka, akhirnya sampailah kami di gerbang suci pernikahan. Pada bulan April 2027, dengan restu Allah SWT, kami resmi menjadi pasangan suami istri. Semoga perjalanan panjang ini senantiasa dilimpahi berkah, menjadi keluarga yang sakinah, mawaddah, warahmah. Doa dan dukungan dari Anda semua adalah kebahagiaan terbesar bagi kami.</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">🎬 Galeri Kenangan</div>
-        <div class="video-box">
-            <video id="weddingVideo" loop muted playsinline>
-                <source src="video3.mp4" type="video/mp4">
-            </video>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">📍 Detail Acara</div>
-        <div class="lokasi-card">
-            <i class="far fa-calendar-alt" style="font-size:1.8rem; color:#2c7da0;"></i>
-            <p style="font-weight:700; margin:8px 0;">Minggu, 26 April 2027</p>
-            <p>Akad Nikah: 08:00 - 10:00 WIB</p>
-            <p>Resepsi: 10:00 - 16:00 WIB</p>
-        </div>
-        <div class="lokasi-card">
-            <i class="fas fa-map-marker-alt" style="font-size:1.8rem; color:#2c7da0;"></i>
-            <p style="font-weight:700;">Kediaman Mempelai Wanita</p>
-            <p>Jatisari, Kec. Bojongpicung, Kab. Cianjur, Jawa Barat</p>
-        </div>
-        <a href="https://maps.app.goo.gl/yXAWRDwW9CcvxqB48" target="_blank" class="btn-blue"><i class="fas fa-location-dot"></i> Lihat Lokasi</a>
-    </div>
-
-    <div class="card">
-        <div class="card-title">🎁 Amplop Digital</div>
-        <div class="gift-card">
-            <p>BANK ALADIN SYARIAH</p>
-            <h3 style="color:#2c7da0; letter-spacing:2px;">50121867211</h3>
-            <p>a.n Moh Alvian</p>
-            <button class="btn-blue" id="copyBtn" style="margin-top:12px;"><i class="fas fa-copy"></i> Salin Rekening</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">📖 Buku Tamu & Ucapan</div>
-        <form id="formUcapan">
-            <input type="text" id="namaTamu" placeholder="Nama Lengkap" required>
-            <textarea id="pesanTamu" rows="2" placeholder="Doa dan ucapan untuk Alvin & Ima..." required></textarea>
-            <select id="kehadiran">
+    <!-- Gambar Isi Undangan dari Canva (gambar panjang) -->
+    <img src="isi-undangan.png" alt="Isi Undangan">
+    
+    <!-- BUKU TAMU (Tetap ada di bawah gambar) -->
+    <div style="padding: 20px; background: white; margin-top: -5px;">
+        <h3 style="text-align:center; color:#2c7da0; font-family:'Playfair Display', serif; font-size:1.5rem;">📖 Buku Tamu & Ucapan</h3>
+        <form id="formUcapan" style="margin-top: 20px;">
+            <input type="text" id="namaTamu" placeholder="Nama Lengkap" required style="width:100%; padding:12px 16px; margin:8px 0; border:1px solid #cbdbe2; border-radius:34px; font-family:'Poppins', sans-serif;">
+            <textarea id="pesanTamu" rows="2" placeholder="Doa dan ucapan untuk Alvin & Ima..." required style="width:100%; padding:12px 16px; margin:8px 0; border:1px solid #cbdbe2; border-radius:34px; font-family:'Poppins', sans-serif;"></textarea>
+            <select id="kehadiran" style="width:100%; padding:12px 16px; margin:8px 0; border:1px solid #cbdbe2; border-radius:34px; font-family:'Poppins', sans-serif;">
                 <option value="Hadir">✅ InsyaAllah Hadir</option>
                 <option value="Tidak Hadir">❌ Mohon maaf tidak hadir</option>
             </select>
-            <button type="submit" class="btn-blue"><i class="fas fa-paper-plane"></i> Kirim Ucapan</button>
+            <button type="submit" class="btn-open" style="width:100%; margin-top:10px;"><i class="fas fa-paper-plane"></i> Kirim Ucapan</button>
         </form>
-        <div class="guestbook-list" id="daftarUcapan"></div>
+        <div class="guestbook-list" id="daftarUcapan" style="margin-top:25px; max-height:380px; overflow-y:auto;"></div>
     </div>
-    <footer>💙 Doa restu Anda adalah hadiah terindah untuk kami 💙<br>Alvin & Ima</footer>
 </div>
 
+<!-- ========== FIREBASE + SCRIPTS ========== -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -645,6 +292,7 @@
                 const data = doc.data();
                 const div = document.createElement("div");
                 div.className = "guest-card";
+                div.style = "background:#fafcff; border-radius:20px; padding:14px; margin-bottom:12px; border-left:5px solid #2c7da0;";
                 div.innerHTML = `<strong style="color:#2c7da0;">${data.nama || 'Tamu'}</strong> <span style="float:right; background:${data.status === 'Hadir' ? '#2c7da0' : '#8aaec0'}; color:white; padding:2px 12px; border-radius:50px; font-size:0.7rem;">${data.status}</span><p style="margin-top:8px;">${data.pesan}</p>`;
                 container.appendChild(div);
             });
@@ -663,45 +311,37 @@
 </script>
 
 <script>
+    // ========== NAMA TAMU DARI URL ==========
     const urlParam = new URLSearchParams(window.location.search);
     let guestFromUrl = urlParam.get('to') || "Alumni TKJ 4";
     document.getElementById("guestNameDisplay").innerHTML = `Yth. ${guestFromUrl}`;
 
-    const weddingTime = new Date("April 26, 2027 09:00:00").getTime();
-    setInterval(() => {
-        const now = Date.now();
-        const diff = weddingTime - now;
-        if(diff < 0) return;
-        document.getElementById("days").innerText = String(Math.floor(diff/(1000*60*60*24))).padStart(2,'0');
-        document.getElementById("hours").innerText = String(Math.floor((diff%(1000*60*60*24))/(1000*60*60))).padStart(2,'0');
-        document.getElementById("minutes").innerText = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,'0');
-        document.getElementById("seconds").innerText = String(Math.floor((diff%(1000*60))/1000)).padStart(2,'0');
-    }, 1000);
-
+    // ========== MUSIC PLAYER ==========
     const bgAudio = document.getElementById("bgm");
     const musicBtn = document.getElementById("musicBtn");
     musicBtn.onclick = () => {
         if(bgAudio.paused) { bgAudio.play().catch(()=>{}); musicBtn.innerHTML = "<i class='fas fa-music'></i>"; }
         else { bgAudio.pause(); musicBtn.innerHTML = "<i class='fas fa-pause'></i>"; }
     };
+
+    // ========== BUKA UNDANGAN ==========
     document.getElementById("openWeddingBtn").onclick = () => {
         bgAudio.play().catch(()=>{});
-        document.getElementById("weddingVideo")?.play().catch(()=>{});
         document.getElementById("coverPage").classList.add("hide");
         setTimeout(() => {
             document.getElementById("mainContainer").classList.add("show");
-            document.querySelectorAll(".card").forEach((c, idx) => setTimeout(() => c.classList.add("visible"), idx * 100));
         }, 200);
         musicBtn.style.display = "flex";
     };
-    document.getElementById("copyBtn")?.addEventListener("click", () => {
-        navigator.clipboard.writeText("50121867211");
-        alert("Nomor rekening tersalin ✅");
-    });
+
+    // ========== MODAL ==========
     window.openModal = (id) => document.getElementById(id).classList.add("active");
     window.closeModal = (id) => document.getElementById(id).classList.remove("active");
     window.onclick = (e) => { if(e.target.classList?.contains('modal-custom')) e.target.classList.remove('active'); };
+
+    // ========== LOADER ==========
     setTimeout(() => document.getElementById("loader")?.classList.add("hide"), 1100);
 </script>
+
 </body>
 </html>
