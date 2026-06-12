@@ -7,17 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ========== RESET ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: #eef2f5; overflow-x: hidden; }
 
-        /* ========== LOADER ========== */
+        /* LOADER */
         .loader { position: fixed; inset: 0; background: #fff; display: flex; align-items: center; justify-content: center; z-index: 11000; transition: 0.5s; }
         .loader.hide { opacity: 0; visibility: hidden; }
         .loader-ring { width: 65px; height: 65px; border: 3px solid #e0e7ef; border-top: 3px solid #2c7da0; border-radius: 50%; animation: spin 1s ease infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ========== COVER PAGE ========== */
+        /* COVER PAGE */
         .cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             z-index: 1000; display: flex; flex-direction: column;
@@ -32,36 +31,36 @@
             object-fit: cover; z-index: 1;
         }
 
-        /* ========== OVERLAY TEKS (Biar Gak Nembus) ========== */
-        .text-overlay {
-            position: absolute; /* Berada di atas gambar */
-            top: 40%; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 500px;
-            text-align: center; z-index: 2;
-            display: flex; flex-direction: column; align-items: center;
+        /* BOX TEKS DI BAWAH (TIDAK NUTUP FOTO) */
+        .text-wrapper {
+            position: absolute;
+            bottom: 12%; /* Posisi di bawah */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 450px;
+            z-index: 2;
+            text-align: center;
         }
 
-        /* KARTU BACKGROUND TRANSPARAN */
-        .text-bg {
-            background: rgba(255, 255, 255, 0.7); /* Putih transparan */
-            backdrop-filter: blur(4px);
-            padding: 20px 30px;
+        .text-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
             border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            width: 100%;
+            padding: 20px 25px 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
-        /* TEKS ANIMASI */
-        .greeting-1 { font-size: 1rem; color: #1e2a3e; margin-bottom: 5px; }
-        .greeting-2 { font-size: 0.9rem; color: #34495e; margin-bottom: 10px; }
-        .names { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 8vw, 3.8rem); color: #1e2a3e; font-weight: 700; margin: 5px 0; }
-        .divider { width: 60px; height: 2px; background: #7f8c8d; margin: 10px auto; }
-        .tgl-lokasi { font-size: 0.9rem; color: #34495e; font-weight: 400; }
-        .tgl-lokasi .tanggal { font-weight: 600; }
+        .salam { font-size: 0.9rem; color: #1e2a3e; margin-bottom: 2px; }
+        .to-name { font-size: 0.85rem; color: #34495e; margin-bottom: 8px; font-weight: 400; }
+        .names { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 7vw, 3.2rem); color: #1e2a3e; font-weight: 700; margin: 5px 0; }
+        .divider { width: 50px; height: 2px; background: #7f8c8d; margin: 8px auto; }
+        .details { font-size: 0.85rem; color: #34495e; font-weight: 400; }
+        .details .date { font-weight: 600; }
 
         /* TOMBOL */
+        .btn-wrap { margin-top: 15px; text-align: center; }
         .btn-buka {
-            margin-top: 20px;
             background: #2c7da0; border: none;
             padding: 12px 35px; border-radius: 50px;
             color: white; font-weight: 600; font-size: 1rem;
@@ -70,12 +69,12 @@
         }
         .btn-buka:hover { background: #1f5a74; transform: translateY(-3px); }
 
-        /* ========== MAIN CONTENT (ISI UNDANGAN) ========== */
+        /* MAIN CONTENT (ISI UNDANGAN) */
         .main-content { max-width: 580px; margin: 0 auto; opacity: 0; transition: opacity 0.7s ease; padding-top: 20px; }
         .main-content.show { opacity: 1; }
         .main-content img { width: 100%; display: block; }
 
-        /* ========== FITUR LAIN (Sama seperti sebelumnya) ========== */
+        /* CARD UNTUK FITUR DI BAWAH GAMBAR */
         .card { background: white; border-radius: 32px; margin-bottom: 25px; padding: 25px 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .card.visible { opacity: 1; transform: translateY(0); }
         .card-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2c7da0; text-align: center; margin-bottom: 15px; font-weight: 700; }
@@ -93,21 +92,16 @@
 
         input, textarea, select { width: 100%; padding: 10px 15px; margin: 8px 0; border: 1px solid #ccc; border-radius: 30px; }
 
-        /* ========== MUSIC ========== */
+        /* MUSIC PLAYER */
         .music-btn { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: #2c7da0; border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: none; z-index: 500; }
-
-        /* ========== MODAL ========== */
-        .modal-custom { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 12000; align-items: center; justify-content: center; }
-        .modal-custom.active { display: flex; }
-        .modal-inner { background: white; width: 90%; max-width: 380px; border-radius: 40px; padding: 30px; text-align: center; position: relative; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; }
 
         footer { text-align: center; padding: 20px; color: #7d9ab0; font-size: 0.7rem; }
 
         @media (max-width: 500px) {
-            .text-bg { padding: 15px 20px; }
-            .greeting-1 { font-size: 0.8rem; }
-            .greeting-2 { font-size: 0.7rem; }
+            .text-box { padding: 15px 15px; }
+            .salam { font-size: 0.8rem; }
+            .to-name { font-size: 0.75rem; }
+            .details { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -120,23 +114,24 @@
 <div class="cover" id="coverPage">
     <img src="cover.png" class="cover-img" alt="Cover">
 
-    <div class="text-overlay">
-        <div class="text-bg"> <!-- Latar putih transparan agar teks terbaca -->
-            <p class="greeting-1" id="sambutan1">Assalamu'alaikum Wr. Wb.</p>
-            <p class="greeting-2" id="sambutan2">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            
+    <!-- KOTAK TEKS DI BAWAH -->
+    <div class="text-wrapper">
+        <div class="text-box">
+            <p class="salam">Assalamu'alaikum Wr. Wb.</p>
+            <p class="to-name" id="namaTamuTeks">Kepada Yth. Alumni TKJ 4</p>
             <div class="names">Alvin & Ima</div>
             <div class="divider"></div>
-            
-            <div class="tgl-lokasi">
-                <div class="tanggal">Sabtu, 26 April 2027</div>
+            <div class="details">
+                <div class="date">Sabtu, 26 April 2027</div>
                 <div>Jatisari, Bojongpicung, Cianjur</div>
             </div>
         </div>
 
-        <button class="btn-buka" id="bukaUndangan">
-            <i class="fas fa-envelope-open-text"></i> Buka Undangan
-        </button>
+        <div class="btn-wrap">
+            <button class="btn-buka" id="bukaUndangan">
+                <i class="fas fa-envelope-open-text"></i> Buka Undangan
+            </button>
+        </div>
     </div>
 </div>
 
@@ -144,12 +139,10 @@
 <audio id="bgm" loop><source src="musik2.mp3" type="audio/mpeg"></audio>
 <button class="music-btn" id="musicBtn"><i class="fas fa-music"></i></button>
 
-<!-- ========== ISI UNDANGAN (SAMA SEPERTI SEBELUMNYA) ========== -->
+<!-- ========== ISI UNDANGAN ========== -->
 <div class="main-content" id="mainContainer">
     <img src="isi-undangan.png" alt="Isi Undangan">
 
-    <!-- (FITUR: COUNTDOWN, LOVE JOURNEY, DETAIL ACARA, AMPLOP, BUKU TAMU - MASUKKAN DISINI SESUAI KODE SEBELUMNYA) -->
-    <!-- Untuk menghemat ruang, gue gabungkan di bawah ini: -->
     <div style="padding: 20px;">
         <!-- COUNTDOWN -->
         <div class="card">
@@ -165,35 +158,77 @@
         <!-- LOVE JOURNEY -->
         <div class="card">
             <div class="card-title">✨ Our Love Journey ✨</div>
-            <div class="journey-timeline">
-                <div class="journey-node"><div class="journey-dot"></div><div class="journey-date">🌼 Juli 2025</div><div class="journey-title">Awal Bertemu</div><div class="journey-desc">Alvin & Ima pertama kali bertemu di tempat kerja.</div></div>
-                <div class="journey-node"><div class="journey-dot"></div><div class="journey-date">💍 April 2026</div><div class="journey-title">Lamaran</div><div class="journey-desc">Lamaran berlangsung dengan restu keluarga besar.</div></div>
-                <div class="journey-node"><div class="journey-dot"></div><div class="journey-date">💒 April 2027</div><div class="journey-title">Pernikahan</div><div class="journey-desc">Menuju keluarga sakinah, mawaddah, warahmah.</div></div>
+            <div style="padding-left: 15px;">
+                <div style="margin-bottom: 20px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
+                    <div style="font-weight: 700; color:#2c7da0;">🌼 Juli 2025</div>
+                    <div style="font-weight: 600;">Awal Bertemu</div>
+                    <div style="color: #2c3e50; font-size:0.9rem;">Pertemuan pertama di tempat kerja, obrolan ringan yang berujung pada kisah indah.</div>
+                </div>
+                <div style="margin-bottom: 20px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
+                    <div style="font-weight: 700; color:#2c7da0;">💍 April 2026</div>
+                    <div style="font-weight: 600;">Lamaran</div>
+                    <div style="color: #2c3e50; font-size:0.9rem;">Lamaran berlangsung dengan restu dan doa dari kedua keluarga besar.</div>
+                </div>
+                <div style="margin-bottom: 0px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
+                    <div style="font-weight: 700; color:#2c7da0;">💒 April 2027</div>
+                    <div style="font-weight: 600;">Pernikahan</div>
+                    <div style="color: #2c3e50; font-size:0.9rem;">Menuju keluarga sakinah, mawaddah, warahmah.</div>
+                </div>
             </div>
         </div>
 
         <!-- DETAIL ACARA -->
         <div class="card">
             <div class="card-title">📍 Detail Acara</div>
-            <div class="lokasi-card" style="background:#f2f6fa; border-radius:20px; padding:15px;"><i class="far fa-calendar-alt" style="font-size:1.8rem; color:#2c7da0;"></i><p style="font-weight:700; margin:8px 0;">Minggu, 26 April 2027</p><p>Akad: 08.00 - 10.00 WIB | Resepsi: 10.00 - 16.00 WIB</p></div>
-            <div class="lokasi-card" style="background:#f2f6fa; border-radius:20px; padding:15px;"><i class="fas fa-map-marker-alt" style="font-size:1.8rem; color:#2c7da0;"></i><p style="font-weight:700;">Kediaman Mempelai Wanita</p><p>Jatisari, Bojongpicung, Cianjur</p></div>
+            <div style="background:#f2f6fa; border-radius:20px; padding:15px; margin-bottom:10px; text-align:center;">
+                <i class="far fa-calendar-alt" style="font-size:1.8rem; color:#2c7da0;"></i>
+                <p style="font-weight:700; margin:8px 0;">Minggu, 26 April 2027</p>
+                <p>Akad Nikah: 08.00 - 10.00 WIB</p>
+                <p>Resepsi: 10.00 - 16.00 WIB</p>
+            </div>
+            <div style="background:#f2f6fa; border-radius:20px; padding:15px; margin-bottom:15px; text-align:center;">
+                <i class="fas fa-map-marker-alt" style="font-size:1.8rem; color:#2c7da0;"></i>
+                <p style="font-weight:700;">Kediaman Mempelai Wanita</p>
+                <p>Jatisari, Bojongpicung, Cianjur</p>
+            </div>
             <a href="https://maps.app.goo.gl/yXAWRDwW9CcvxqB48" target="_blank" class="btn-blue"><i class="fas fa-location-dot"></i> Lihat Lokasi</a>
         </div>
 
         <!-- AMPLOP -->
-        <div class="card"><div class="card-title">🎁 Amplop Digital</div><div class="gift-card"><p>BANK ALADIN SYARIAH</p><h3 style="color:#2c7da0;">50121867211</h3><p>a.n Moh Alvian</p><button class="btn-blue" id="copyBtn" style="margin-top:10px;">Salin Rekening</button></div></div>
+        <div class="card">
+            <div class="card-title">🎁 Amplop Digital</div>
+            <div class="gift-card">
+                <p>BANK ALADIN SYARIAH</p>
+                <h3 style="color:#2c7da0; letter-spacing:1px;">50121867211</h3>
+                <p>a.n Moh Alvian</p>
+                <button class="btn-blue" id="copyBtn" style="margin-top:10px; border:none; cursor:pointer;">Salin Rekening</button>
+            </div>
+        </div>
 
         <!-- BUKU TAMU -->
-        <div class="card"><div class="card-title">📖 Buku Tamu</div><form id="formUcapan"><input type="text" id="namaTamu" placeholder="Nama Anda"><textarea id="pesanTamu" rows="2" placeholder="Doa & Ucapan"></textarea><select id="kehadiran"><option value="Hadir">✅ Hadir</option><option value="Tidak Hadir">❌ Tidak Hadir</option></select><button type="submit" class="btn-blue">Kirim Ucapan</button></form><div class="guestbook-list" id="daftarUcapan"></div></div>
+        <div class="card">
+            <div class="card-title">📖 Buku Tamu</div>
+            <form id="formUcapan">
+                <input type="text" id="namaTamu" placeholder="Nama Anda" required>
+                <textarea id="pesanTamu" rows="2" placeholder="Doa & Ucapan" required></textarea>
+                <select id="kehadiran">
+                    <option value="Hadir">✅ Hadir</option>
+                    <option value="Tidak Hadir">❌ Tidak Hadir</option>
+                </select>
+                <button type="submit" class="btn-blue" style="border:none; cursor:pointer;">Kirim Ucapan</button>
+            </form>
+            <div class="guestbook-list" id="daftarUcapan"></div>
+        </div>
 
         <footer>💙 Doa restu Anda adalah hadiah terindah 💙<br>Alvin & Ima</footer>
     </div>
 </div>
 
-<!-- ========== SCRIPTS ========== -->
+<!-- ========== FIREBASE & SCRIPTS ========== -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
     const firebaseConfig = {
         apiKey: "AIzaSyDPbK3U6Yoe8qNINXCwrX5WOMyGgfHqwiU",
         authDomain: "wedding-alvin-ima.firebaseapp.com",
@@ -232,16 +267,11 @@
 </script>
 
 <script>
-    // ========== FITUR NAMA TAMU DARI URL (BISA DIUBAH) ==========
+    // ========== NAMA TAMU DARI URL ==========
     const urlParams = new URLSearchParams(window.location.search);
-    let namaTamu = urlParams.get('to'); // Ambil dari ?to=NamaTamu
-    
-    if (!namaTamu) {
-        namaTamu = "Alumni TKJ 4"; // Nama default
-    }
-
-    // Tampilkan nama tamu di cover
-    document.getElementById("sambutan2").innerHTML = `Kepada Yth. ${namaTamu}`;
+    let namaTamu = urlParams.get('to');
+    if (!namaTamu) namaTamu = "Alumni TKJ 4";
+    document.getElementById("namaTamuTeks").innerHTML = `Kepada Yth. ${namaTamu}`;
 
     // ========== BUKA UNDANGAN ==========
     const bgAudio = document.getElementById('bgm');
@@ -271,6 +301,18 @@
 
     // ========== LOADER ==========
     setTimeout(() => document.getElementById("loader").classList.add("hide"), 1000);
+
+    // ========== COUNTDOWN ==========
+    const weddingTime = new Date("April 26, 2027 09:00:00").getTime();
+    setInterval(() => {
+        const now = Date.now();
+        const diff = weddingTime - now;
+        if(diff < 0) return;
+        document.getElementById("days").innerText = String(Math.floor(diff/(1000*60*60*24))).padStart(2,'0');
+        document.getElementById("hours").innerText = String(Math.floor((diff%(1000*60*60*24))/(1000*60*60))).padStart(2,'0');
+        document.getElementById("minutes").innerText = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,'0');
+        document.getElementById("seconds").innerText = String(Math.floor((diff%(1000*60))/1000)).padStart(2,'0');
+    }, 1000);
 </script>
 
 </body>
