@@ -25,7 +25,6 @@
             object-fit: cover; z-index: 1;
         }
 
-        /* BOX TEKS DI BAWAH */
         .text-wrapper {
             position: absolute;
             bottom: 12%;
@@ -52,7 +51,6 @@
         .details { font-size: 0.85rem; color: #34495e; font-weight: 400; }
         .details .date { font-weight: 600; }
 
-        /* TOMBOL */
         .btn-wrap { margin-top: 15px; text-align: center; }
         .btn-buka {
             background: #2c7da0; border: none;
@@ -66,9 +64,67 @@
         /* MAIN CONTENT */
         .main-content { max-width: 580px; margin: 0 auto; opacity: 0; transition: opacity 0.7s ease; padding-top: 20px; }
         .main-content.show { opacity: 1; }
-        .main-content img { width: 100%; display: block; border-radius: 20px; }
 
-        /* CARD */
+        /* KARTU DENGAN BACKGROUND GAMBAR isi-undangan.png */
+        .invitation-card-bg {
+            background-image: url('isi-undangan.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 40px;
+            margin: 0 16px 30px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Lapisan overlay agar teks terbaca */
+        .overlay-text {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(3px);
+            padding: 35px 25px;
+            border-radius: 40px;
+            text-align: center;
+        }
+        .bismillah {
+            font-family: 'Times New Roman', 'Amiri', serif;
+            font-size: 2.2rem;
+            color: #2c7da0;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+        .pembuka {
+            font-style: italic;
+            color: #1e3a4a;
+            margin: 20px 0;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+        .teks-utama {
+            color: #2c3e50;
+            line-height: 1.8;
+            margin: 25px 0;
+            font-size: 0.95rem;
+        }
+        .kata-undangan {
+            background: rgba(240, 248, 255, 0.8);
+            border-radius: 25px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #2c7da0;
+            font-size: 0.95rem;
+        }
+        .nama-tamu-undangan {
+            font-weight: bold;
+            color: #2c7da0;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+        .terima-kasih {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #5b6e8c;
+        }
+
+        /* CARD LAINNYA */
         .card { background: white; border-radius: 32px; margin-bottom: 25px; padding: 25px 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .card.visible { opacity: 1; transform: translateY(0); }
         .card-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2c7da0; text-align: center; margin-bottom: 15px; font-weight: 700; }
@@ -104,9 +160,8 @@
 
         @media (max-width: 500px) {
             .text-box { padding: 15px 15px; }
-            .salam { font-size: 0.8rem; }
-            .to-name { font-size: 0.75rem; }
-            .details { font-size: 0.75rem; }
+            .overlay-text { padding: 25px 18px; }
+            .bismillah { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -167,9 +222,31 @@
 
 <!-- ========== ISI UNDANGAN ========== -->
 <div class="main-content" id="mainContainer">
-    <img src="isi-undangan.png" alt="Isi Undangan">
+    
+    <!-- CARD DENGAN BACKGROUND GAMBAR isi-undangan.png dan teks di atasnya -->
+    <div class="invitation-card-bg">
+        <div class="overlay-text">
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+            <div class="pembuka">
+                “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.” (QS. Ar-Rum: 21)
+            </div>
+            <div class="teks-utama">
+                Maha Kuasa Allah yang telah mempertemukan dua insan yang berbeda jalan, 
+                menyatukan hati yang saling merindu, dan menumbuhkan cinta yang suci 
+                karena-Nya. Dari perkenalan yang sederhana, tumbuh keyakinan bahwa 
+                dialah belahan jiwa yang dipilihkan Allah untuk berbagi hidup hingga akhir.
+            </div>
+            <div class="kata-undangan">
+                Dengan memohon rahmat dan ridha Allah Subhanahu wa Ta'ala, kami bermaksud menyelenggarakan pernikahan dan mengundang <span id="namaUndanganDinamis" style="font-weight:bold; color:#2c7da0;">Alumni TKJ 4</span> beserta keluarga untuk hadir memberikan doa restu pada acara kami.
+                <div class="terima-kasih">
+                    💙 Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami. 
+                    Terima kasih tak terhingga atas ketersediaan dan kebahagiaan yang Anda bawa. 💙
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div style="padding: 20px;">
+    <div style="padding: 0 20px;">
         <!-- COUNTDOWN -->
         <div class="card">
             <div class="card-title">⏳ Menuju Hari Bahagia</div>
@@ -320,6 +397,8 @@
     let namaTamu = urlParams.get('to');
     if (!namaTamu) namaTamu = "Alumni TKJ 4";
     document.getElementById("namaTamuTeks").innerHTML = `Kepada Yth. ${namaTamu}`;
+    // juga tampilkan di kartu undangan
+    document.getElementById("namaUndanganDinamis").innerHTML = namaTamu;
 
     // ========== BUKA UNDANGAN ==========
     const bgAudio = document.getElementById('bgm');
