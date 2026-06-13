@@ -10,12 +10,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #1a3c5e 0%, #2c5a7a 100%); overflow-x: hidden; }
 
-        /* LOADER */
-        .loader { position: fixed; inset: 0; background: #fff; display: flex; align-items: center; justify-content: center; z-index: 11000; transition: 0.5s; }
-        .loader.hide { opacity: 0; visibility: hidden; }
-        .loader-ring { width: 65px; height: 65px; border: 3px solid #e0e7ef; border-top: 3px solid #2c7da0; border-radius: 50%; animation: spin 1s ease infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
         /* COVER PAGE */
         .cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
@@ -31,7 +25,7 @@
             object-fit: cover; z-index: 1;
         }
 
-        /* BOX TEKS DI BAWAH (TIDAK NUTUP FOTO) */
+        /* BOX TEKS DI BAWAH */
         .text-wrapper {
             position: absolute;
             bottom: 12%;
@@ -69,12 +63,12 @@
         }
         .btn-buka:hover { background: #1f5a74; transform: translateY(-3px); }
 
-        /* MAIN CONTENT (ISI UNDANGAN) */
+        /* MAIN CONTENT */
         .main-content { max-width: 580px; margin: 0 auto; opacity: 0; transition: opacity 0.7s ease; padding-top: 20px; }
         .main-content.show { opacity: 1; }
         .main-content img { width: 100%; display: block; border-radius: 20px; }
 
-        /* CARD UNTUK FITUR DI BAWAH GAMBAR */
+        /* CARD */
         .card { background: white; border-radius: 32px; margin-bottom: 25px; padding: 25px 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
         .card.visible { opacity: 1; transform: translateY(0); }
         .card-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2c7da0; text-align: center; margin-bottom: 15px; font-weight: 700; }
@@ -92,6 +86,17 @@
 
         input, textarea, select { width: 100%; padding: 10px 15px; margin: 8px 0; border: 1px solid #ccc; border-radius: 30px; }
 
+        /* PROFIL SLIDER */
+        .profile-section { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+        .profile-slider { width: 180px; height: 180px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 4px solid #2c7da0; position: relative; }
+        .profile-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.2s; }
+        .profile-slider img.active { opacity: 1; }
+        .nama-klik { color: #2c7da0; cursor: pointer; font-weight: 700; font-size: 1.3em; margin-top: 10px; display: inline-block; border-bottom: 1px dashed #2c7da0; }
+        .foto-ortu { width: 100%; border-radius: 15px; border: 2px solid #2c7da0; margin: 15px 0; }
+        .modal { display: none; position: fixed; z-index: 8000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #fff; padding: 35px 25px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; position: relative; border: 2px solid #2c7da0; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
+
         /* MUSIC PLAYER */
         .music-btn { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: #2c7da0; border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: none; z-index: 500; }
 
@@ -107,14 +112,10 @@
 </head>
 <body>
 
-<!-- LOADER -->
-<div class="loader" id="loader"><div class="loader-ring"></div></div>
-
 <!-- ========== COVER ========== -->
 <div class="cover" id="coverPage">
     <video src="cover.mp4" autoplay muted playsinline class="cover-img"></video>
 
-    <!-- KOTAK TEKS DI BAWAH -->
     <div class="text-wrapper">
         <div class="text-box">
             <p class="salam">Assalamu'alaikum Wr. Wb.</p>
@@ -139,6 +140,31 @@
 <audio id="bgm" loop><source src="musik2.mp3" type="audio/mpeg"></audio>
 <button class="music-btn" id="musicBtn"><i class="fas fa-music"></i></button>
 
+<!-- ========== MODAL ORANG TUA ========== -->
+<div id="modalAlvin" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="tutupModal('modalAlvin')">×</span>
+        <h2 style="font-family: 'Playfair Display'; color: #2c7da0;">M. Alvian</h2>
+        <p>Cianjur, 17 Mei 2001</p>
+        <p style="font-weight: bold; color: #2c7da0; margin-top: 15px;">Putra Dari:</p>
+        <img src="ortualvin1.jpg" class="foto-ortu" alt="Foto Orang Tua Alvin">
+        <p>Bpk. Zen Abdul Aziz & Ibu Suryani Andriani</p>
+        <a href="https://www.instagram.com/alviannnnm" target="_blank" class="btn-blue" style="margin-top:15px; display:inline-block; text-decoration:none;">Instagram</a>
+    </div>
+</div>
+
+<div id="modalIma" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="tutupModal('modalIma')">×</span>
+        <h2 style="font-family: 'Playfair Display'; color: #2c7da0;">Siti Rohimah</h2>
+        <p>Cianjur, 23 April 2006</p>
+        <p style="font-weight: bold; color: #2c7da0; margin-top: 15px;">Putri Dari:</p>
+        <img src="ortuima1.jpg" class="foto-ortu" alt="Foto Orang Tua Ima">
+        <p>Bpk. Ayo & Ibu Nani</p>
+        <a href="https://www.instagram.com/stimaaa_" target="_blank" class="btn-blue" style="margin-top:15px; display:inline-block; text-decoration:none;">Instagram</a>
+    </div>
+</div>
+
 <!-- ========== ISI UNDANGAN ========== -->
 <div class="main-content" id="mainContainer">
     <img src="isi-undangan.png" alt="Isi Undangan">
@@ -155,24 +181,46 @@
             </div>
         </div>
 
+        <!-- MEMPELAI -->
+        <div class="card">
+            <div class="card-title">💑 Mempelai</div>
+            <div class="profile-section">
+                <div class="profile-slider" id="sliderA">
+                    <img src="alvin-1.jpg" class="active">
+                    <img src="alvin-2.jpg">
+                    <img src="alvin-3.jpg">
+                </div>
+                <div class="nama-klik" onclick="bukaModal('modalAlvin')">M. Alvian (Alvin)</div>
+            </div>
+            <h1 style="font-family: 'Playfair Display'; text-align: center; margin: 20px 0; color: #2c7da0;">&</h1>
+            <div class="profile-section">
+                <div class="profile-slider" id="sliderI">
+                    <img src="ima-1.jpg" class="active">
+                    <img src="ima-2.jpg">
+                    <img src="ima-3.jpg">
+                </div>
+                <div class="nama-klik" onclick="bukaModal('modalIma')">Siti Rohimah (Ima)</div>
+            </div>
+        </div>
+
         <!-- LOVE JOURNEY -->
         <div class="card">
             <div class="card-title">✨ Our Love Journey ✨</div>
             <div style="padding-left: 15px;">
-                <div style="margin-bottom: 20px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
-                    <div style="font-weight: 700; color:#2c7da0;">🌼 Juli 2025</div>
-                    <div style="font-weight: 600;">Awal Bertemu</div>
-                    <div style="color: #2c3e50; font-size:0.9rem;">Pertemuan pertama di tempat kerja, obrolan ringan yang berujung pada kisah indah.</div>
+                <div style="margin-bottom: 25px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
+                    <div style="font-weight: 700; color:#2c7da0;">🌼 Juli 2025 – Awal Mula</div>
+                    <div style="font-weight: 600;">Bertemu</div>
+                    <div style="color: #2c3e50; font-size:0.9rem;">Semesta punya cara yang unik untuk mempertemukan dua jiwa. Di bulan Juli yang tenang, langkah kaki kami tak sengaja berada di jalur yang sama. Bukan sekadar perkenalan biasa, melainkan sebuah percikan awal yang membawa rasa nyaman dalam setiap percakapan sederhana yang kami lalui.</div>
                 </div>
-                <div style="margin-bottom: 20px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
-                    <div style="font-weight: 700; color:#2c7da0;">💍 April 2026</div>
+                <div style="margin-bottom: 25px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
+                    <div style="font-weight: 700; color:#2c7da0;">💍 April 2026 – Pengikat Janji</div>
                     <div style="font-weight: 600;">Lamaran</div>
-                    <div style="color: #2c3e50; font-size:0.9rem;">Lamaran berlangsung dengan restu dan doa dari kedua keluarga besar.</div>
+                    <div style="color: #2c3e50; font-size:0.9rem;">Satu tahun berlalu, keyakinan pun tumbuh menjadi sebuah keteguhan hati. Di hadapan keluarga dan orang-orang terkasih, kami memutuskan untuk mengikat komitmen. Pertunangan ini menjadi tonggak sejarah di mana dua keluarga besar mulai bersatu dalam doa dan harapan yang sama.</div>
                 </div>
                 <div style="margin-bottom: 0px; border-left: 2px solid #b9d4e8; padding-left: 15px;">
-                    <div style="font-weight: 700; color:#2c7da0;">💒 April 2027</div>
+                    <div style="font-weight: 700; color:#2c7da0;">💒 April 2027 – Akhir dari Penantian</div>
                     <div style="font-weight: 600;">Pernikahan</div>
-                    <div style="color: #2c3e50; font-size:0.9rem;">Menuju keluarga sakinah, mawaddah, warahmah.</div>
+                    <div style="color: #2c3e50; font-size:0.9rem;">Kini, penantian itu telah sampai di muaranya. Di bawah restu langit, kami berikrar untuk saling menjaga, saling mencintai, dan membangun mahligai rumah tangga yang sakinah. Inilah babak baru dalam hidup kami, sebuah perjalanan panjang yang akan kami tulis bersama selamanya.</div>
                 </div>
             </div>
         </div>
@@ -282,7 +330,6 @@
         bgAudio.play().catch(() => {});
         document.getElementById('coverPage').classList.add('hide');
         
-        // Hentikan video saat cover ditutup
         if(coverVideo) {
             coverVideo.pause();
         }
@@ -306,9 +353,6 @@
         alert("Nomor rekening tersalin");
     });
 
-    // ========== LOADER ==========
-    setTimeout(() => document.getElementById("loader").classList.add("hide"), 1500);
-
     // ========== COUNTDOWN ==========
     const weddingTime = new Date("April 26, 2027 09:00:00").getTime();
     setInterval(() => {
@@ -320,6 +364,33 @@
         document.getElementById("minutes").innerText = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,'0');
         document.getElementById("seconds").innerText = String(Math.floor((diff%(1000*60))/1000)).padStart(2,'0');
     }, 1000);
+
+    // ========== SLIDER FOTO ==========
+    function startSlider(id) { 
+        let cur = 0; 
+        const imgs = document.querySelectorAll(`#${id} img`); 
+        if(imgs.length < 2) return; 
+        setInterval(() => { 
+            imgs[cur].classList.remove('active'); 
+            cur = (cur + 1) % imgs.length; 
+            imgs[cur].classList.add('active'); 
+        }, 3000); 
+    }
+    startSlider('sliderA');
+    startSlider('sliderI');
+
+    // ========== MODAL ==========
+    function bukaModal(id) { 
+        document.getElementById(id).style.display = "flex"; 
+    }
+    function tutupModal(id) { 
+        document.getElementById(id).style.display = "none"; 
+    }
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
+        }
+    }
 </script>
 
 </body>
